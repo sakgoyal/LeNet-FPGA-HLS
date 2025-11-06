@@ -20,13 +20,19 @@
 _ide/
 
 lectures/
-le_net/le_net/reports/.db/v++_compile_le_net_guidance.pb3
-le_net/le_net/reports/hls_compile.rpt
-le_net/le_net/reports/v++_compile_le_net_guidance.html
-le_net/le_net/hls/syn/verilog/lenet_hls_control_r_s_axi.v
+le_net/le_net/logs
+le_net/le_net/reports/
+!./le_net/le_net/hls/syn/**
 
 .cache/
 .Xil/
-le_net/le_net/
 le_net/compile_commands.json
 le_net/dfx_runtime.txt
+le_net/le_net/le_net.hlscompile_summary
+le_net/le_net/le_net.hlsrun_cosim_summary
+le_net/le_net/vitis-comp.json
+le_net/le_net/hls/.autopilot/
+le_net/le_net/hls/.debug/
+le_net/le_net/hls/sim/
+le_net/le_net/hls/syn/report
+le_net/le_net/hls/impl/
