@@ -1,0 +1,32 @@
+# Ignore build output directory
+/build
+/export
+
+# Ignore object files and dependent files
+.o
+.d
+
+#Ignore logs folder and log files
+/logs
+.log
+
+#Ignore lock files
+.lock
+
+.bin
+.pdi
+.vitisWorkspace.json
+
+_ide/
+
+lectures/
+le_net/le_net/reports/.db/v++_compile_le_net_guidance.pb3
+le_net/le_net/reports/hls_compile.rpt
+le_net/le_net/reports/v++_compile_le_net_guidance.html
+le_net/le_net/hls/syn/verilog/lenet_hls_control_r_s_axi.v
+
+.cache/
+.Xil/
+le_net/le_net/
+le_net/compile_commands.json
+le_net/dfx_runtime.txt
