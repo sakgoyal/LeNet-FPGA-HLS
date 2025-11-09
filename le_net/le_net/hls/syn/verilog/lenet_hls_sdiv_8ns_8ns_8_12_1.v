@@ -5,7 +5,7 @@
 // ==============================================================
 `timescale 1 ns / 1 ps
 
-module lenet_hls_sdiv_14ns_8s_8_18_1_divider
+module lenet_hls_sdiv_8ns_8ns_8_12_1_divider
 #(parameter
     in0_WIDTH = 32,
     in1_WIDTH = 32,
@@ -71,7 +71,7 @@ endgenerate
 
 endmodule
 
-module lenet_hls_sdiv_14ns_8s_8_18_1 
+module lenet_hls_sdiv_8ns_8ns_8_12_1 
 #(parameter
         ID   = 1,
         NUM_STAGE   = 2,
@@ -99,11 +99,11 @@ reg     [dout_WIDTH-1:0] remd;
 wire    [1:0]   sign_i;
 wire    [1:0]   sign_o;
 //------------------------Instantiation------------------
-lenet_hls_sdiv_14ns_8s_8_18_1_divider #(
+lenet_hls_sdiv_8ns_8ns_8_12_1_divider #(
     .in0_WIDTH      ( din0_WIDTH ),
     .in1_WIDTH      ( din1_WIDTH ),
     .out_WIDTH      ( dout_WIDTH )
-) lenet_hls_sdiv_14ns_8s_8_18_1_divider_u (
+) lenet_hls_sdiv_8ns_8ns_8_12_1_divider_u (
     .clk      ( clk ),
     .reset    ( reset ),
     .ce       ( ce ),

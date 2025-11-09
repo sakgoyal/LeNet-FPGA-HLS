@@ -40,7 +40,7 @@ end;
 architecture behav of lenet_hls is 
     attribute CORE_GENERATION_INFO : STRING;
     attribute CORE_GENERATION_INFO of behav : architecture is
-    "lenet_hls_lenet_hls,hls_ip_2025_1_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xa7z030-fbg484-1Q,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=7.073000,HLS_SYN_LAT=78,HLS_SYN_TPT=none,HLS_SYN_MEM=0,HLS_SYN_DSP=0,HLS_SYN_FF=1017,HLS_SYN_LUT=1106,HLS_VERSION=2025_1_1}";
+    "lenet_hls_lenet_hls,hls_ip_2025_1_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xc7z020-clg400-1,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=7.073000,HLS_SYN_LAT=70,HLS_SYN_TPT=none,HLS_SYN_MEM=2,HLS_SYN_DSP=0,HLS_SYN_FF=521,HLS_SYN_LUT=818,HLS_VERSION=2025_1_1}";
     constant ap_const_logic_1 : STD_LOGIC := '1';
     constant ap_const_logic_0 : STD_LOGIC := '0';
     constant ap_ST_fsm_state1 : STD_LOGIC_VECTOR (9 downto 0) := "0000000001";
@@ -75,61 +75,61 @@ architecture behav of lenet_hls is
     attribute fsm_encoding of ap_CS_fsm_state1 : signal is "none";
     signal ap_CS_fsm_state3 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state3 : signal is "none";
-    signal max_val_reg_116 : STD_LOGIC_VECTOR (7 downto 0);
+    signal max_val_reg_112 : STD_LOGIC_VECTOR (7 downto 0);
     signal ap_CS_fsm_state4 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state4 : signal is "none";
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_idle : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_ready : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0 : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_idle : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_ready : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out_ap_vld : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_idle : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_ready : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0 : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1 : STD_LOGIC_VECTOR (3 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out_ap_vld : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_idle : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_ready : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0 : STD_LOGIC_VECTOR (7 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1 : STD_LOGIC_VECTOR (3 downto 0);
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1 : STD_LOGIC;
-    signal grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg : STD_LOGIC := '0';
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_idle : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0 : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_idle : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out_ap_vld : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_idle : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0 : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1 : STD_LOGIC_VECTOR (3 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out_ap_vld : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_idle : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0 : STD_LOGIC_VECTOR (3 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0 : STD_LOGIC_VECTOR (7 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1 : STD_LOGIC_VECTOR (3 downto 0);
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1 : STD_LOGIC;
+    signal grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg : STD_LOGIC := '0';
     signal ap_CS_fsm_state2 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state2 : signal is "none";
-    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg : STD_LOGIC := '0';
+    signal grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg : STD_LOGIC := '0';
     signal ap_CS_fsm_state5 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state5 : signal is "none";
     signal ap_CS_fsm_state6 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state6 : signal is "none";
-    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg : STD_LOGIC := '0';
+    signal grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg : STD_LOGIC := '0';
     signal ap_CS_fsm_state7 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state7 : signal is "none";
     signal ap_CS_fsm_state8 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state8 : signal is "none";
-    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg : STD_LOGIC := '0';
+    signal grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg : STD_LOGIC := '0';
     signal ap_CS_fsm_state9 : STD_LOGIC;
     attribute fsm_encoding of ap_CS_fsm_state9 : signal is "none";
     signal ap_CS_fsm_state10 : STD_LOGIC;
@@ -195,7 +195,7 @@ architecture behav of lenet_hls is
         output_r_address1 : OUT STD_LOGIC_VECTOR (3 downto 0);
         output_r_ce1 : OUT STD_LOGIC;
         output_r_q1 : IN STD_LOGIC_VECTOR (7 downto 0);
-        conv_i_i16_i_i : IN STD_LOGIC_VECTOR (7 downto 0);
+        sext_ln156 : IN STD_LOGIC_VECTOR (7 downto 0);
         sum_exp_out : OUT STD_LOGIC_VECTOR (7 downto 0);
         sum_exp_out_ap_vld : OUT STD_LOGIC );
     end component;
@@ -216,75 +216,75 @@ architecture behav of lenet_hls is
         output_r_address1 : OUT STD_LOGIC_VECTOR (3 downto 0);
         output_r_ce1 : OUT STD_LOGIC;
         output_r_q1 : IN STD_LOGIC_VECTOR (7 downto 0);
-        sext_ln163 : IN STD_LOGIC_VECTOR (7 downto 0) );
+        sum_exp_reload : IN STD_LOGIC_VECTOR (7 downto 0) );
     end component;
 
 
 
 begin
-    grp_lenet_hls_Pipeline_Output_Loop_fu_58 : component lenet_hls_lenet_hls_Pipeline_Output_Loop
+    grp_lenet_hls_Pipeline_Output_Loop_fu_56 : component lenet_hls_lenet_hls_Pipeline_Output_Loop
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start,
-        ap_done => grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done,
-        ap_idle => grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_idle,
-        ap_ready => grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_ready,
-        output_r_address0 => grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0,
-        output_r_ce0 => grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0,
-        output_r_we0 => grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0,
-        output_r_d0 => grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0);
+        ap_start => grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start,
+        ap_done => grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done,
+        ap_idle => grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_idle,
+        ap_ready => grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready,
+        output_r_address0 => grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0,
+        output_r_ce0 => grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0,
+        output_r_we0 => grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0,
+        output_r_d0 => grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0);
 
-    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64 : component lenet_hls_lenet_hls_Pipeline_Softmax_Max_Loop
+    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62 : component lenet_hls_lenet_hls_Pipeline_Softmax_Max_Loop
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start,
-        ap_done => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done,
-        ap_idle => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_idle,
-        ap_ready => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_ready,
-        max_val => max_val_reg_116,
-        output_r_address0 => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0,
-        output_r_ce0 => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0,
+        ap_start => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start,
+        ap_done => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done,
+        ap_idle => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_idle,
+        ap_ready => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready,
+        max_val => max_val_reg_112,
+        output_r_address0 => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0,
+        output_r_ce0 => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0,
         output_r_q0 => output_r_q0,
-        max_val_1_out => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out,
-        max_val_1_out_ap_vld => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out_ap_vld);
+        max_val_1_out => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out,
+        max_val_1_out_ap_vld => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out_ap_vld);
 
-    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72 : component lenet_hls_lenet_hls_Pipeline_Softmax_Exp_Loop
+    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70 : component lenet_hls_lenet_hls_Pipeline_Softmax_Exp_Loop
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start,
-        ap_done => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done,
-        ap_idle => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_idle,
-        ap_ready => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_ready,
-        output_r_address0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0,
-        output_r_ce0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0,
-        output_r_we0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0,
-        output_r_d0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0,
-        output_r_address1 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1,
-        output_r_ce1 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1,
+        ap_start => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start,
+        ap_done => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done,
+        ap_idle => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_idle,
+        ap_ready => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready,
+        output_r_address0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0,
+        output_r_ce0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0,
+        output_r_we0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0,
+        output_r_d0 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0,
+        output_r_address1 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1,
+        output_r_ce1 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1,
         output_r_q1 => output_r_q1,
-        conv_i_i16_i_i => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out,
-        sum_exp_out => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out,
-        sum_exp_out_ap_vld => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out_ap_vld);
+        sext_ln156 => grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out,
+        sum_exp_out => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out,
+        sum_exp_out_ap_vld => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out_ap_vld);
 
-    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84 : component lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop
+    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80 : component lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop
     port map (
         ap_clk => ap_clk,
         ap_rst => ap_rst,
-        ap_start => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start,
-        ap_done => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done,
-        ap_idle => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_idle,
-        ap_ready => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_ready,
-        output_r_address0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0,
-        output_r_ce0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0,
-        output_r_we0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0,
-        output_r_d0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0,
-        output_r_address1 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1,
-        output_r_ce1 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1,
+        ap_start => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start,
+        ap_done => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done,
+        ap_idle => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_idle,
+        ap_ready => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready,
+        output_r_address0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0,
+        output_r_ce0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0,
+        output_r_we0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0,
+        output_r_d0 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0,
+        output_r_address1 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1,
+        output_r_ce1 => grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1,
         output_r_q1 => output_r_q1,
-        sext_ln163 => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out);
+        sum_exp_reload => grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out);
 
 
 
@@ -302,64 +302,64 @@ begin
     end process;
 
 
-    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg_assign_proc : process(ap_clk)
+    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg <= ap_const_logic_0;
+                grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= ap_const_logic_0;
             else
                 if (((ap_const_logic_1 = ap_CS_fsm_state1) and (ap_start = ap_const_logic_1))) then 
-                    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_ready = ap_const_logic_1)) then 
-                    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg <= ap_const_logic_0;
+                    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready = ap_const_logic_1)) then 
+                    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
     end process;
 
 
-    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg_assign_proc : process(ap_clk)
+    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg <= ap_const_logic_0;
+                grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= ap_const_logic_0;
             else
                 if ((ap_const_logic_1 = ap_CS_fsm_state7)) then 
-                    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_ready = ap_const_logic_1)) then 
-                    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg <= ap_const_logic_0;
+                    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready = ap_const_logic_1)) then 
+                    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
     end process;
 
 
-    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg_assign_proc : process(ap_clk)
+    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg <= ap_const_logic_0;
+                grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= ap_const_logic_0;
             else
                 if ((ap_const_logic_1 = ap_CS_fsm_state5)) then 
-                    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_ready = ap_const_logic_1)) then 
-                    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg <= ap_const_logic_0;
+                    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready = ap_const_logic_1)) then 
+                    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
     end process;
 
 
-    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg_assign_proc : process(ap_clk)
+    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg_assign_proc : process(ap_clk)
     begin
         if (ap_clk'event and ap_clk =  '1') then
             if (ap_rst = '1') then
-                grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg <= ap_const_logic_0;
+                grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= ap_const_logic_0;
             else
                 if ((ap_const_logic_1 = ap_CS_fsm_state9)) then 
-                    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg <= ap_const_logic_1;
-                elsif ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_ready = ap_const_logic_1)) then 
-                    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg <= ap_const_logic_0;
+                    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= ap_const_logic_1;
+                elsif ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready = ap_const_logic_1)) then 
+                    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= ap_const_logic_0;
                 end if; 
             end if;
         end if;
@@ -369,12 +369,12 @@ begin
     begin
         if (ap_clk'event and ap_clk = '1') then
             if ((ap_const_logic_1 = ap_CS_fsm_state4)) then
-                max_val_reg_116 <= output_r_q0;
+                max_val_reg_112 <= output_r_q0;
             end if;
         end if;
     end process;
 
-    ap_NS_fsm_assign_proc : process (ap_start, ap_CS_fsm, ap_CS_fsm_state1, grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done, grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done, ap_CS_fsm_state2, ap_CS_fsm_state6, ap_CS_fsm_state8, ap_CS_fsm_state10)
+    ap_NS_fsm_assign_proc : process (ap_start, ap_CS_fsm, ap_CS_fsm_state1, grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done, grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done, ap_CS_fsm_state2, ap_CS_fsm_state6, ap_CS_fsm_state8, ap_CS_fsm_state10)
     begin
         case ap_CS_fsm is
             when ap_ST_fsm_state1 => 
@@ -384,7 +384,7 @@ begin
                     ap_NS_fsm <= ap_ST_fsm_state1;
                 end if;
             when ap_ST_fsm_state2 => 
-                if (((grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then
+                if (((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state2))) then
                     ap_NS_fsm <= ap_ST_fsm_state3;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state2;
@@ -396,7 +396,7 @@ begin
             when ap_ST_fsm_state5 => 
                 ap_NS_fsm <= ap_ST_fsm_state6;
             when ap_ST_fsm_state6 => 
-                if (((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state6))) then
+                if (((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state6))) then
                     ap_NS_fsm <= ap_ST_fsm_state7;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state6;
@@ -404,7 +404,7 @@ begin
             when ap_ST_fsm_state7 => 
                 ap_NS_fsm <= ap_ST_fsm_state8;
             when ap_ST_fsm_state8 => 
-                if (((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state8))) then
+                if (((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done = ap_const_logic_1) and (ap_const_logic_1 = ap_CS_fsm_state8))) then
                     ap_NS_fsm <= ap_ST_fsm_state9;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state8;
@@ -412,7 +412,7 @@ begin
             when ap_ST_fsm_state9 => 
                 ap_NS_fsm <= ap_ST_fsm_state10;
             when ap_ST_fsm_state10 => 
-                if (((ap_const_logic_1 = ap_CS_fsm_state10) and (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done = ap_const_logic_1))) then
+                if (((ap_const_logic_1 = ap_CS_fsm_state10) and (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done = ap_const_logic_1))) then
                     ap_NS_fsm <= ap_ST_fsm_state1;
                 else
                     ap_NS_fsm <= ap_ST_fsm_state10;
@@ -432,9 +432,9 @@ begin
     ap_CS_fsm_state8 <= ap_CS_fsm(7);
     ap_CS_fsm_state9 <= ap_CS_fsm(8);
 
-    ap_ST_fsm_state10_blk_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done)
+    ap_ST_fsm_state10_blk_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done)
     begin
-        if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done = ap_const_logic_0)) then 
+        if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done = ap_const_logic_0)) then 
             ap_ST_fsm_state10_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state10_blk <= ap_const_logic_0;
@@ -452,9 +452,9 @@ begin
     end process;
 
 
-    ap_ST_fsm_state2_blk_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done)
+    ap_ST_fsm_state2_blk_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done)
     begin
-        if ((grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done = ap_const_logic_0)) then 
+        if ((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done = ap_const_logic_0)) then 
             ap_ST_fsm_state2_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state2_blk <= ap_const_logic_0;
@@ -465,9 +465,9 @@ begin
     ap_ST_fsm_state4_blk <= ap_const_logic_0;
     ap_ST_fsm_state5_blk <= ap_const_logic_0;
 
-    ap_ST_fsm_state6_blk_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done)
+    ap_ST_fsm_state6_blk_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done)
     begin
-        if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done = ap_const_logic_0)) then 
+        if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done = ap_const_logic_0)) then 
             ap_ST_fsm_state6_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state6_blk <= ap_const_logic_0;
@@ -476,9 +476,9 @@ begin
 
     ap_ST_fsm_state7_blk <= ap_const_logic_0;
 
-    ap_ST_fsm_state8_blk_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done)
+    ap_ST_fsm_state8_blk_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done)
     begin
-        if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done = ap_const_logic_0)) then 
+        if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done = ap_const_logic_0)) then 
             ap_ST_fsm_state8_blk <= ap_const_logic_1;
         else 
             ap_ST_fsm_state8_blk <= ap_const_logic_0;
@@ -487,9 +487,9 @@ begin
 
     ap_ST_fsm_state9_blk <= ap_const_logic_0;
 
-    ap_done_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done, ap_CS_fsm_state10)
+    ap_done_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done, ap_CS_fsm_state10)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state10) and (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done = ap_const_logic_1))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state10) and (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done = ap_const_logic_1))) then 
             ap_done <= ap_const_logic_1;
         else 
             ap_done <= ap_const_logic_0;
@@ -507,19 +507,19 @@ begin
     end process;
 
 
-    ap_ready_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done, ap_CS_fsm_state10)
+    ap_ready_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done, ap_CS_fsm_state10)
     begin
-        if (((ap_const_logic_1 = ap_CS_fsm_state10) and (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done = ap_const_logic_1))) then 
+        if (((ap_const_logic_1 = ap_CS_fsm_state10) and (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done = ap_const_logic_1))) then 
             ap_ready <= ap_const_logic_1;
         else 
             ap_ready <= ap_const_logic_0;
         end if; 
     end process;
 
-    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start <= grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg;
-    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg;
-    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start <= grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg;
-    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg;
+    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start <= grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg;
+    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg;
+    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start <= grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg;
+    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg;
     input_r_address0 <= ap_const_lv10_0;
     input_r_address1 <= ap_const_lv10_0;
     input_r_ce0 <= ap_const_logic_0;
@@ -529,44 +529,44 @@ begin
     input_r_we0 <= ap_const_logic_0;
     input_r_we1 <= ap_const_logic_0;
 
-    output_r_address0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0, grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0, ap_CS_fsm_state2, ap_CS_fsm_state6, ap_CS_fsm_state8, ap_CS_fsm_state10)
+    output_r_address0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0, grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0, ap_CS_fsm_state2, ap_CS_fsm_state6, ap_CS_fsm_state8, ap_CS_fsm_state10)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state10)) then 
-            output_r_address0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0;
+            output_r_address0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-            output_r_address0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0;
+            output_r_address0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state6)) then 
-            output_r_address0 <= grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0;
+            output_r_address0 <= grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            output_r_address0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0;
+            output_r_address0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0;
         else 
             output_r_address0 <= ap_const_lv64_0(4 - 1 downto 0);
         end if; 
     end process;
 
 
-    output_r_address1_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1, ap_CS_fsm_state8, ap_CS_fsm_state10)
+    output_r_address1_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1, ap_CS_fsm_state8, ap_CS_fsm_state10)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state10)) then 
-            output_r_address1 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1;
+            output_r_address1 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-            output_r_address1 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1;
+            output_r_address1 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1;
         else 
             output_r_address1 <= "XXXX";
         end if; 
     end process;
 
 
-    output_r_ce0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0, grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0, ap_CS_fsm_state2, ap_CS_fsm_state6, ap_CS_fsm_state8, ap_CS_fsm_state10, output_r_ce0_local)
+    output_r_ce0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0, grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0, ap_CS_fsm_state2, ap_CS_fsm_state6, ap_CS_fsm_state8, ap_CS_fsm_state10, output_r_ce0_local)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state10)) then 
-            output_r_ce0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0;
+            output_r_ce0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-            output_r_ce0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0;
+            output_r_ce0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state6)) then 
-            output_r_ce0 <= grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0;
+            output_r_ce0 <= grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            output_r_ce0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0;
+            output_r_ce0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0;
         else 
             output_r_ce0 <= output_r_ce0_local;
         end if; 
@@ -583,40 +583,40 @@ begin
     end process;
 
 
-    output_r_ce1_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1, ap_CS_fsm_state8, ap_CS_fsm_state10)
+    output_r_ce1_assign_proc : process(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1, ap_CS_fsm_state8, ap_CS_fsm_state10)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state10)) then 
-            output_r_ce1 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1;
+            output_r_ce1 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-            output_r_ce1 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1;
+            output_r_ce1 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1;
         else 
             output_r_ce1 <= ap_const_logic_0;
         end if; 
     end process;
 
 
-    output_r_d0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0, ap_CS_fsm_state2, ap_CS_fsm_state8, ap_CS_fsm_state10)
+    output_r_d0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0, ap_CS_fsm_state2, ap_CS_fsm_state8, ap_CS_fsm_state10)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state10)) then 
-            output_r_d0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0;
+            output_r_d0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-            output_r_d0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0;
+            output_r_d0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            output_r_d0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0;
+            output_r_d0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0;
         else 
             output_r_d0 <= "XXXXXXXX";
         end if; 
     end process;
 
 
-    output_r_we0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0, ap_CS_fsm_state2, ap_CS_fsm_state8, ap_CS_fsm_state10)
+    output_r_we0_assign_proc : process(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0, grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0, grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0, ap_CS_fsm_state2, ap_CS_fsm_state8, ap_CS_fsm_state10)
     begin
         if ((ap_const_logic_1 = ap_CS_fsm_state10)) then 
-            output_r_we0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0;
+            output_r_we0 <= grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state8)) then 
-            output_r_we0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0;
+            output_r_we0 <= grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0;
         elsif ((ap_const_logic_1 = ap_CS_fsm_state2)) then 
-            output_r_we0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0;
+            output_r_we0 <= grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0;
         else 
             output_r_we0 <= ap_const_logic_0;
         end if; 

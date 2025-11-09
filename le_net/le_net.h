@@ -4,10 +4,7 @@
 #include "hls_math.h"
 // Vitis HLS library for fixed-point types
 #include "ap_fixed.h"
-
-// --- Define our 8-bit fixed-point type ---
-// 8 total bits, 2 integer bits. Range is roughly [-2.0, 1.98]
-typedef ap_fixed<8, 2> fixed_t;
+#include <cstdint>
 
 // All preprocessor definitions remain the same.
 #define INPUT_CHANNELS 1
@@ -47,6 +44,6 @@ typedef ap_fixed<8, 2> fixed_t;
 // --- Top-Level HLS Function Prototype ---
 // This is the function that will be synthesized into Verilog.
 void lenet_hls(
-    const fixed_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH],
-    fixed_t output[OUTPUT_SIZE]
+    const int8_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH],
+    int8_t output[OUTPUT_SIZE]
 );

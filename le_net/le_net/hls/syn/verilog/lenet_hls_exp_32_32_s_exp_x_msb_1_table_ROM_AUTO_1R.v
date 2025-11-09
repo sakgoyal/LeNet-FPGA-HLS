@@ -4,13 +4,13 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // ==============================================================
 `timescale 1 ns / 1 ps
-module lenet_hls_exp_9_3_s_exp_x_msb_1_table_ROM_AUTO_1R (
+module lenet_hls_exp_32_32_s_exp_x_msb_1_table_ROM_AUTO_1R (
     address0, ce0, q0, 
     reset, clk);
 
-parameter DataWidth = 25;
-parameter AddressWidth = 5;
-parameter AddressRange = 32;
+parameter DataWidth = 68;
+parameter AddressWidth = 8;
+parameter AddressRange = 256;
  
 input[AddressWidth-1:0] address0;
 input ce0;
@@ -25,7 +25,7 @@ reg [DataWidth-1:0] rom0[0:AddressRange-1];
 
 initial begin
      
-    $readmemh("./lenet_hls_exp_9_3_s_exp_x_msb_1_table_ROM_AUTO_1R.dat", rom0);
+    $readmemh("./lenet_hls_exp_32_32_s_exp_x_msb_1_table_ROM_AUTO_1R.dat", rom0);
 end
 
   

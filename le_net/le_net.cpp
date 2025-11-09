@@ -2,37 +2,37 @@
 
 // --- Static Arrays for Weights, Biases, and Activations ---
 // Using our 8-bit fixed-point type
-static fixed_t c1_weights[C1_CHANNELS][INPUT_CHANNELS][C1_KERNEL_SIZE][C1_KERNEL_SIZE] = {0.0f};
-static fixed_t c1_biases[C1_CHANNELS] = {0.0f};
-static fixed_t c3_weights[C3_CHANNELS][S2_CHANNELS][C3_KERNEL_SIZE][C3_KERNEL_SIZE] = {0.0f};
-static fixed_t c3_biases[C3_CHANNELS] = {0.0f};
-static fixed_t f5_weights[F5_OUTPUTS][F5_INPUTS] = {0.0f};
-static fixed_t f5_biases[F5_OUTPUTS] = {0.0f};
-static fixed_t f6_weights[F6_OUTPUTS][F6_INPUTS] = {0.0f};
-static fixed_t f6_biases[F6_OUTPUTS] = {0.0f};
-static fixed_t output_weights[OUTPUT_SIZE][F6_OUTPUTS] = {0.0f};
-static fixed_t output_biases[OUTPUT_SIZE] = {0.0f};
+static int8_t c1_weights[C1_CHANNELS][INPUT_CHANNELS][C1_KERNEL_SIZE][C1_KERNEL_SIZE] = {0};
+static int8_t c1_biases[C1_CHANNELS] = {0};
+static int8_t c3_weights[C3_CHANNELS][S2_CHANNELS][C3_KERNEL_SIZE][C3_KERNEL_SIZE] = {0};
+static int8_t c3_biases[C3_CHANNELS] = {0};
+static int8_t f5_weights[F5_OUTPUTS][F5_INPUTS] = {0};
+static int8_t f5_biases[F5_OUTPUTS] = {0};
+static int8_t f6_weights[F6_OUTPUTS][F6_INPUTS] = {0};
+static int8_t f6_biases[F6_OUTPUTS] = {0};
+static int8_t output_weights[OUTPUT_SIZE][F6_OUTPUTS] = {0};
+static int8_t output_biases[OUTPUT_SIZE] = {0};
 
-static fixed_t c1_output[C1_CHANNELS][C1_HEIGHT][C1_WIDTH];
-static fixed_t s2_output[S2_CHANNELS][S2_HEIGHT][S2_WIDTH];
-static fixed_t c3_output[C3_CHANNELS][C3_HEIGHT][C3_WIDTH];
-static fixed_t s4_output[S4_CHANNELS][S4_HEIGHT][S4_WIDTH];
-static fixed_t flatten_output[FLATTEN_SIZE];
-static fixed_t f5_output[F5_OUTPUTS];
-static fixed_t f6_output[F6_OUTPUTS];
+static int8_t c1_output[C1_CHANNELS][C1_HEIGHT][C1_WIDTH];
+static int8_t s2_output[S2_CHANNELS][S2_HEIGHT][S2_WIDTH];
+static int8_t c3_output[C3_CHANNELS][C3_HEIGHT][C3_WIDTH];
+static int8_t s4_output[S4_CHANNELS][S4_HEIGHT][S4_WIDTH];
+static int8_t flatten_output[FLATTEN_SIZE];
+static int8_t f5_output[F5_OUTPUTS];
+static int8_t f6_output[F6_OUTPUTS];
 
 
-float relu(fixed_t input) {
-	return (input > static_cast<ap_fixed<8, 2>>(0.0)) ? input : static_cast<ap_fixed<8, 2>>(0.0);
+float relu(int8_t input) {
+	return (input > 0) ? input : 0;
 }
 
 
-static void conv_c1(const fixed_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH]) {
+static void conv_c1(const int8_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH]) {
 	C1_Filter_Loop: for (int f = 0; f < C1_CHANNELS; ++f) {
 		C1_Row_Loop: for (int r = 0; r < C1_HEIGHT; ++r) {
 			C1_Col_Loop: for (int c = 0; c < C1_WIDTH; ++c) {
 				#pragma HLS PIPELINE
-				fixed_t sum = 0.0f;
+				int8_t sum = 0;
 				C1_Depth_Loop: for (int d = 0; d < INPUT_CHANNELS; ++d) {
 					C1_KRow_Loop: for (int kr = 0; kr < C1_KERNEL_SIZE; ++kr) {
 						C1_KCol_Loop: for (int kc = 0; kc < C1_KERNEL_SIZE; ++kc) {
@@ -51,7 +51,7 @@ static void pool_s2() {
 		S2_Row_Loop: for (int r = 0; r < S2_HEIGHT; ++r) {
 			S2_Col_Loop: for (int c = 0; c < S2_WIDTH; ++c) {
 				#pragma HLS PIPELINE
-				fixed_t sum = 0.0f;
+				int8_t sum = 0;
 				S2_PRow_Loop: for (int pr = 0; pr < S2_POOL_SIZE; ++pr) {
 					S2_PCol_Loop: for (int pc = 0; pc < S2_POOL_SIZE; ++pc) {
 						sum += c1_output[f][r * S2_POOL_SIZE + pr][c * S2_POOL_SIZE + pc];
@@ -68,7 +68,7 @@ static void conv_c3() {
 		C3_Row_Loop: for (int r = 0; r < C3_HEIGHT; ++r) {
 			C3_Col_Loop: for (int c = 0; c < C3_WIDTH; ++c) {
 				#pragma HLS PIPELINE
-				fixed_t sum = 0.0f;
+				int8_t sum = 0;
 				C3_Depth_Loop: for (int d = 0; d < S2_CHANNELS; ++d) {
 					C3_KRow_Loop: for (int kr = 0; kr < C3_KERNEL_SIZE; ++kr) {
 						C3_KCol_Loop: for (int kc = 0; kc < C3_KERNEL_SIZE; ++kc) {
@@ -87,7 +87,7 @@ static void pool_s4() {
 		S4_Row_Loop: for (int r = 0; r < S4_HEIGHT; ++r) {
 			S4_Col_Loop: for (int c = 0; c < S4_WIDTH; ++c) {
 				#pragma HLS PIPELINE
-				fixed_t sum = 0.0f;
+				int8_t sum = 0;
 				S4_PRow_Loop: for (int pr = 0; pr < S4_POOL_SIZE; ++pr) {
 					S4_PCol_Loop: for (int pc = 0; pc < S4_POOL_SIZE; ++pc) {
 						sum += c3_output[f][r * S4_POOL_SIZE + pr][c * S4_POOL_SIZE + pc];
@@ -114,7 +114,7 @@ static void flatten() {
 static void fc_f5() {
 	F5_Output_Loop: for (int o = 0; o < F5_OUTPUTS; ++o) {
 		#pragma HLS PIPELINE
-		fixed_t sum = 0.0f;
+		int8_t sum = 0;
 		F5_Input_Loop: for (int i = 0; i < F5_INPUTS; ++i) {
 			sum += flatten_output[i] * f5_weights[o][i];
 		}
@@ -125,7 +125,7 @@ static void fc_f5() {
 static void fc_f6() {
 	F6_Output_Loop: for (int o = 0; o < F6_OUTPUTS; ++o) {
 		#pragma HLS PIPELINE
-		fixed_t sum = 0.0f;
+		int8_t sum = 0;
 		F6_Input_Loop: for (int i = 0; i < F6_INPUTS; ++i) {
 			sum += f5_output[i] * f6_weights[o][i];
 		}
@@ -133,10 +133,10 @@ static void fc_f6() {
 	}
 }
 
-static void fc_output(fixed_t output[OUTPUT_SIZE]) {
+static void fc_output(int8_t output[OUTPUT_SIZE]) {
 	Output_Loop: for (int o = 0; o < OUTPUT_SIZE; ++o) {
 		#pragma HLS PIPELINE
-		fixed_t sum = 0.0f;
+		int8_t sum = 0;
 		Output_Input_Loop: for (int i = 0; i < F6_OUTPUTS; ++i) {
 			sum += f6_output[i] * output_weights[o][i];
 		}
@@ -144,15 +144,15 @@ static void fc_output(fixed_t output[OUTPUT_SIZE]) {
 	}
 }
 
-static void softmax(fixed_t output[OUTPUT_SIZE]) {
-	fixed_t max_val = output[0];
+static void softmax(int8_t output[OUTPUT_SIZE]) {
+	int8_t max_val = output[0];
 	Softmax_Max_Loop: for (int i = 1; i < OUTPUT_SIZE; ++i) {
 		if (output[i] > max_val) {
 			max_val = output[i];
 		}
 	}
 
-	fixed_t sum_exp = 0.0f;
+	int8_t sum_exp = 0;
 	Softmax_Exp_Loop: for (int i = 0; i < OUTPUT_SIZE; ++i) {
 		#pragma HLS PIPELINE
 		// Use HLS-synthesizable exp
@@ -168,8 +168,8 @@ static void softmax(fixed_t output[OUTPUT_SIZE]) {
 
 // --- Top-Level HLS Function ---
 void lenet_hls(
-	const fixed_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH],
-	fixed_t output[OUTPUT_SIZE]
+	const int8_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH],
+	int8_t output[OUTPUT_SIZE]
 ) {
 	// --- HLS Pragmas for Interfaces ---
 	// These tell HLS how to create the hardware interfaces.

@@ -6,7 +6,7 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="lenet_hls_lenet_hls,hls_ip_2025_1_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xa7z030-fbg484-1Q,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=7.073000,HLS_SYN_LAT=78,HLS_SYN_TPT=none,HLS_SYN_MEM=0,HLS_SYN_DSP=0,HLS_SYN_FF=1017,HLS_SYN_LUT=1106,HLS_VERSION=2025_1_1}" *)
+(* CORE_GENERATION_INFO="lenet_hls_lenet_hls,hls_ip_2025_1_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xc7z020-clg400-1,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=7.073000,HLS_SYN_LAT=70,HLS_SYN_TPT=none,HLS_SYN_MEM=2,HLS_SYN_DSP=0,HLS_SYN_FF=521,HLS_SYN_LUT=818,HLS_VERSION=2025_1_1}" *)
 
 module lenet_hls (
         ap_clk,
@@ -84,55 +84,55 @@ reg output_r_ce1;
 (* fsm_encoding = "none" *) reg   [9:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
 wire    ap_CS_fsm_state3;
-reg   [7:0] max_val_reg_116;
+reg   [7:0] max_val_reg_112;
 wire    ap_CS_fsm_state4;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_idle;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0;
-wire   [7:0] grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_idle;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out_ap_vld;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_idle;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out_ap_vld;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_idle;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1;
-reg    grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg;
+wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start;
+wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done;
+wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_idle;
+wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0;
+wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0;
+wire   [7:0] grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_idle;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out_ap_vld;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_idle;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out_ap_vld;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_idle;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1;
+reg    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg;
 wire    ap_CS_fsm_state2;
-reg    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg;
+reg    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg;
 wire    ap_CS_fsm_state5;
 wire    ap_CS_fsm_state6;
-reg    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg;
+reg    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg;
 wire    ap_CS_fsm_state7;
 wire    ap_CS_fsm_state8;
-reg    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg;
+reg    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg;
 wire    ap_CS_fsm_state9;
 wire    ap_CS_fsm_state10;
 reg    output_r_ce0_local;
@@ -152,74 +152,74 @@ wire    ap_ce_reg;
 // power-on initialization
 initial begin
 #0 ap_CS_fsm = 10'd1;
-#0 grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg = 1'b0;
-#0 grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg = 1'b0;
-#0 grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg = 1'b0;
-#0 grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg = 1'b0;
 end
 
-lenet_hls_lenet_hls_Pipeline_Output_Loop grp_lenet_hls_Pipeline_Output_Loop_fu_58(
+lenet_hls_lenet_hls_Pipeline_Output_Loop grp_lenet_hls_Pipeline_Output_Loop_fu_56(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_ready),
-    .output_r_address0(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0),
-    .output_r_we0(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0),
-    .output_r_d0(grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0)
+    .ap_start(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready),
+    .output_r_address0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0),
+    .output_r_we0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0),
+    .output_r_d0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0)
 );
 
-lenet_hls_lenet_hls_Pipeline_Softmax_Max_Loop grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64(
+lenet_hls_lenet_hls_Pipeline_Softmax_Max_Loop grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_ready),
-    .max_val(max_val_reg_116),
-    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0),
+    .ap_start(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready),
+    .max_val(max_val_reg_112),
+    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0),
     .output_r_q0(output_r_q0),
-    .max_val_1_out(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out),
-    .max_val_1_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out_ap_vld)
+    .max_val_1_out(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out),
+    .max_val_1_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out_ap_vld)
 );
 
-lenet_hls_lenet_hls_Pipeline_Softmax_Exp_Loop grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72(
+lenet_hls_lenet_hls_Pipeline_Softmax_Exp_Loop grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_ready),
-    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0),
-    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0),
-    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0),
-    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1),
-    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1),
+    .ap_start(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready),
+    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0),
+    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0),
+    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0),
+    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1),
+    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1),
     .output_r_q1(output_r_q1),
-    .conv_i_i16_i_i(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_max_val_1_out),
-    .sum_exp_out(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out),
-    .sum_exp_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out_ap_vld)
+    .sext_ln156(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out),
+    .sum_exp_out(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out),
+    .sum_exp_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out_ap_vld)
 );
 
-lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84(
+lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_ready),
-    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0),
-    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0),
-    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0),
-    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1),
-    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1),
+    .ap_start(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready),
+    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0),
+    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0),
+    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0),
+    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1),
+    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1),
     .output_r_q1(output_r_q1),
-    .sext_ln163(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_sum_exp_out)
+    .sum_exp_reload(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out)
 );
 
 always @ (posedge ap_clk) begin
@@ -232,60 +232,60 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg <= 1'b0;
+        grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= 1'b0;
     end else begin
         if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
-            grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg <= 1'b0;
+            grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg <= 1'b0;
+        grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= 1'b0;
     end else begin
         if ((1'b1 == ap_CS_fsm_state7)) begin
-            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg <= 1'b0;
+            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg <= 1'b0;
+        grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= 1'b0;
     end else begin
         if ((1'b1 == ap_CS_fsm_state5)) begin
-            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg <= 1'b0;
+            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg <= 1'b0;
+        grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= 1'b0;
     end else begin
         if ((1'b1 == ap_CS_fsm_state9)) begin
-            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg <= 1'b0;
+            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if ((1'b1 == ap_CS_fsm_state4)) begin
-        max_val_reg_116 <= output_r_q0;
+        max_val_reg_112 <= output_r_q0;
     end
 end
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b0)) begin
         ap_ST_fsm_state10_blk = 1'b1;
     end else begin
         ap_ST_fsm_state10_blk = 1'b0;
@@ -301,7 +301,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done == 1'b0)) begin
         ap_ST_fsm_state2_blk = 1'b1;
     end else begin
         ap_ST_fsm_state2_blk = 1'b0;
@@ -315,7 +315,7 @@ assign ap_ST_fsm_state4_blk = 1'b0;
 assign ap_ST_fsm_state5_blk = 1'b0;
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done == 1'b0)) begin
         ap_ST_fsm_state6_blk = 1'b1;
     end else begin
         ap_ST_fsm_state6_blk = 1'b0;
@@ -325,7 +325,7 @@ end
 assign ap_ST_fsm_state7_blk = 1'b0;
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done == 1'b0)) begin
         ap_ST_fsm_state8_blk = 1'b1;
     end else begin
         ap_ST_fsm_state8_blk = 1'b0;
@@ -335,7 +335,7 @@ end
 assign ap_ST_fsm_state9_blk = 1'b0;
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done == 1'b1))) begin
+    if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b1))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = 1'b0;
@@ -351,7 +351,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done == 1'b1))) begin
+    if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b1))) begin
         ap_ready = 1'b1;
     end else begin
         ap_ready = 1'b0;
@@ -360,13 +360,13 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address0;
+        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0;
     end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address0;
+        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0;
     end else if ((1'b1 == ap_CS_fsm_state6)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_address0;
+        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_address0;
+        output_r_address0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0;
     end else begin
         output_r_address0 = 64'd0;
     end
@@ -374,9 +374,9 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_address1;
+        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1;
     end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_address1;
+        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1;
     end else begin
         output_r_address1 = 'bx;
     end
@@ -384,13 +384,13 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce0;
+        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0;
     end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce0;
+        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0;
     end else if ((1'b1 == ap_CS_fsm_state6)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_output_r_ce0;
+        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_ce0;
+        output_r_ce0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0;
     end else begin
         output_r_ce0 = output_r_ce0_local;
     end
@@ -406,9 +406,9 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_ce1;
+        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1;
     end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_ce1;
+        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1;
     end else begin
         output_r_ce1 = 1'b0;
     end
@@ -416,11 +416,11 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_d0;
+        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0;
     end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_d0;
+        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_d0 = grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_d0;
+        output_r_d0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0;
     end else begin
         output_r_d0 = 'bx;
     end
@@ -428,11 +428,11 @@ end
 
 always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_output_r_we0;
+        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0;
     end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_output_r_we0;
+        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0;
     end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_we0 = grp_lenet_hls_Pipeline_Output_Loop_fu_58_output_r_we0;
+        output_r_we0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0;
     end else begin
         output_r_we0 = 1'b0;
     end
@@ -448,7 +448,7 @@ always @ (*) begin
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
+            if (((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
                 ap_NS_fsm = ap_ST_fsm_state3;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state2;
@@ -464,7 +464,7 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state6;
         end
         ap_ST_fsm_state6 : begin
-            if (((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state6))) begin
+            if (((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state6))) begin
                 ap_NS_fsm = ap_ST_fsm_state7;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state6;
@@ -474,7 +474,7 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state8;
         end
         ap_ST_fsm_state8 : begin
-            if (((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state8))) begin
+            if (((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state8))) begin
                 ap_NS_fsm = ap_ST_fsm_state9;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state8;
@@ -484,7 +484,7 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state10;
         end
         ap_ST_fsm_state10 : begin
-            if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_done == 1'b1))) begin
+            if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state1;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state10;
@@ -516,13 +516,13 @@ assign ap_CS_fsm_state8 = ap_CS_fsm[32'd7];
 
 assign ap_CS_fsm_state9 = ap_CS_fsm[32'd8];
 
-assign grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start = grp_lenet_hls_Pipeline_Output_Loop_fu_58_ap_start_reg;
+assign grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start = grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg;
 
-assign grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_72_ap_start_reg;
+assign grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg;
 
-assign grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_64_ap_start_reg;
+assign grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg;
 
-assign grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_84_ap_start_reg;
+assign grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg;
 
 assign input_r_address0 = 10'd0;
 

@@ -7,7 +7,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity lenet_hls_sdiv_14ns_8s_8_18_1_divider is
+entity lenet_hls_sdiv_8ns_8ns_8_12_1_divider is
     generic (
         in0_WIDTH   : INTEGER :=32;
         in1_WIDTH   : INTEGER :=32;
@@ -32,7 +32,7 @@ entity lenet_hls_sdiv_14ns_8s_8_18_1_divider is
 
 end entity;
 
-architecture rtl of lenet_hls_sdiv_14ns_8s_8_18_1_divider is
+architecture rtl of lenet_hls_sdiv_8ns_8ns_8_12_1_divider is
     constant cal_WIDTH      : INTEGER := max(in0_WIDTH, in1_WIDTH);
     type  in0_vector  is array(INTEGER range <>) of UNSIGNED(in0_WIDTH-1 downto 0);
     type  in1_vector  is array(INTEGER range <>) of UNSIGNED(in1_WIDTH-1 downto 0);
@@ -90,7 +90,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity lenet_hls_sdiv_14ns_8s_8_18_1 is
+entity lenet_hls_sdiv_8ns_8ns_8_12_1 is
     generic (
         ID   : INTEGER :=1;
         NUM_STAGE   : INTEGER :=2;
@@ -106,8 +106,8 @@ entity lenet_hls_sdiv_14ns_8s_8_18_1 is
         dout        : out STD_LOGIC_VECTOR(dout_WIDTH-1 downto 0));
 end entity;
 
-architecture rtl of lenet_hls_sdiv_14ns_8s_8_18_1 is
-    component lenet_hls_sdiv_14ns_8s_8_18_1_divider is
+architecture rtl of lenet_hls_sdiv_8ns_8ns_8_12_1 is
+    component lenet_hls_sdiv_8ns_8ns_8_12_1_divider is
         generic (
             in0_WIDTH   : INTEGER :=32;
             in1_WIDTH   : INTEGER :=32;
@@ -135,7 +135,7 @@ architecture rtl of lenet_hls_sdiv_14ns_8s_8_18_1 is
     signal sign_i     : STD_LOGIC_VECTOR(1 downto 0);
     signal sign_o     : STD_LOGIC_VECTOR(1 downto 0);
 begin
-    lenet_hls_sdiv_14ns_8s_8_18_1_divider_u : lenet_hls_sdiv_14ns_8s_8_18_1_divider
+    lenet_hls_sdiv_8ns_8ns_8_12_1_divider_u : lenet_hls_sdiv_8ns_8ns_8_12_1_divider
         generic map(
             in0_WIDTH   => din0_WIDTH,
             in1_WIDTH   => din1_WIDTH,
