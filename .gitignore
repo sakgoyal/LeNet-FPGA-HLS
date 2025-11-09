@@ -36,3 +36,6 @@ le_net/le_net/hls/.debug/
 le_net/le_net/hls/sim/
 le_net/le_net/hls/syn/report
 le_net/le_net/hls/impl/
+
+training/data/
+training/lenet_int8.pth
