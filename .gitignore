@@ -42,3 +42,4 @@ training/lenet_int8.pth
 le_net/le_net/le_net.hlsrun_package_summary
 le_net/le_net/hls/hls_data.json
 le_net/le_net/hls/config.cmdline
+le_net/le_net/hls/syn/verilog/

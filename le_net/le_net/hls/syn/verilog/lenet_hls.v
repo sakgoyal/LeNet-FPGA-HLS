@@ -6,7 +6,7 @@
 
 `timescale 1 ns / 1 ps 
 
-(* CORE_GENERATION_INFO="lenet_hls_lenet_hls,hls_ip_2025_1_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xc7z020-clg400-1,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=7.073000,HLS_SYN_LAT=70,HLS_SYN_TPT=none,HLS_SYN_MEM=2,HLS_SYN_DSP=0,HLS_SYN_FF=521,HLS_SYN_LUT=818,HLS_VERSION=2025_1_1}" *)
+(* CORE_GENERATION_INFO="lenet_hls_lenet_hls,hls_ip_2025_1_1,{HLS_INPUT_TYPE=cxx,HLS_INPUT_FLOAT=0,HLS_INPUT_FIXED=0,HLS_INPUT_PART=xc7z020-clg400-1,HLS_INPUT_CLOCK=10.000000,HLS_INPUT_ARCH=others,HLS_SYN_CLOCK=7.279000,HLS_SYN_LAT=65435,HLS_SYN_TPT=none,HLS_SYN_MEM=10,HLS_SYN_DSP=0,HLS_SYN_FF=24166,HLS_SYN_LUT=65853,HLS_VERSION=2025_1_1}" *)
 
 module lenet_hls (
         ap_clk,
@@ -17,13 +17,9 @@ module lenet_hls (
         ap_ready,
         input_r_address0,
         input_r_ce0,
-        input_r_we0,
-        input_r_d0,
         input_r_q0,
         input_r_address1,
         input_r_ce1,
-        input_r_we1,
-        input_r_d1,
         input_r_q1,
         output_r_address0,
         output_r_ce0,
@@ -35,16 +31,30 @@ module lenet_hls (
         output_r_q1
 );
 
-parameter    ap_ST_fsm_state1 = 10'd1;
-parameter    ap_ST_fsm_state2 = 10'd2;
-parameter    ap_ST_fsm_state3 = 10'd4;
-parameter    ap_ST_fsm_state4 = 10'd8;
-parameter    ap_ST_fsm_state5 = 10'd16;
-parameter    ap_ST_fsm_state6 = 10'd32;
-parameter    ap_ST_fsm_state7 = 10'd64;
-parameter    ap_ST_fsm_state8 = 10'd128;
-parameter    ap_ST_fsm_state9 = 10'd256;
-parameter    ap_ST_fsm_state10 = 10'd512;
+parameter    ap_ST_fsm_state1 = 24'd1;
+parameter    ap_ST_fsm_state2 = 24'd2;
+parameter    ap_ST_fsm_state3 = 24'd4;
+parameter    ap_ST_fsm_state4 = 24'd8;
+parameter    ap_ST_fsm_state5 = 24'd16;
+parameter    ap_ST_fsm_state6 = 24'd32;
+parameter    ap_ST_fsm_state7 = 24'd64;
+parameter    ap_ST_fsm_state8 = 24'd128;
+parameter    ap_ST_fsm_state9 = 24'd256;
+parameter    ap_ST_fsm_state10 = 24'd512;
+parameter    ap_ST_fsm_state11 = 24'd1024;
+parameter    ap_ST_fsm_state12 = 24'd2048;
+parameter    ap_ST_fsm_state13 = 24'd4096;
+parameter    ap_ST_fsm_state14 = 24'd8192;
+parameter    ap_ST_fsm_state15 = 24'd16384;
+parameter    ap_ST_fsm_state16 = 24'd32768;
+parameter    ap_ST_fsm_state17 = 24'd65536;
+parameter    ap_ST_fsm_state18 = 24'd131072;
+parameter    ap_ST_fsm_state19 = 24'd262144;
+parameter    ap_ST_fsm_state20 = 24'd524288;
+parameter    ap_ST_fsm_state21 = 24'd1048576;
+parameter    ap_ST_fsm_state22 = 24'd2097152;
+parameter    ap_ST_fsm_state23 = 24'd4194304;
+parameter    ap_ST_fsm_state24 = 24'd8388608;
 
 input   ap_clk;
 input   ap_rst;
@@ -54,13 +64,9 @@ output   ap_idle;
 output   ap_ready;
 output  [9:0] input_r_address0;
 output   input_r_ce0;
-output   input_r_we0;
-output  [7:0] input_r_d0;
 input  [7:0] input_r_q0;
 output  [9:0] input_r_address1;
 output   input_r_ce1;
-output   input_r_we1;
-output  [7:0] input_r_d1;
 input  [7:0] input_r_q1;
 output  [3:0] output_r_address0;
 output   output_r_ce0;
@@ -81,145 +87,5292 @@ reg[7:0] output_r_d0;
 reg[3:0] output_r_address1;
 reg output_r_ce1;
 
-(* fsm_encoding = "none" *) reg   [9:0] ap_CS_fsm;
+(* fsm_encoding = "none" *) reg   [23:0] ap_CS_fsm;
 wire    ap_CS_fsm_state1;
-wire    ap_CS_fsm_state3;
-reg   [7:0] max_val_reg_112;
-wire    ap_CS_fsm_state4;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_idle;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0;
-wire    grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0;
-wire   [7:0] grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_idle;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out;
-wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out_ap_vld;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_idle;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out;
-wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out_ap_vld;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_idle;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0;
-wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0;
-wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1;
-wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1;
-reg    grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg;
+reg   [11:0] p_ZL9c1_output_0_address0;
+reg    p_ZL9c1_output_0_ce0;
+reg    p_ZL9c1_output_0_we0;
+wire   [7:0] p_ZL9c1_output_0_q0;
+reg    p_ZL9c1_output_0_ce1;
+wire   [7:0] p_ZL9c1_output_0_q1;
+reg   [11:0] p_ZL9c1_output_1_address0;
+reg    p_ZL9c1_output_1_ce0;
+reg    p_ZL9c1_output_1_we0;
+wire   [7:0] p_ZL9c1_output_1_q0;
+reg    p_ZL9c1_output_1_ce1;
+wire   [7:0] p_ZL9c1_output_1_q1;
+reg   [3:0] p_ZL9s2_output_0_0_0_address0;
+reg    p_ZL9s2_output_0_0_0_ce0;
+reg    p_ZL9s2_output_0_0_0_we0;
+wire   [5:0] p_ZL9s2_output_0_0_0_q0;
+reg   [3:0] p_ZL9s2_output_0_0_1_address0;
+reg    p_ZL9s2_output_0_0_1_ce0;
+reg    p_ZL9s2_output_0_0_1_we0;
+wire   [5:0] p_ZL9s2_output_0_0_1_q0;
+reg   [3:0] p_ZL9s2_output_0_0_2_address0;
+reg    p_ZL9s2_output_0_0_2_ce0;
+reg    p_ZL9s2_output_0_0_2_we0;
+wire   [5:0] p_ZL9s2_output_0_0_2_q0;
+reg   [3:0] p_ZL9s2_output_0_0_3_address0;
+reg    p_ZL9s2_output_0_0_3_ce0;
+reg    p_ZL9s2_output_0_0_3_we0;
+wire   [5:0] p_ZL9s2_output_0_0_3_q0;
+reg   [3:0] p_ZL9s2_output_0_0_4_address0;
+reg    p_ZL9s2_output_0_0_4_ce0;
+reg    p_ZL9s2_output_0_0_4_we0;
+wire   [5:0] p_ZL9s2_output_0_0_4_q0;
+reg   [3:0] p_ZL9s2_output_0_1_0_address0;
+reg    p_ZL9s2_output_0_1_0_ce0;
+reg    p_ZL9s2_output_0_1_0_we0;
+wire   [5:0] p_ZL9s2_output_0_1_0_q0;
+reg   [3:0] p_ZL9s2_output_0_1_1_address0;
+reg    p_ZL9s2_output_0_1_1_ce0;
+reg    p_ZL9s2_output_0_1_1_we0;
+wire   [5:0] p_ZL9s2_output_0_1_1_q0;
+reg   [3:0] p_ZL9s2_output_0_1_2_address0;
+reg    p_ZL9s2_output_0_1_2_ce0;
+reg    p_ZL9s2_output_0_1_2_we0;
+wire   [5:0] p_ZL9s2_output_0_1_2_q0;
+reg   [3:0] p_ZL9s2_output_0_1_3_address0;
+reg    p_ZL9s2_output_0_1_3_ce0;
+reg    p_ZL9s2_output_0_1_3_we0;
+wire   [5:0] p_ZL9s2_output_0_1_3_q0;
+reg   [3:0] p_ZL9s2_output_0_1_4_address0;
+reg    p_ZL9s2_output_0_1_4_ce0;
+reg    p_ZL9s2_output_0_1_4_we0;
+wire   [5:0] p_ZL9s2_output_0_1_4_q0;
+reg   [3:0] p_ZL9s2_output_0_2_0_address0;
+reg    p_ZL9s2_output_0_2_0_ce0;
+reg    p_ZL9s2_output_0_2_0_we0;
+wire   [5:0] p_ZL9s2_output_0_2_0_q0;
+reg   [3:0] p_ZL9s2_output_0_2_1_address0;
+reg    p_ZL9s2_output_0_2_1_ce0;
+reg    p_ZL9s2_output_0_2_1_we0;
+wire   [5:0] p_ZL9s2_output_0_2_1_q0;
+reg   [3:0] p_ZL9s2_output_0_2_2_address0;
+reg    p_ZL9s2_output_0_2_2_ce0;
+reg    p_ZL9s2_output_0_2_2_we0;
+wire   [5:0] p_ZL9s2_output_0_2_2_q0;
+reg   [3:0] p_ZL9s2_output_0_2_3_address0;
+reg    p_ZL9s2_output_0_2_3_ce0;
+reg    p_ZL9s2_output_0_2_3_we0;
+wire   [5:0] p_ZL9s2_output_0_2_3_q0;
+reg   [3:0] p_ZL9s2_output_0_2_4_address0;
+reg    p_ZL9s2_output_0_2_4_ce0;
+reg    p_ZL9s2_output_0_2_4_we0;
+wire   [5:0] p_ZL9s2_output_0_2_4_q0;
+reg   [3:0] p_ZL9s2_output_0_3_0_address0;
+reg    p_ZL9s2_output_0_3_0_ce0;
+reg    p_ZL9s2_output_0_3_0_we0;
+wire   [5:0] p_ZL9s2_output_0_3_0_q0;
+reg   [3:0] p_ZL9s2_output_0_3_1_address0;
+reg    p_ZL9s2_output_0_3_1_ce0;
+reg    p_ZL9s2_output_0_3_1_we0;
+wire   [5:0] p_ZL9s2_output_0_3_1_q0;
+reg   [3:0] p_ZL9s2_output_0_3_2_address0;
+reg    p_ZL9s2_output_0_3_2_ce0;
+reg    p_ZL9s2_output_0_3_2_we0;
+wire   [5:0] p_ZL9s2_output_0_3_2_q0;
+reg   [3:0] p_ZL9s2_output_0_3_3_address0;
+reg    p_ZL9s2_output_0_3_3_ce0;
+reg    p_ZL9s2_output_0_3_3_we0;
+wire   [5:0] p_ZL9s2_output_0_3_3_q0;
+reg   [3:0] p_ZL9s2_output_0_3_4_address0;
+reg    p_ZL9s2_output_0_3_4_ce0;
+reg    p_ZL9s2_output_0_3_4_we0;
+wire   [5:0] p_ZL9s2_output_0_3_4_q0;
+reg   [3:0] p_ZL9s2_output_0_4_0_address0;
+reg    p_ZL9s2_output_0_4_0_ce0;
+reg    p_ZL9s2_output_0_4_0_we0;
+wire   [5:0] p_ZL9s2_output_0_4_0_q0;
+reg   [3:0] p_ZL9s2_output_0_4_1_address0;
+reg    p_ZL9s2_output_0_4_1_ce0;
+reg    p_ZL9s2_output_0_4_1_we0;
+wire   [5:0] p_ZL9s2_output_0_4_1_q0;
+reg   [3:0] p_ZL9s2_output_0_4_2_address0;
+reg    p_ZL9s2_output_0_4_2_ce0;
+reg    p_ZL9s2_output_0_4_2_we0;
+wire   [5:0] p_ZL9s2_output_0_4_2_q0;
+reg   [3:0] p_ZL9s2_output_0_4_3_address0;
+reg    p_ZL9s2_output_0_4_3_ce0;
+reg    p_ZL9s2_output_0_4_3_we0;
+wire   [5:0] p_ZL9s2_output_0_4_3_q0;
+reg   [3:0] p_ZL9s2_output_0_4_4_address0;
+reg    p_ZL9s2_output_0_4_4_ce0;
+reg    p_ZL9s2_output_0_4_4_we0;
+wire   [5:0] p_ZL9s2_output_0_4_4_q0;
+reg   [3:0] p_ZL9s2_output_1_0_0_address0;
+reg    p_ZL9s2_output_1_0_0_ce0;
+reg    p_ZL9s2_output_1_0_0_we0;
+wire   [5:0] p_ZL9s2_output_1_0_0_q0;
+reg   [3:0] p_ZL9s2_output_1_0_1_address0;
+reg    p_ZL9s2_output_1_0_1_ce0;
+reg    p_ZL9s2_output_1_0_1_we0;
+wire   [5:0] p_ZL9s2_output_1_0_1_q0;
+reg   [3:0] p_ZL9s2_output_1_0_2_address0;
+reg    p_ZL9s2_output_1_0_2_ce0;
+reg    p_ZL9s2_output_1_0_2_we0;
+wire   [5:0] p_ZL9s2_output_1_0_2_q0;
+reg   [3:0] p_ZL9s2_output_1_0_3_address0;
+reg    p_ZL9s2_output_1_0_3_ce0;
+reg    p_ZL9s2_output_1_0_3_we0;
+wire   [5:0] p_ZL9s2_output_1_0_3_q0;
+reg   [3:0] p_ZL9s2_output_1_0_4_address0;
+reg    p_ZL9s2_output_1_0_4_ce0;
+reg    p_ZL9s2_output_1_0_4_we0;
+wire   [5:0] p_ZL9s2_output_1_0_4_q0;
+reg   [3:0] p_ZL9s2_output_1_1_0_address0;
+reg    p_ZL9s2_output_1_1_0_ce0;
+reg    p_ZL9s2_output_1_1_0_we0;
+wire   [5:0] p_ZL9s2_output_1_1_0_q0;
+reg   [3:0] p_ZL9s2_output_1_1_1_address0;
+reg    p_ZL9s2_output_1_1_1_ce0;
+reg    p_ZL9s2_output_1_1_1_we0;
+wire   [5:0] p_ZL9s2_output_1_1_1_q0;
+reg   [3:0] p_ZL9s2_output_1_1_2_address0;
+reg    p_ZL9s2_output_1_1_2_ce0;
+reg    p_ZL9s2_output_1_1_2_we0;
+wire   [5:0] p_ZL9s2_output_1_1_2_q0;
+reg   [3:0] p_ZL9s2_output_1_1_3_address0;
+reg    p_ZL9s2_output_1_1_3_ce0;
+reg    p_ZL9s2_output_1_1_3_we0;
+wire   [5:0] p_ZL9s2_output_1_1_3_q0;
+reg   [3:0] p_ZL9s2_output_1_1_4_address0;
+reg    p_ZL9s2_output_1_1_4_ce0;
+reg    p_ZL9s2_output_1_1_4_we0;
+wire   [5:0] p_ZL9s2_output_1_1_4_q0;
+reg   [3:0] p_ZL9s2_output_1_2_0_address0;
+reg    p_ZL9s2_output_1_2_0_ce0;
+reg    p_ZL9s2_output_1_2_0_we0;
+wire   [5:0] p_ZL9s2_output_1_2_0_q0;
+reg   [3:0] p_ZL9s2_output_1_2_1_address0;
+reg    p_ZL9s2_output_1_2_1_ce0;
+reg    p_ZL9s2_output_1_2_1_we0;
+wire   [5:0] p_ZL9s2_output_1_2_1_q0;
+reg   [3:0] p_ZL9s2_output_1_2_2_address0;
+reg    p_ZL9s2_output_1_2_2_ce0;
+reg    p_ZL9s2_output_1_2_2_we0;
+wire   [5:0] p_ZL9s2_output_1_2_2_q0;
+reg   [3:0] p_ZL9s2_output_1_2_3_address0;
+reg    p_ZL9s2_output_1_2_3_ce0;
+reg    p_ZL9s2_output_1_2_3_we0;
+wire   [5:0] p_ZL9s2_output_1_2_3_q0;
+reg   [3:0] p_ZL9s2_output_1_2_4_address0;
+reg    p_ZL9s2_output_1_2_4_ce0;
+reg    p_ZL9s2_output_1_2_4_we0;
+wire   [5:0] p_ZL9s2_output_1_2_4_q0;
+reg   [3:0] p_ZL9s2_output_1_3_0_address0;
+reg    p_ZL9s2_output_1_3_0_ce0;
+reg    p_ZL9s2_output_1_3_0_we0;
+wire   [5:0] p_ZL9s2_output_1_3_0_q0;
+reg   [3:0] p_ZL9s2_output_1_3_1_address0;
+reg    p_ZL9s2_output_1_3_1_ce0;
+reg    p_ZL9s2_output_1_3_1_we0;
+wire   [5:0] p_ZL9s2_output_1_3_1_q0;
+reg   [3:0] p_ZL9s2_output_1_3_2_address0;
+reg    p_ZL9s2_output_1_3_2_ce0;
+reg    p_ZL9s2_output_1_3_2_we0;
+wire   [5:0] p_ZL9s2_output_1_3_2_q0;
+reg   [3:0] p_ZL9s2_output_1_3_3_address0;
+reg    p_ZL9s2_output_1_3_3_ce0;
+reg    p_ZL9s2_output_1_3_3_we0;
+wire   [5:0] p_ZL9s2_output_1_3_3_q0;
+reg   [3:0] p_ZL9s2_output_1_3_4_address0;
+reg    p_ZL9s2_output_1_3_4_ce0;
+reg    p_ZL9s2_output_1_3_4_we0;
+wire   [5:0] p_ZL9s2_output_1_3_4_q0;
+reg   [3:0] p_ZL9s2_output_1_4_0_address0;
+reg    p_ZL9s2_output_1_4_0_ce0;
+reg    p_ZL9s2_output_1_4_0_we0;
+wire   [5:0] p_ZL9s2_output_1_4_0_q0;
+reg   [3:0] p_ZL9s2_output_1_4_1_address0;
+reg    p_ZL9s2_output_1_4_1_ce0;
+reg    p_ZL9s2_output_1_4_1_we0;
+wire   [5:0] p_ZL9s2_output_1_4_1_q0;
+reg   [3:0] p_ZL9s2_output_1_4_2_address0;
+reg    p_ZL9s2_output_1_4_2_ce0;
+reg    p_ZL9s2_output_1_4_2_we0;
+wire   [5:0] p_ZL9s2_output_1_4_2_q0;
+reg   [3:0] p_ZL9s2_output_1_4_3_address0;
+reg    p_ZL9s2_output_1_4_3_ce0;
+reg    p_ZL9s2_output_1_4_3_we0;
+wire   [5:0] p_ZL9s2_output_1_4_3_q0;
+reg   [3:0] p_ZL9s2_output_1_4_4_address0;
+reg    p_ZL9s2_output_1_4_4_ce0;
+reg    p_ZL9s2_output_1_4_4_we0;
+wire   [5:0] p_ZL9s2_output_1_4_4_q0;
+reg   [3:0] p_ZL9s2_output_2_0_0_address0;
+reg    p_ZL9s2_output_2_0_0_ce0;
+reg    p_ZL9s2_output_2_0_0_we0;
+wire   [5:0] p_ZL9s2_output_2_0_0_q0;
+reg   [3:0] p_ZL9s2_output_2_0_1_address0;
+reg    p_ZL9s2_output_2_0_1_ce0;
+reg    p_ZL9s2_output_2_0_1_we0;
+wire   [5:0] p_ZL9s2_output_2_0_1_q0;
+reg   [3:0] p_ZL9s2_output_2_0_2_address0;
+reg    p_ZL9s2_output_2_0_2_ce0;
+reg    p_ZL9s2_output_2_0_2_we0;
+wire   [5:0] p_ZL9s2_output_2_0_2_q0;
+reg   [3:0] p_ZL9s2_output_2_0_3_address0;
+reg    p_ZL9s2_output_2_0_3_ce0;
+reg    p_ZL9s2_output_2_0_3_we0;
+wire   [5:0] p_ZL9s2_output_2_0_3_q0;
+reg   [3:0] p_ZL9s2_output_2_0_4_address0;
+reg    p_ZL9s2_output_2_0_4_ce0;
+reg    p_ZL9s2_output_2_0_4_we0;
+wire   [5:0] p_ZL9s2_output_2_0_4_q0;
+reg   [3:0] p_ZL9s2_output_2_1_0_address0;
+reg    p_ZL9s2_output_2_1_0_ce0;
+reg    p_ZL9s2_output_2_1_0_we0;
+wire   [5:0] p_ZL9s2_output_2_1_0_q0;
+reg   [3:0] p_ZL9s2_output_2_1_1_address0;
+reg    p_ZL9s2_output_2_1_1_ce0;
+reg    p_ZL9s2_output_2_1_1_we0;
+wire   [5:0] p_ZL9s2_output_2_1_1_q0;
+reg   [3:0] p_ZL9s2_output_2_1_2_address0;
+reg    p_ZL9s2_output_2_1_2_ce0;
+reg    p_ZL9s2_output_2_1_2_we0;
+wire   [5:0] p_ZL9s2_output_2_1_2_q0;
+reg   [3:0] p_ZL9s2_output_2_1_3_address0;
+reg    p_ZL9s2_output_2_1_3_ce0;
+reg    p_ZL9s2_output_2_1_3_we0;
+wire   [5:0] p_ZL9s2_output_2_1_3_q0;
+reg   [3:0] p_ZL9s2_output_2_1_4_address0;
+reg    p_ZL9s2_output_2_1_4_ce0;
+reg    p_ZL9s2_output_2_1_4_we0;
+wire   [5:0] p_ZL9s2_output_2_1_4_q0;
+reg   [3:0] p_ZL9s2_output_2_2_0_address0;
+reg    p_ZL9s2_output_2_2_0_ce0;
+reg    p_ZL9s2_output_2_2_0_we0;
+wire   [5:0] p_ZL9s2_output_2_2_0_q0;
+reg   [3:0] p_ZL9s2_output_2_2_1_address0;
+reg    p_ZL9s2_output_2_2_1_ce0;
+reg    p_ZL9s2_output_2_2_1_we0;
+wire   [5:0] p_ZL9s2_output_2_2_1_q0;
+reg   [3:0] p_ZL9s2_output_2_2_2_address0;
+reg    p_ZL9s2_output_2_2_2_ce0;
+reg    p_ZL9s2_output_2_2_2_we0;
+wire   [5:0] p_ZL9s2_output_2_2_2_q0;
+reg   [3:0] p_ZL9s2_output_2_2_3_address0;
+reg    p_ZL9s2_output_2_2_3_ce0;
+reg    p_ZL9s2_output_2_2_3_we0;
+wire   [5:0] p_ZL9s2_output_2_2_3_q0;
+reg   [3:0] p_ZL9s2_output_2_2_4_address0;
+reg    p_ZL9s2_output_2_2_4_ce0;
+reg    p_ZL9s2_output_2_2_4_we0;
+wire   [5:0] p_ZL9s2_output_2_2_4_q0;
+reg   [3:0] p_ZL9s2_output_2_3_0_address0;
+reg    p_ZL9s2_output_2_3_0_ce0;
+reg    p_ZL9s2_output_2_3_0_we0;
+wire   [5:0] p_ZL9s2_output_2_3_0_q0;
+reg   [3:0] p_ZL9s2_output_2_3_1_address0;
+reg    p_ZL9s2_output_2_3_1_ce0;
+reg    p_ZL9s2_output_2_3_1_we0;
+wire   [5:0] p_ZL9s2_output_2_3_1_q0;
+reg   [3:0] p_ZL9s2_output_2_3_2_address0;
+reg    p_ZL9s2_output_2_3_2_ce0;
+reg    p_ZL9s2_output_2_3_2_we0;
+wire   [5:0] p_ZL9s2_output_2_3_2_q0;
+reg   [3:0] p_ZL9s2_output_2_3_3_address0;
+reg    p_ZL9s2_output_2_3_3_ce0;
+reg    p_ZL9s2_output_2_3_3_we0;
+wire   [5:0] p_ZL9s2_output_2_3_3_q0;
+reg   [3:0] p_ZL9s2_output_2_3_4_address0;
+reg    p_ZL9s2_output_2_3_4_ce0;
+reg    p_ZL9s2_output_2_3_4_we0;
+wire   [5:0] p_ZL9s2_output_2_3_4_q0;
+reg   [3:0] p_ZL9s2_output_2_4_0_address0;
+reg    p_ZL9s2_output_2_4_0_ce0;
+reg    p_ZL9s2_output_2_4_0_we0;
+wire   [5:0] p_ZL9s2_output_2_4_0_q0;
+reg   [3:0] p_ZL9s2_output_2_4_1_address0;
+reg    p_ZL9s2_output_2_4_1_ce0;
+reg    p_ZL9s2_output_2_4_1_we0;
+wire   [5:0] p_ZL9s2_output_2_4_1_q0;
+reg   [3:0] p_ZL9s2_output_2_4_2_address0;
+reg    p_ZL9s2_output_2_4_2_ce0;
+reg    p_ZL9s2_output_2_4_2_we0;
+wire   [5:0] p_ZL9s2_output_2_4_2_q0;
+reg   [3:0] p_ZL9s2_output_2_4_3_address0;
+reg    p_ZL9s2_output_2_4_3_ce0;
+reg    p_ZL9s2_output_2_4_3_we0;
+wire   [5:0] p_ZL9s2_output_2_4_3_q0;
+reg   [3:0] p_ZL9s2_output_2_4_4_address0;
+reg    p_ZL9s2_output_2_4_4_ce0;
+reg    p_ZL9s2_output_2_4_4_we0;
+wire   [5:0] p_ZL9s2_output_2_4_4_q0;
+reg   [3:0] p_ZL9s2_output_3_0_0_address0;
+reg    p_ZL9s2_output_3_0_0_ce0;
+reg    p_ZL9s2_output_3_0_0_we0;
+wire   [5:0] p_ZL9s2_output_3_0_0_q0;
+reg   [3:0] p_ZL9s2_output_3_0_1_address0;
+reg    p_ZL9s2_output_3_0_1_ce0;
+reg    p_ZL9s2_output_3_0_1_we0;
+wire   [5:0] p_ZL9s2_output_3_0_1_q0;
+reg   [3:0] p_ZL9s2_output_3_0_2_address0;
+reg    p_ZL9s2_output_3_0_2_ce0;
+reg    p_ZL9s2_output_3_0_2_we0;
+wire   [5:0] p_ZL9s2_output_3_0_2_q0;
+reg   [3:0] p_ZL9s2_output_3_0_3_address0;
+reg    p_ZL9s2_output_3_0_3_ce0;
+reg    p_ZL9s2_output_3_0_3_we0;
+wire   [5:0] p_ZL9s2_output_3_0_3_q0;
+reg   [3:0] p_ZL9s2_output_3_0_4_address0;
+reg    p_ZL9s2_output_3_0_4_ce0;
+reg    p_ZL9s2_output_3_0_4_we0;
+wire   [5:0] p_ZL9s2_output_3_0_4_q0;
+reg   [3:0] p_ZL9s2_output_3_1_0_address0;
+reg    p_ZL9s2_output_3_1_0_ce0;
+reg    p_ZL9s2_output_3_1_0_we0;
+wire   [5:0] p_ZL9s2_output_3_1_0_q0;
+reg   [3:0] p_ZL9s2_output_3_1_1_address0;
+reg    p_ZL9s2_output_3_1_1_ce0;
+reg    p_ZL9s2_output_3_1_1_we0;
+wire   [5:0] p_ZL9s2_output_3_1_1_q0;
+reg   [3:0] p_ZL9s2_output_3_1_2_address0;
+reg    p_ZL9s2_output_3_1_2_ce0;
+reg    p_ZL9s2_output_3_1_2_we0;
+wire   [5:0] p_ZL9s2_output_3_1_2_q0;
+reg   [3:0] p_ZL9s2_output_3_1_3_address0;
+reg    p_ZL9s2_output_3_1_3_ce0;
+reg    p_ZL9s2_output_3_1_3_we0;
+wire   [5:0] p_ZL9s2_output_3_1_3_q0;
+reg   [3:0] p_ZL9s2_output_3_1_4_address0;
+reg    p_ZL9s2_output_3_1_4_ce0;
+reg    p_ZL9s2_output_3_1_4_we0;
+wire   [5:0] p_ZL9s2_output_3_1_4_q0;
+reg   [3:0] p_ZL9s2_output_3_2_0_address0;
+reg    p_ZL9s2_output_3_2_0_ce0;
+reg    p_ZL9s2_output_3_2_0_we0;
+wire   [5:0] p_ZL9s2_output_3_2_0_q0;
+reg   [3:0] p_ZL9s2_output_3_2_1_address0;
+reg    p_ZL9s2_output_3_2_1_ce0;
+reg    p_ZL9s2_output_3_2_1_we0;
+wire   [5:0] p_ZL9s2_output_3_2_1_q0;
+reg   [3:0] p_ZL9s2_output_3_2_2_address0;
+reg    p_ZL9s2_output_3_2_2_ce0;
+reg    p_ZL9s2_output_3_2_2_we0;
+wire   [5:0] p_ZL9s2_output_3_2_2_q0;
+reg   [3:0] p_ZL9s2_output_3_2_3_address0;
+reg    p_ZL9s2_output_3_2_3_ce0;
+reg    p_ZL9s2_output_3_2_3_we0;
+wire   [5:0] p_ZL9s2_output_3_2_3_q0;
+reg   [3:0] p_ZL9s2_output_3_2_4_address0;
+reg    p_ZL9s2_output_3_2_4_ce0;
+reg    p_ZL9s2_output_3_2_4_we0;
+wire   [5:0] p_ZL9s2_output_3_2_4_q0;
+reg   [3:0] p_ZL9s2_output_3_3_0_address0;
+reg    p_ZL9s2_output_3_3_0_ce0;
+reg    p_ZL9s2_output_3_3_0_we0;
+wire   [5:0] p_ZL9s2_output_3_3_0_q0;
+reg   [3:0] p_ZL9s2_output_3_3_1_address0;
+reg    p_ZL9s2_output_3_3_1_ce0;
+reg    p_ZL9s2_output_3_3_1_we0;
+wire   [5:0] p_ZL9s2_output_3_3_1_q0;
+reg   [3:0] p_ZL9s2_output_3_3_2_address0;
+reg    p_ZL9s2_output_3_3_2_ce0;
+reg    p_ZL9s2_output_3_3_2_we0;
+wire   [5:0] p_ZL9s2_output_3_3_2_q0;
+reg   [3:0] p_ZL9s2_output_3_3_3_address0;
+reg    p_ZL9s2_output_3_3_3_ce0;
+reg    p_ZL9s2_output_3_3_3_we0;
+wire   [5:0] p_ZL9s2_output_3_3_3_q0;
+reg   [3:0] p_ZL9s2_output_3_3_4_address0;
+reg    p_ZL9s2_output_3_3_4_ce0;
+reg    p_ZL9s2_output_3_3_4_we0;
+wire   [5:0] p_ZL9s2_output_3_3_4_q0;
+reg   [3:0] p_ZL9s2_output_3_4_0_address0;
+reg    p_ZL9s2_output_3_4_0_ce0;
+reg    p_ZL9s2_output_3_4_0_we0;
+wire   [5:0] p_ZL9s2_output_3_4_0_q0;
+reg   [3:0] p_ZL9s2_output_3_4_1_address0;
+reg    p_ZL9s2_output_3_4_1_ce0;
+reg    p_ZL9s2_output_3_4_1_we0;
+wire   [5:0] p_ZL9s2_output_3_4_1_q0;
+reg   [3:0] p_ZL9s2_output_3_4_2_address0;
+reg    p_ZL9s2_output_3_4_2_ce0;
+reg    p_ZL9s2_output_3_4_2_we0;
+wire   [5:0] p_ZL9s2_output_3_4_2_q0;
+reg   [3:0] p_ZL9s2_output_3_4_3_address0;
+reg    p_ZL9s2_output_3_4_3_ce0;
+reg    p_ZL9s2_output_3_4_3_we0;
+wire   [5:0] p_ZL9s2_output_3_4_3_q0;
+reg   [3:0] p_ZL9s2_output_3_4_4_address0;
+reg    p_ZL9s2_output_3_4_4_ce0;
+reg    p_ZL9s2_output_3_4_4_we0;
+wire   [5:0] p_ZL9s2_output_3_4_4_q0;
+reg   [3:0] p_ZL9s2_output_4_0_0_address0;
+reg    p_ZL9s2_output_4_0_0_ce0;
+reg    p_ZL9s2_output_4_0_0_we0;
+wire   [5:0] p_ZL9s2_output_4_0_0_q0;
+reg   [3:0] p_ZL9s2_output_4_0_1_address0;
+reg    p_ZL9s2_output_4_0_1_ce0;
+reg    p_ZL9s2_output_4_0_1_we0;
+wire   [5:0] p_ZL9s2_output_4_0_1_q0;
+reg   [3:0] p_ZL9s2_output_4_0_2_address0;
+reg    p_ZL9s2_output_4_0_2_ce0;
+reg    p_ZL9s2_output_4_0_2_we0;
+wire   [5:0] p_ZL9s2_output_4_0_2_q0;
+reg   [3:0] p_ZL9s2_output_4_0_3_address0;
+reg    p_ZL9s2_output_4_0_3_ce0;
+reg    p_ZL9s2_output_4_0_3_we0;
+wire   [5:0] p_ZL9s2_output_4_0_3_q0;
+reg   [3:0] p_ZL9s2_output_4_0_4_address0;
+reg    p_ZL9s2_output_4_0_4_ce0;
+reg    p_ZL9s2_output_4_0_4_we0;
+wire   [5:0] p_ZL9s2_output_4_0_4_q0;
+reg   [3:0] p_ZL9s2_output_4_1_0_address0;
+reg    p_ZL9s2_output_4_1_0_ce0;
+reg    p_ZL9s2_output_4_1_0_we0;
+wire   [5:0] p_ZL9s2_output_4_1_0_q0;
+reg   [3:0] p_ZL9s2_output_4_1_1_address0;
+reg    p_ZL9s2_output_4_1_1_ce0;
+reg    p_ZL9s2_output_4_1_1_we0;
+wire   [5:0] p_ZL9s2_output_4_1_1_q0;
+reg   [3:0] p_ZL9s2_output_4_1_2_address0;
+reg    p_ZL9s2_output_4_1_2_ce0;
+reg    p_ZL9s2_output_4_1_2_we0;
+wire   [5:0] p_ZL9s2_output_4_1_2_q0;
+reg   [3:0] p_ZL9s2_output_4_1_3_address0;
+reg    p_ZL9s2_output_4_1_3_ce0;
+reg    p_ZL9s2_output_4_1_3_we0;
+wire   [5:0] p_ZL9s2_output_4_1_3_q0;
+reg   [3:0] p_ZL9s2_output_4_1_4_address0;
+reg    p_ZL9s2_output_4_1_4_ce0;
+reg    p_ZL9s2_output_4_1_4_we0;
+wire   [5:0] p_ZL9s2_output_4_1_4_q0;
+reg   [3:0] p_ZL9s2_output_4_2_0_address0;
+reg    p_ZL9s2_output_4_2_0_ce0;
+reg    p_ZL9s2_output_4_2_0_we0;
+wire   [5:0] p_ZL9s2_output_4_2_0_q0;
+reg   [3:0] p_ZL9s2_output_4_2_1_address0;
+reg    p_ZL9s2_output_4_2_1_ce0;
+reg    p_ZL9s2_output_4_2_1_we0;
+wire   [5:0] p_ZL9s2_output_4_2_1_q0;
+reg   [3:0] p_ZL9s2_output_4_2_2_address0;
+reg    p_ZL9s2_output_4_2_2_ce0;
+reg    p_ZL9s2_output_4_2_2_we0;
+wire   [5:0] p_ZL9s2_output_4_2_2_q0;
+reg   [3:0] p_ZL9s2_output_4_2_3_address0;
+reg    p_ZL9s2_output_4_2_3_ce0;
+reg    p_ZL9s2_output_4_2_3_we0;
+wire   [5:0] p_ZL9s2_output_4_2_3_q0;
+reg   [3:0] p_ZL9s2_output_4_2_4_address0;
+reg    p_ZL9s2_output_4_2_4_ce0;
+reg    p_ZL9s2_output_4_2_4_we0;
+wire   [5:0] p_ZL9s2_output_4_2_4_q0;
+reg   [3:0] p_ZL9s2_output_4_3_0_address0;
+reg    p_ZL9s2_output_4_3_0_ce0;
+reg    p_ZL9s2_output_4_3_0_we0;
+wire   [5:0] p_ZL9s2_output_4_3_0_q0;
+reg   [3:0] p_ZL9s2_output_4_3_1_address0;
+reg    p_ZL9s2_output_4_3_1_ce0;
+reg    p_ZL9s2_output_4_3_1_we0;
+wire   [5:0] p_ZL9s2_output_4_3_1_q0;
+reg   [3:0] p_ZL9s2_output_4_3_2_address0;
+reg    p_ZL9s2_output_4_3_2_ce0;
+reg    p_ZL9s2_output_4_3_2_we0;
+wire   [5:0] p_ZL9s2_output_4_3_2_q0;
+reg   [3:0] p_ZL9s2_output_4_3_3_address0;
+reg    p_ZL9s2_output_4_3_3_ce0;
+reg    p_ZL9s2_output_4_3_3_we0;
+wire   [5:0] p_ZL9s2_output_4_3_3_q0;
+reg   [3:0] p_ZL9s2_output_4_3_4_address0;
+reg    p_ZL9s2_output_4_3_4_ce0;
+reg    p_ZL9s2_output_4_3_4_we0;
+wire   [5:0] p_ZL9s2_output_4_3_4_q0;
+reg   [3:0] p_ZL9s2_output_4_4_0_address0;
+reg    p_ZL9s2_output_4_4_0_ce0;
+reg    p_ZL9s2_output_4_4_0_we0;
+wire   [5:0] p_ZL9s2_output_4_4_0_q0;
+reg   [3:0] p_ZL9s2_output_4_4_1_address0;
+reg    p_ZL9s2_output_4_4_1_ce0;
+reg    p_ZL9s2_output_4_4_1_we0;
+wire   [5:0] p_ZL9s2_output_4_4_1_q0;
+reg   [3:0] p_ZL9s2_output_4_4_2_address0;
+reg    p_ZL9s2_output_4_4_2_ce0;
+reg    p_ZL9s2_output_4_4_2_we0;
+wire   [5:0] p_ZL9s2_output_4_4_2_q0;
+reg   [3:0] p_ZL9s2_output_4_4_3_address0;
+reg    p_ZL9s2_output_4_4_3_ce0;
+reg    p_ZL9s2_output_4_4_3_we0;
+wire   [5:0] p_ZL9s2_output_4_4_3_q0;
+reg   [3:0] p_ZL9s2_output_4_4_4_address0;
+reg    p_ZL9s2_output_4_4_4_ce0;
+reg    p_ZL9s2_output_4_4_4_we0;
+wire   [5:0] p_ZL9s2_output_4_4_4_q0;
+reg   [3:0] p_ZL9s2_output_5_0_0_address0;
+reg    p_ZL9s2_output_5_0_0_ce0;
+reg    p_ZL9s2_output_5_0_0_we0;
+wire   [5:0] p_ZL9s2_output_5_0_0_q0;
+reg   [3:0] p_ZL9s2_output_5_0_1_address0;
+reg    p_ZL9s2_output_5_0_1_ce0;
+reg    p_ZL9s2_output_5_0_1_we0;
+wire   [5:0] p_ZL9s2_output_5_0_1_q0;
+reg   [3:0] p_ZL9s2_output_5_0_2_address0;
+reg    p_ZL9s2_output_5_0_2_ce0;
+reg    p_ZL9s2_output_5_0_2_we0;
+wire   [5:0] p_ZL9s2_output_5_0_2_q0;
+reg   [3:0] p_ZL9s2_output_5_0_3_address0;
+reg    p_ZL9s2_output_5_0_3_ce0;
+reg    p_ZL9s2_output_5_0_3_we0;
+wire   [5:0] p_ZL9s2_output_5_0_3_q0;
+reg   [3:0] p_ZL9s2_output_5_0_4_address0;
+reg    p_ZL9s2_output_5_0_4_ce0;
+reg    p_ZL9s2_output_5_0_4_we0;
+wire   [5:0] p_ZL9s2_output_5_0_4_q0;
+reg   [3:0] p_ZL9s2_output_5_1_0_address0;
+reg    p_ZL9s2_output_5_1_0_ce0;
+reg    p_ZL9s2_output_5_1_0_we0;
+wire   [5:0] p_ZL9s2_output_5_1_0_q0;
+reg   [3:0] p_ZL9s2_output_5_1_1_address0;
+reg    p_ZL9s2_output_5_1_1_ce0;
+reg    p_ZL9s2_output_5_1_1_we0;
+wire   [5:0] p_ZL9s2_output_5_1_1_q0;
+reg   [3:0] p_ZL9s2_output_5_1_2_address0;
+reg    p_ZL9s2_output_5_1_2_ce0;
+reg    p_ZL9s2_output_5_1_2_we0;
+wire   [5:0] p_ZL9s2_output_5_1_2_q0;
+reg   [3:0] p_ZL9s2_output_5_1_3_address0;
+reg    p_ZL9s2_output_5_1_3_ce0;
+reg    p_ZL9s2_output_5_1_3_we0;
+wire   [5:0] p_ZL9s2_output_5_1_3_q0;
+reg   [3:0] p_ZL9s2_output_5_1_4_address0;
+reg    p_ZL9s2_output_5_1_4_ce0;
+reg    p_ZL9s2_output_5_1_4_we0;
+wire   [5:0] p_ZL9s2_output_5_1_4_q0;
+reg   [3:0] p_ZL9s2_output_5_2_0_address0;
+reg    p_ZL9s2_output_5_2_0_ce0;
+reg    p_ZL9s2_output_5_2_0_we0;
+wire   [5:0] p_ZL9s2_output_5_2_0_q0;
+reg   [3:0] p_ZL9s2_output_5_2_1_address0;
+reg    p_ZL9s2_output_5_2_1_ce0;
+reg    p_ZL9s2_output_5_2_1_we0;
+wire   [5:0] p_ZL9s2_output_5_2_1_q0;
+reg   [3:0] p_ZL9s2_output_5_2_2_address0;
+reg    p_ZL9s2_output_5_2_2_ce0;
+reg    p_ZL9s2_output_5_2_2_we0;
+wire   [5:0] p_ZL9s2_output_5_2_2_q0;
+reg   [3:0] p_ZL9s2_output_5_2_3_address0;
+reg    p_ZL9s2_output_5_2_3_ce0;
+reg    p_ZL9s2_output_5_2_3_we0;
+wire   [5:0] p_ZL9s2_output_5_2_3_q0;
+reg   [3:0] p_ZL9s2_output_5_2_4_address0;
+reg    p_ZL9s2_output_5_2_4_ce0;
+reg    p_ZL9s2_output_5_2_4_we0;
+wire   [5:0] p_ZL9s2_output_5_2_4_q0;
+reg   [3:0] p_ZL9s2_output_5_3_0_address0;
+reg    p_ZL9s2_output_5_3_0_ce0;
+reg    p_ZL9s2_output_5_3_0_we0;
+wire   [5:0] p_ZL9s2_output_5_3_0_q0;
+reg   [3:0] p_ZL9s2_output_5_3_1_address0;
+reg    p_ZL9s2_output_5_3_1_ce0;
+reg    p_ZL9s2_output_5_3_1_we0;
+wire   [5:0] p_ZL9s2_output_5_3_1_q0;
+reg   [3:0] p_ZL9s2_output_5_3_2_address0;
+reg    p_ZL9s2_output_5_3_2_ce0;
+reg    p_ZL9s2_output_5_3_2_we0;
+wire   [5:0] p_ZL9s2_output_5_3_2_q0;
+reg   [3:0] p_ZL9s2_output_5_3_3_address0;
+reg    p_ZL9s2_output_5_3_3_ce0;
+reg    p_ZL9s2_output_5_3_3_we0;
+wire   [5:0] p_ZL9s2_output_5_3_3_q0;
+reg   [3:0] p_ZL9s2_output_5_3_4_address0;
+reg    p_ZL9s2_output_5_3_4_ce0;
+reg    p_ZL9s2_output_5_3_4_we0;
+wire   [5:0] p_ZL9s2_output_5_3_4_q0;
+reg   [3:0] p_ZL9s2_output_5_4_0_address0;
+reg    p_ZL9s2_output_5_4_0_ce0;
+reg    p_ZL9s2_output_5_4_0_we0;
+wire   [5:0] p_ZL9s2_output_5_4_0_q0;
+reg   [3:0] p_ZL9s2_output_5_4_1_address0;
+reg    p_ZL9s2_output_5_4_1_ce0;
+reg    p_ZL9s2_output_5_4_1_we0;
+wire   [5:0] p_ZL9s2_output_5_4_1_q0;
+reg   [3:0] p_ZL9s2_output_5_4_2_address0;
+reg    p_ZL9s2_output_5_4_2_ce0;
+reg    p_ZL9s2_output_5_4_2_we0;
+wire   [5:0] p_ZL9s2_output_5_4_2_q0;
+reg   [3:0] p_ZL9s2_output_5_4_3_address0;
+reg    p_ZL9s2_output_5_4_3_ce0;
+reg    p_ZL9s2_output_5_4_3_we0;
+wire   [5:0] p_ZL9s2_output_5_4_3_q0;
+reg   [3:0] p_ZL9s2_output_5_4_4_address0;
+reg    p_ZL9s2_output_5_4_4_ce0;
+reg    p_ZL9s2_output_5_4_4_we0;
+wire   [5:0] p_ZL9s2_output_5_4_4_q0;
+reg   [9:0] p_ZL9c3_output_0_address0;
+reg    p_ZL9c3_output_0_ce0;
+reg    p_ZL9c3_output_0_we0;
+wire   [7:0] p_ZL9c3_output_0_q0;
+reg    p_ZL9c3_output_0_ce1;
+wire   [7:0] p_ZL9c3_output_0_q1;
+reg   [9:0] p_ZL9c3_output_1_address0;
+reg    p_ZL9c3_output_1_ce0;
+reg    p_ZL9c3_output_1_we0;
+wire   [7:0] p_ZL9c3_output_1_q0;
+reg    p_ZL9c3_output_1_ce1;
+wire   [7:0] p_ZL9c3_output_1_q1;
+reg   [8:0] s4_output_address0;
+reg    s4_output_ce0;
+reg    s4_output_we0;
+wire   [5:0] s4_output_q0;
+reg   [8:0] flatten_output_address0;
+reg    flatten_output_ce0;
+reg    flatten_output_we0;
+wire   [5:0] flatten_output_q0;
+reg    flatten_output_ce1;
+wire   [5:0] flatten_output_q1;
+reg   [6:0] f5_output_address0;
+reg    f5_output_ce0;
+reg    f5_output_we0;
+wire   [7:0] f5_output_q0;
+reg    f5_output_ce1;
+wire   [7:0] f5_output_q1;
+reg   [6:0] f6_output_address0;
+reg    f6_output_ce0;
+reg    f6_output_we0;
+wire   [7:0] f6_output_q0;
+reg    f6_output_ce1;
+wire   [7:0] f6_output_q1;
+wire    ap_CS_fsm_state17;
+reg   [7:0] max_val_reg_4220;
+wire    ap_CS_fsm_state18;
+wire    grp_conv_c1_fu_1944_ap_start;
+wire    grp_conv_c1_fu_1944_ap_done;
+wire    grp_conv_c1_fu_1944_ap_idle;
+wire    grp_conv_c1_fu_1944_ap_ready;
+wire   [9:0] grp_conv_c1_fu_1944_input_r_address0;
+wire    grp_conv_c1_fu_1944_input_r_ce0;
+wire   [9:0] grp_conv_c1_fu_1944_input_r_address1;
+wire    grp_conv_c1_fu_1944_input_r_ce1;
+wire   [11:0] grp_conv_c1_fu_1944_p_ZL9c1_output_0_address0;
+wire    grp_conv_c1_fu_1944_p_ZL9c1_output_0_ce0;
+wire    grp_conv_c1_fu_1944_p_ZL9c1_output_0_we0;
+wire   [7:0] grp_conv_c1_fu_1944_p_ZL9c1_output_0_d0;
+wire   [11:0] grp_conv_c1_fu_1944_p_ZL9c1_output_1_address0;
+wire    grp_conv_c1_fu_1944_p_ZL9c1_output_1_ce0;
+wire    grp_conv_c1_fu_1944_p_ZL9c1_output_1_we0;
+wire   [7:0] grp_conv_c1_fu_1944_p_ZL9c1_output_1_d0;
+wire  signed [31:0] grp_conv_c1_fu_1944_grp_fu_4231_p_din0;
+wire    grp_conv_c1_fu_1944_grp_fu_4231_p_ce;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_done;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_idle;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_d0;
+wire   [11:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_ce0;
+wire   [11:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_address1;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_ce1;
+wire   [11:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_ce0;
+wire   [11:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_address1;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_ce1;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_address0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_ce0;
+wire    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_d0;
+wire    grp_conv_c3_fu_2312_ap_start;
+wire    grp_conv_c3_fu_2312_ap_done;
+wire    grp_conv_c3_fu_2312_ap_idle;
+wire    grp_conv_c3_fu_2312_ap_ready;
+wire   [9:0] grp_conv_c3_fu_2312_p_ZL9c3_output_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9c3_output_0_ce0;
+wire    grp_conv_c3_fu_2312_p_ZL9c3_output_0_we0;
+wire   [7:0] grp_conv_c3_fu_2312_p_ZL9c3_output_0_d0;
+wire   [9:0] grp_conv_c3_fu_2312_p_ZL9c3_output_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9c3_output_1_ce0;
+wire    grp_conv_c3_fu_2312_p_ZL9c3_output_1_we0;
+wire   [7:0] grp_conv_c3_fu_2312_p_ZL9c3_output_1_d0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_4_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_0_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_0_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_1_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_1_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_2_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_2_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_3_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_3_ce0;
+wire   [3:0] grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_4_address0;
+wire    grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_4_ce0;
+wire  signed [31:0] grp_conv_c3_fu_2312_grp_fu_4231_p_din0;
+wire    grp_conv_c3_fu_2312_grp_fu_4231_p_ce;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_done;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_idle;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_ready;
+wire   [9:0] grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_address0;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_ce0;
+wire   [9:0] grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_address1;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_ce1;
+wire   [9:0] grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_address0;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_ce0;
+wire   [9:0] grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_address1;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_ce1;
+wire   [8:0] grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_address0;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_ce0;
+wire    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_d0;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_done;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_idle;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_ready;
+wire   [8:0] grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_s4_output_address0;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_s4_output_ce0;
+wire   [8:0] grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_address0;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_ce0;
+wire    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_we0;
+wire   [5:0] grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_d0;
+wire    grp_fc_f5_fu_2938_ap_start;
+wire    grp_fc_f5_fu_2938_ap_done;
+wire    grp_fc_f5_fu_2938_ap_idle;
+wire    grp_fc_f5_fu_2938_ap_ready;
+wire   [6:0] grp_fc_f5_fu_2938_f5_output_address0;
+wire    grp_fc_f5_fu_2938_f5_output_ce0;
+wire    grp_fc_f5_fu_2938_f5_output_we0;
+wire   [7:0] grp_fc_f5_fu_2938_f5_output_d0;
+wire   [8:0] grp_fc_f5_fu_2938_flatten_output_address0;
+wire    grp_fc_f5_fu_2938_flatten_output_ce0;
+wire   [8:0] grp_fc_f5_fu_2938_flatten_output_address1;
+wire    grp_fc_f5_fu_2938_flatten_output_ce1;
+wire  signed [31:0] grp_fc_f5_fu_2938_grp_fu_4231_p_din0;
+wire    grp_fc_f5_fu_2938_grp_fu_4231_p_ce;
+wire    grp_fc_f6_fu_3746_ap_start;
+wire    grp_fc_f6_fu_3746_ap_done;
+wire    grp_fc_f6_fu_3746_ap_idle;
+wire    grp_fc_f6_fu_3746_ap_ready;
+wire   [6:0] grp_fc_f6_fu_3746_f6_output_address0;
+wire    grp_fc_f6_fu_3746_f6_output_ce0;
+wire    grp_fc_f6_fu_3746_f6_output_we0;
+wire   [7:0] grp_fc_f6_fu_3746_f6_output_d0;
+wire   [6:0] grp_fc_f6_fu_3746_f5_output_address0;
+wire    grp_fc_f6_fu_3746_f5_output_ce0;
+wire   [6:0] grp_fc_f6_fu_3746_f5_output_address1;
+wire    grp_fc_f6_fu_3746_f5_output_ce1;
+wire  signed [31:0] grp_fc_f6_fu_3746_grp_fu_4231_p_din0;
+wire    grp_fc_f6_fu_3746_grp_fu_4231_p_ce;
+wire    grp_fc_output_fu_3994_ap_start;
+wire    grp_fc_output_fu_3994_ap_done;
+wire    grp_fc_output_fu_3994_ap_idle;
+wire    grp_fc_output_fu_3994_ap_ready;
+wire   [3:0] grp_fc_output_fu_3994_output_r_address0;
+wire    grp_fc_output_fu_3994_output_r_ce0;
+wire    grp_fc_output_fu_3994_output_r_we0;
+wire   [7:0] grp_fc_output_fu_3994_output_r_d0;
+wire   [6:0] grp_fc_output_fu_3994_f6_output_address0;
+wire    grp_fc_output_fu_3994_f6_output_ce0;
+wire   [6:0] grp_fc_output_fu_3994_f6_output_address1;
+wire    grp_fc_output_fu_3994_f6_output_ce1;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_done;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_idle;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_output_r_ce0;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_max_val_1_out;
+wire    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_max_val_1_out_ap_vld;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_done;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_idle;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_ce0;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_we0;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_address1;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_ce1;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_sum_exp_out;
+wire    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_sum_exp_out_ap_vld;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_done;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_idle;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_ready;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_address0;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_ce0;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_we0;
+wire   [7:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_d0;
+wire   [3:0] grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_address1;
+wire    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_ce1;
+reg    grp_conv_c1_fu_1944_ap_start_reg;
 wire    ap_CS_fsm_state2;
-reg    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg;
+reg    grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start_reg;
+wire    ap_CS_fsm_state3;
+wire    ap_CS_fsm_state4;
+reg    grp_conv_c3_fu_2312_ap_start_reg;
 wire    ap_CS_fsm_state5;
 wire    ap_CS_fsm_state6;
-reg    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg;
+reg    grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start_reg;
 wire    ap_CS_fsm_state7;
 wire    ap_CS_fsm_state8;
-reg    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg;
+reg    grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start_reg;
 wire    ap_CS_fsm_state9;
 wire    ap_CS_fsm_state10;
+reg    grp_fc_f5_fu_2938_ap_start_reg;
+wire    ap_CS_fsm_state11;
+wire    ap_CS_fsm_state12;
+reg    grp_fc_f6_fu_3746_ap_start_reg;
+wire    ap_CS_fsm_state13;
+wire    ap_CS_fsm_state14;
+reg    grp_fc_output_fu_3994_ap_start_reg;
+wire    ap_CS_fsm_state15;
+wire    ap_CS_fsm_state16;
+reg    grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start_reg;
+wire    ap_CS_fsm_state19;
+wire    ap_CS_fsm_state20;
+reg    grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start_reg;
+wire    ap_CS_fsm_state21;
+wire    ap_CS_fsm_state22;
+reg    grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start_reg;
+wire    ap_CS_fsm_state23;
+wire    ap_CS_fsm_state24;
 reg    output_r_ce0_local;
-reg   [9:0] ap_NS_fsm;
+wire   [31:0] grp_fu_4231_p1;
+reg  signed [31:0] grp_fu_4231_p0;
+reg    grp_fu_4231_ce;
+reg   [23:0] ap_NS_fsm;
 reg    ap_ST_fsm_state1_blk;
 reg    ap_ST_fsm_state2_blk;
 wire    ap_ST_fsm_state3_blk;
-wire    ap_ST_fsm_state4_blk;
+reg    ap_ST_fsm_state4_blk;
 wire    ap_ST_fsm_state5_blk;
 reg    ap_ST_fsm_state6_blk;
 wire    ap_ST_fsm_state7_blk;
 reg    ap_ST_fsm_state8_blk;
 wire    ap_ST_fsm_state9_blk;
 reg    ap_ST_fsm_state10_blk;
+wire    ap_ST_fsm_state11_blk;
+reg    ap_ST_fsm_state12_blk;
+wire    ap_ST_fsm_state13_blk;
+reg    ap_ST_fsm_state14_blk;
+wire    ap_ST_fsm_state15_blk;
+reg    ap_ST_fsm_state16_blk;
+wire    ap_ST_fsm_state17_blk;
+wire    ap_ST_fsm_state18_blk;
+wire    ap_ST_fsm_state19_blk;
+reg    ap_ST_fsm_state20_blk;
+wire    ap_ST_fsm_state21_blk;
+reg    ap_ST_fsm_state22_blk;
+wire    ap_ST_fsm_state23_blk;
+reg    ap_ST_fsm_state24_blk;
 wire    ap_ce_reg;
 
 // power-on initialization
 initial begin
-#0 ap_CS_fsm = 10'd1;
-#0 grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg = 1'b0;
-#0 grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg = 1'b0;
-#0 grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg = 1'b0;
-#0 grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg = 1'b0;
+#0 ap_CS_fsm = 24'd1;
+#0 grp_conv_c1_fu_1944_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start_reg = 1'b0;
+#0 grp_conv_c3_fu_2312_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start_reg = 1'b0;
+#0 grp_fc_f5_fu_2938_ap_start_reg = 1'b0;
+#0 grp_fc_f6_fu_3746_ap_start_reg = 1'b0;
+#0 grp_fc_output_fu_3994_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start_reg = 1'b0;
+#0 grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start_reg = 1'b0;
 end
 
-lenet_hls_lenet_hls_Pipeline_Output_Loop grp_lenet_hls_Pipeline_Output_Loop_fu_56(
-    .ap_clk(ap_clk),
-    .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready),
-    .output_r_address0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0),
-    .output_r_we0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0),
-    .output_r_d0(grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0)
+lenet_hls_p_ZL9c1_output_0_RAM_AUTO_1R1W #(
+    .DataWidth( 8 ),
+    .AddressRange( 2352 ),
+    .AddressWidth( 12 ))
+p_ZL9c1_output_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9c1_output_0_address0),
+    .ce0(p_ZL9c1_output_0_ce0),
+    .we0(p_ZL9c1_output_0_we0),
+    .d0(grp_conv_c1_fu_1944_p_ZL9c1_output_0_d0),
+    .q0(p_ZL9c1_output_0_q0),
+    .address1(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_address1),
+    .ce1(p_ZL9c1_output_0_ce1),
+    .q1(p_ZL9c1_output_0_q1)
 );
 
-lenet_hls_lenet_hls_Pipeline_Softmax_Max_Loop grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62(
+lenet_hls_p_ZL9c1_output_0_RAM_AUTO_1R1W #(
+    .DataWidth( 8 ),
+    .AddressRange( 2352 ),
+    .AddressWidth( 12 ))
+p_ZL9c1_output_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9c1_output_1_address0),
+    .ce0(p_ZL9c1_output_1_ce0),
+    .we0(p_ZL9c1_output_1_we0),
+    .d0(grp_conv_c1_fu_1944_p_ZL9c1_output_1_d0),
+    .q0(p_ZL9c1_output_1_q0),
+    .address1(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_address1),
+    .ce1(p_ZL9c1_output_1_ce1),
+    .q1(p_ZL9c1_output_1_q1)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_0_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_0_0_address0),
+    .ce0(p_ZL9s2_output_0_0_0_ce0),
+    .we0(p_ZL9s2_output_0_0_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_d0),
+    .q0(p_ZL9s2_output_0_0_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_0_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_0_1_address0),
+    .ce0(p_ZL9s2_output_0_0_1_ce0),
+    .we0(p_ZL9s2_output_0_0_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_d0),
+    .q0(p_ZL9s2_output_0_0_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_0_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_0_2_address0),
+    .ce0(p_ZL9s2_output_0_0_2_ce0),
+    .we0(p_ZL9s2_output_0_0_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_d0),
+    .q0(p_ZL9s2_output_0_0_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_0_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_0_3_address0),
+    .ce0(p_ZL9s2_output_0_0_3_ce0),
+    .we0(p_ZL9s2_output_0_0_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_d0),
+    .q0(p_ZL9s2_output_0_0_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_0_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_0_4_address0),
+    .ce0(p_ZL9s2_output_0_0_4_ce0),
+    .we0(p_ZL9s2_output_0_0_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_d0),
+    .q0(p_ZL9s2_output_0_0_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_1_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_1_0_address0),
+    .ce0(p_ZL9s2_output_0_1_0_ce0),
+    .we0(p_ZL9s2_output_0_1_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_d0),
+    .q0(p_ZL9s2_output_0_1_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_1_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_1_1_address0),
+    .ce0(p_ZL9s2_output_0_1_1_ce0),
+    .we0(p_ZL9s2_output_0_1_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_d0),
+    .q0(p_ZL9s2_output_0_1_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_1_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_1_2_address0),
+    .ce0(p_ZL9s2_output_0_1_2_ce0),
+    .we0(p_ZL9s2_output_0_1_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_d0),
+    .q0(p_ZL9s2_output_0_1_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_1_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_1_3_address0),
+    .ce0(p_ZL9s2_output_0_1_3_ce0),
+    .we0(p_ZL9s2_output_0_1_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_d0),
+    .q0(p_ZL9s2_output_0_1_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_1_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_1_4_address0),
+    .ce0(p_ZL9s2_output_0_1_4_ce0),
+    .we0(p_ZL9s2_output_0_1_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_d0),
+    .q0(p_ZL9s2_output_0_1_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_2_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_2_0_address0),
+    .ce0(p_ZL9s2_output_0_2_0_ce0),
+    .we0(p_ZL9s2_output_0_2_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_d0),
+    .q0(p_ZL9s2_output_0_2_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_2_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_2_1_address0),
+    .ce0(p_ZL9s2_output_0_2_1_ce0),
+    .we0(p_ZL9s2_output_0_2_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_d0),
+    .q0(p_ZL9s2_output_0_2_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_2_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_2_2_address0),
+    .ce0(p_ZL9s2_output_0_2_2_ce0),
+    .we0(p_ZL9s2_output_0_2_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_d0),
+    .q0(p_ZL9s2_output_0_2_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_2_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_2_3_address0),
+    .ce0(p_ZL9s2_output_0_2_3_ce0),
+    .we0(p_ZL9s2_output_0_2_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_d0),
+    .q0(p_ZL9s2_output_0_2_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_2_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_2_4_address0),
+    .ce0(p_ZL9s2_output_0_2_4_ce0),
+    .we0(p_ZL9s2_output_0_2_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_d0),
+    .q0(p_ZL9s2_output_0_2_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_3_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_3_0_address0),
+    .ce0(p_ZL9s2_output_0_3_0_ce0),
+    .we0(p_ZL9s2_output_0_3_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_d0),
+    .q0(p_ZL9s2_output_0_3_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_3_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_3_1_address0),
+    .ce0(p_ZL9s2_output_0_3_1_ce0),
+    .we0(p_ZL9s2_output_0_3_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_d0),
+    .q0(p_ZL9s2_output_0_3_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_3_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_3_2_address0),
+    .ce0(p_ZL9s2_output_0_3_2_ce0),
+    .we0(p_ZL9s2_output_0_3_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_d0),
+    .q0(p_ZL9s2_output_0_3_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_3_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_3_3_address0),
+    .ce0(p_ZL9s2_output_0_3_3_ce0),
+    .we0(p_ZL9s2_output_0_3_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_d0),
+    .q0(p_ZL9s2_output_0_3_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_3_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_3_4_address0),
+    .ce0(p_ZL9s2_output_0_3_4_ce0),
+    .we0(p_ZL9s2_output_0_3_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_d0),
+    .q0(p_ZL9s2_output_0_3_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_4_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_4_0_address0),
+    .ce0(p_ZL9s2_output_0_4_0_ce0),
+    .we0(p_ZL9s2_output_0_4_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_d0),
+    .q0(p_ZL9s2_output_0_4_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_4_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_4_1_address0),
+    .ce0(p_ZL9s2_output_0_4_1_ce0),
+    .we0(p_ZL9s2_output_0_4_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_d0),
+    .q0(p_ZL9s2_output_0_4_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_4_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_4_2_address0),
+    .ce0(p_ZL9s2_output_0_4_2_ce0),
+    .we0(p_ZL9s2_output_0_4_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_d0),
+    .q0(p_ZL9s2_output_0_4_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_4_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_4_3_address0),
+    .ce0(p_ZL9s2_output_0_4_3_ce0),
+    .we0(p_ZL9s2_output_0_4_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_d0),
+    .q0(p_ZL9s2_output_0_4_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_0_4_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_0_4_4_address0),
+    .ce0(p_ZL9s2_output_0_4_4_ce0),
+    .we0(p_ZL9s2_output_0_4_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_d0),
+    .q0(p_ZL9s2_output_0_4_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_0_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_0_0_address0),
+    .ce0(p_ZL9s2_output_1_0_0_ce0),
+    .we0(p_ZL9s2_output_1_0_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_d0),
+    .q0(p_ZL9s2_output_1_0_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_0_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_0_1_address0),
+    .ce0(p_ZL9s2_output_1_0_1_ce0),
+    .we0(p_ZL9s2_output_1_0_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_d0),
+    .q0(p_ZL9s2_output_1_0_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_0_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_0_2_address0),
+    .ce0(p_ZL9s2_output_1_0_2_ce0),
+    .we0(p_ZL9s2_output_1_0_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_d0),
+    .q0(p_ZL9s2_output_1_0_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_0_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_0_3_address0),
+    .ce0(p_ZL9s2_output_1_0_3_ce0),
+    .we0(p_ZL9s2_output_1_0_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_d0),
+    .q0(p_ZL9s2_output_1_0_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_0_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_0_4_address0),
+    .ce0(p_ZL9s2_output_1_0_4_ce0),
+    .we0(p_ZL9s2_output_1_0_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_d0),
+    .q0(p_ZL9s2_output_1_0_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_1_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_1_0_address0),
+    .ce0(p_ZL9s2_output_1_1_0_ce0),
+    .we0(p_ZL9s2_output_1_1_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_d0),
+    .q0(p_ZL9s2_output_1_1_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_1_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_1_1_address0),
+    .ce0(p_ZL9s2_output_1_1_1_ce0),
+    .we0(p_ZL9s2_output_1_1_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_d0),
+    .q0(p_ZL9s2_output_1_1_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_1_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_1_2_address0),
+    .ce0(p_ZL9s2_output_1_1_2_ce0),
+    .we0(p_ZL9s2_output_1_1_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_d0),
+    .q0(p_ZL9s2_output_1_1_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_1_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_1_3_address0),
+    .ce0(p_ZL9s2_output_1_1_3_ce0),
+    .we0(p_ZL9s2_output_1_1_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_d0),
+    .q0(p_ZL9s2_output_1_1_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_1_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_1_4_address0),
+    .ce0(p_ZL9s2_output_1_1_4_ce0),
+    .we0(p_ZL9s2_output_1_1_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_d0),
+    .q0(p_ZL9s2_output_1_1_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_2_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_2_0_address0),
+    .ce0(p_ZL9s2_output_1_2_0_ce0),
+    .we0(p_ZL9s2_output_1_2_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_d0),
+    .q0(p_ZL9s2_output_1_2_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_2_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_2_1_address0),
+    .ce0(p_ZL9s2_output_1_2_1_ce0),
+    .we0(p_ZL9s2_output_1_2_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_d0),
+    .q0(p_ZL9s2_output_1_2_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_2_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_2_2_address0),
+    .ce0(p_ZL9s2_output_1_2_2_ce0),
+    .we0(p_ZL9s2_output_1_2_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_d0),
+    .q0(p_ZL9s2_output_1_2_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_2_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_2_3_address0),
+    .ce0(p_ZL9s2_output_1_2_3_ce0),
+    .we0(p_ZL9s2_output_1_2_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_d0),
+    .q0(p_ZL9s2_output_1_2_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_2_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_2_4_address0),
+    .ce0(p_ZL9s2_output_1_2_4_ce0),
+    .we0(p_ZL9s2_output_1_2_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_d0),
+    .q0(p_ZL9s2_output_1_2_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_3_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_3_0_address0),
+    .ce0(p_ZL9s2_output_1_3_0_ce0),
+    .we0(p_ZL9s2_output_1_3_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_d0),
+    .q0(p_ZL9s2_output_1_3_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_3_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_3_1_address0),
+    .ce0(p_ZL9s2_output_1_3_1_ce0),
+    .we0(p_ZL9s2_output_1_3_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_d0),
+    .q0(p_ZL9s2_output_1_3_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_3_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_3_2_address0),
+    .ce0(p_ZL9s2_output_1_3_2_ce0),
+    .we0(p_ZL9s2_output_1_3_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_d0),
+    .q0(p_ZL9s2_output_1_3_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_3_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_3_3_address0),
+    .ce0(p_ZL9s2_output_1_3_3_ce0),
+    .we0(p_ZL9s2_output_1_3_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_d0),
+    .q0(p_ZL9s2_output_1_3_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_3_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_3_4_address0),
+    .ce0(p_ZL9s2_output_1_3_4_ce0),
+    .we0(p_ZL9s2_output_1_3_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_d0),
+    .q0(p_ZL9s2_output_1_3_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_4_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_4_0_address0),
+    .ce0(p_ZL9s2_output_1_4_0_ce0),
+    .we0(p_ZL9s2_output_1_4_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_d0),
+    .q0(p_ZL9s2_output_1_4_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_4_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_4_1_address0),
+    .ce0(p_ZL9s2_output_1_4_1_ce0),
+    .we0(p_ZL9s2_output_1_4_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_d0),
+    .q0(p_ZL9s2_output_1_4_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_4_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_4_2_address0),
+    .ce0(p_ZL9s2_output_1_4_2_ce0),
+    .we0(p_ZL9s2_output_1_4_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_d0),
+    .q0(p_ZL9s2_output_1_4_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_4_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_4_3_address0),
+    .ce0(p_ZL9s2_output_1_4_3_ce0),
+    .we0(p_ZL9s2_output_1_4_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_d0),
+    .q0(p_ZL9s2_output_1_4_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_1_4_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_1_4_4_address0),
+    .ce0(p_ZL9s2_output_1_4_4_ce0),
+    .we0(p_ZL9s2_output_1_4_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_d0),
+    .q0(p_ZL9s2_output_1_4_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_0_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_0_0_address0),
+    .ce0(p_ZL9s2_output_2_0_0_ce0),
+    .we0(p_ZL9s2_output_2_0_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_d0),
+    .q0(p_ZL9s2_output_2_0_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_0_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_0_1_address0),
+    .ce0(p_ZL9s2_output_2_0_1_ce0),
+    .we0(p_ZL9s2_output_2_0_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_d0),
+    .q0(p_ZL9s2_output_2_0_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_0_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_0_2_address0),
+    .ce0(p_ZL9s2_output_2_0_2_ce0),
+    .we0(p_ZL9s2_output_2_0_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_d0),
+    .q0(p_ZL9s2_output_2_0_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_0_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_0_3_address0),
+    .ce0(p_ZL9s2_output_2_0_3_ce0),
+    .we0(p_ZL9s2_output_2_0_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_d0),
+    .q0(p_ZL9s2_output_2_0_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_0_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_0_4_address0),
+    .ce0(p_ZL9s2_output_2_0_4_ce0),
+    .we0(p_ZL9s2_output_2_0_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_d0),
+    .q0(p_ZL9s2_output_2_0_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_1_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_1_0_address0),
+    .ce0(p_ZL9s2_output_2_1_0_ce0),
+    .we0(p_ZL9s2_output_2_1_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_d0),
+    .q0(p_ZL9s2_output_2_1_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_1_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_1_1_address0),
+    .ce0(p_ZL9s2_output_2_1_1_ce0),
+    .we0(p_ZL9s2_output_2_1_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_d0),
+    .q0(p_ZL9s2_output_2_1_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_1_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_1_2_address0),
+    .ce0(p_ZL9s2_output_2_1_2_ce0),
+    .we0(p_ZL9s2_output_2_1_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_d0),
+    .q0(p_ZL9s2_output_2_1_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_1_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_1_3_address0),
+    .ce0(p_ZL9s2_output_2_1_3_ce0),
+    .we0(p_ZL9s2_output_2_1_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_d0),
+    .q0(p_ZL9s2_output_2_1_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_1_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_1_4_address0),
+    .ce0(p_ZL9s2_output_2_1_4_ce0),
+    .we0(p_ZL9s2_output_2_1_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_d0),
+    .q0(p_ZL9s2_output_2_1_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_2_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_2_0_address0),
+    .ce0(p_ZL9s2_output_2_2_0_ce0),
+    .we0(p_ZL9s2_output_2_2_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_d0),
+    .q0(p_ZL9s2_output_2_2_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_2_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_2_1_address0),
+    .ce0(p_ZL9s2_output_2_2_1_ce0),
+    .we0(p_ZL9s2_output_2_2_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_d0),
+    .q0(p_ZL9s2_output_2_2_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_2_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_2_2_address0),
+    .ce0(p_ZL9s2_output_2_2_2_ce0),
+    .we0(p_ZL9s2_output_2_2_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_d0),
+    .q0(p_ZL9s2_output_2_2_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_2_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_2_3_address0),
+    .ce0(p_ZL9s2_output_2_2_3_ce0),
+    .we0(p_ZL9s2_output_2_2_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_d0),
+    .q0(p_ZL9s2_output_2_2_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_2_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_2_4_address0),
+    .ce0(p_ZL9s2_output_2_2_4_ce0),
+    .we0(p_ZL9s2_output_2_2_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_d0),
+    .q0(p_ZL9s2_output_2_2_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_3_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_3_0_address0),
+    .ce0(p_ZL9s2_output_2_3_0_ce0),
+    .we0(p_ZL9s2_output_2_3_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_d0),
+    .q0(p_ZL9s2_output_2_3_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_3_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_3_1_address0),
+    .ce0(p_ZL9s2_output_2_3_1_ce0),
+    .we0(p_ZL9s2_output_2_3_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_d0),
+    .q0(p_ZL9s2_output_2_3_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_3_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_3_2_address0),
+    .ce0(p_ZL9s2_output_2_3_2_ce0),
+    .we0(p_ZL9s2_output_2_3_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_d0),
+    .q0(p_ZL9s2_output_2_3_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_3_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_3_3_address0),
+    .ce0(p_ZL9s2_output_2_3_3_ce0),
+    .we0(p_ZL9s2_output_2_3_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_d0),
+    .q0(p_ZL9s2_output_2_3_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_3_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_3_4_address0),
+    .ce0(p_ZL9s2_output_2_3_4_ce0),
+    .we0(p_ZL9s2_output_2_3_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_d0),
+    .q0(p_ZL9s2_output_2_3_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_4_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_4_0_address0),
+    .ce0(p_ZL9s2_output_2_4_0_ce0),
+    .we0(p_ZL9s2_output_2_4_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_d0),
+    .q0(p_ZL9s2_output_2_4_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_4_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_4_1_address0),
+    .ce0(p_ZL9s2_output_2_4_1_ce0),
+    .we0(p_ZL9s2_output_2_4_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_d0),
+    .q0(p_ZL9s2_output_2_4_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_4_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_4_2_address0),
+    .ce0(p_ZL9s2_output_2_4_2_ce0),
+    .we0(p_ZL9s2_output_2_4_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_d0),
+    .q0(p_ZL9s2_output_2_4_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_4_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_4_3_address0),
+    .ce0(p_ZL9s2_output_2_4_3_ce0),
+    .we0(p_ZL9s2_output_2_4_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_d0),
+    .q0(p_ZL9s2_output_2_4_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_2_4_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_2_4_4_address0),
+    .ce0(p_ZL9s2_output_2_4_4_ce0),
+    .we0(p_ZL9s2_output_2_4_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_d0),
+    .q0(p_ZL9s2_output_2_4_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_0_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_0_0_address0),
+    .ce0(p_ZL9s2_output_3_0_0_ce0),
+    .we0(p_ZL9s2_output_3_0_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_d0),
+    .q0(p_ZL9s2_output_3_0_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_0_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_0_1_address0),
+    .ce0(p_ZL9s2_output_3_0_1_ce0),
+    .we0(p_ZL9s2_output_3_0_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_d0),
+    .q0(p_ZL9s2_output_3_0_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_0_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_0_2_address0),
+    .ce0(p_ZL9s2_output_3_0_2_ce0),
+    .we0(p_ZL9s2_output_3_0_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_d0),
+    .q0(p_ZL9s2_output_3_0_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_0_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_0_3_address0),
+    .ce0(p_ZL9s2_output_3_0_3_ce0),
+    .we0(p_ZL9s2_output_3_0_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_d0),
+    .q0(p_ZL9s2_output_3_0_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_0_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_0_4_address0),
+    .ce0(p_ZL9s2_output_3_0_4_ce0),
+    .we0(p_ZL9s2_output_3_0_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_d0),
+    .q0(p_ZL9s2_output_3_0_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_1_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_1_0_address0),
+    .ce0(p_ZL9s2_output_3_1_0_ce0),
+    .we0(p_ZL9s2_output_3_1_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_d0),
+    .q0(p_ZL9s2_output_3_1_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_1_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_1_1_address0),
+    .ce0(p_ZL9s2_output_3_1_1_ce0),
+    .we0(p_ZL9s2_output_3_1_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_d0),
+    .q0(p_ZL9s2_output_3_1_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_1_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_1_2_address0),
+    .ce0(p_ZL9s2_output_3_1_2_ce0),
+    .we0(p_ZL9s2_output_3_1_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_d0),
+    .q0(p_ZL9s2_output_3_1_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_1_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_1_3_address0),
+    .ce0(p_ZL9s2_output_3_1_3_ce0),
+    .we0(p_ZL9s2_output_3_1_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_d0),
+    .q0(p_ZL9s2_output_3_1_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_1_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_1_4_address0),
+    .ce0(p_ZL9s2_output_3_1_4_ce0),
+    .we0(p_ZL9s2_output_3_1_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_d0),
+    .q0(p_ZL9s2_output_3_1_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_2_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_2_0_address0),
+    .ce0(p_ZL9s2_output_3_2_0_ce0),
+    .we0(p_ZL9s2_output_3_2_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_d0),
+    .q0(p_ZL9s2_output_3_2_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_2_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_2_1_address0),
+    .ce0(p_ZL9s2_output_3_2_1_ce0),
+    .we0(p_ZL9s2_output_3_2_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_d0),
+    .q0(p_ZL9s2_output_3_2_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_2_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_2_2_address0),
+    .ce0(p_ZL9s2_output_3_2_2_ce0),
+    .we0(p_ZL9s2_output_3_2_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_d0),
+    .q0(p_ZL9s2_output_3_2_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_2_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_2_3_address0),
+    .ce0(p_ZL9s2_output_3_2_3_ce0),
+    .we0(p_ZL9s2_output_3_2_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_d0),
+    .q0(p_ZL9s2_output_3_2_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_2_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_2_4_address0),
+    .ce0(p_ZL9s2_output_3_2_4_ce0),
+    .we0(p_ZL9s2_output_3_2_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_d0),
+    .q0(p_ZL9s2_output_3_2_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_3_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_3_0_address0),
+    .ce0(p_ZL9s2_output_3_3_0_ce0),
+    .we0(p_ZL9s2_output_3_3_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_d0),
+    .q0(p_ZL9s2_output_3_3_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_3_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_3_1_address0),
+    .ce0(p_ZL9s2_output_3_3_1_ce0),
+    .we0(p_ZL9s2_output_3_3_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_d0),
+    .q0(p_ZL9s2_output_3_3_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_3_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_3_2_address0),
+    .ce0(p_ZL9s2_output_3_3_2_ce0),
+    .we0(p_ZL9s2_output_3_3_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_d0),
+    .q0(p_ZL9s2_output_3_3_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_3_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_3_3_address0),
+    .ce0(p_ZL9s2_output_3_3_3_ce0),
+    .we0(p_ZL9s2_output_3_3_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_d0),
+    .q0(p_ZL9s2_output_3_3_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_3_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_3_4_address0),
+    .ce0(p_ZL9s2_output_3_3_4_ce0),
+    .we0(p_ZL9s2_output_3_3_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_d0),
+    .q0(p_ZL9s2_output_3_3_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_4_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_4_0_address0),
+    .ce0(p_ZL9s2_output_3_4_0_ce0),
+    .we0(p_ZL9s2_output_3_4_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_d0),
+    .q0(p_ZL9s2_output_3_4_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_4_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_4_1_address0),
+    .ce0(p_ZL9s2_output_3_4_1_ce0),
+    .we0(p_ZL9s2_output_3_4_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_d0),
+    .q0(p_ZL9s2_output_3_4_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_4_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_4_2_address0),
+    .ce0(p_ZL9s2_output_3_4_2_ce0),
+    .we0(p_ZL9s2_output_3_4_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_d0),
+    .q0(p_ZL9s2_output_3_4_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_4_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_4_3_address0),
+    .ce0(p_ZL9s2_output_3_4_3_ce0),
+    .we0(p_ZL9s2_output_3_4_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_d0),
+    .q0(p_ZL9s2_output_3_4_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_3_4_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_3_4_4_address0),
+    .ce0(p_ZL9s2_output_3_4_4_ce0),
+    .we0(p_ZL9s2_output_3_4_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_d0),
+    .q0(p_ZL9s2_output_3_4_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_0_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_0_0_address0),
+    .ce0(p_ZL9s2_output_4_0_0_ce0),
+    .we0(p_ZL9s2_output_4_0_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_d0),
+    .q0(p_ZL9s2_output_4_0_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_0_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_0_1_address0),
+    .ce0(p_ZL9s2_output_4_0_1_ce0),
+    .we0(p_ZL9s2_output_4_0_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_d0),
+    .q0(p_ZL9s2_output_4_0_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_0_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_0_2_address0),
+    .ce0(p_ZL9s2_output_4_0_2_ce0),
+    .we0(p_ZL9s2_output_4_0_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_d0),
+    .q0(p_ZL9s2_output_4_0_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_0_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_0_3_address0),
+    .ce0(p_ZL9s2_output_4_0_3_ce0),
+    .we0(p_ZL9s2_output_4_0_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_d0),
+    .q0(p_ZL9s2_output_4_0_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_0_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_0_4_address0),
+    .ce0(p_ZL9s2_output_4_0_4_ce0),
+    .we0(p_ZL9s2_output_4_0_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_d0),
+    .q0(p_ZL9s2_output_4_0_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_1_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_1_0_address0),
+    .ce0(p_ZL9s2_output_4_1_0_ce0),
+    .we0(p_ZL9s2_output_4_1_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_d0),
+    .q0(p_ZL9s2_output_4_1_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_1_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_1_1_address0),
+    .ce0(p_ZL9s2_output_4_1_1_ce0),
+    .we0(p_ZL9s2_output_4_1_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_d0),
+    .q0(p_ZL9s2_output_4_1_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_1_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_1_2_address0),
+    .ce0(p_ZL9s2_output_4_1_2_ce0),
+    .we0(p_ZL9s2_output_4_1_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_d0),
+    .q0(p_ZL9s2_output_4_1_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_1_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_1_3_address0),
+    .ce0(p_ZL9s2_output_4_1_3_ce0),
+    .we0(p_ZL9s2_output_4_1_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_d0),
+    .q0(p_ZL9s2_output_4_1_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_1_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_1_4_address0),
+    .ce0(p_ZL9s2_output_4_1_4_ce0),
+    .we0(p_ZL9s2_output_4_1_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_d0),
+    .q0(p_ZL9s2_output_4_1_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_2_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_2_0_address0),
+    .ce0(p_ZL9s2_output_4_2_0_ce0),
+    .we0(p_ZL9s2_output_4_2_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_d0),
+    .q0(p_ZL9s2_output_4_2_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_2_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_2_1_address0),
+    .ce0(p_ZL9s2_output_4_2_1_ce0),
+    .we0(p_ZL9s2_output_4_2_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_d0),
+    .q0(p_ZL9s2_output_4_2_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_2_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_2_2_address0),
+    .ce0(p_ZL9s2_output_4_2_2_ce0),
+    .we0(p_ZL9s2_output_4_2_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_d0),
+    .q0(p_ZL9s2_output_4_2_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_2_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_2_3_address0),
+    .ce0(p_ZL9s2_output_4_2_3_ce0),
+    .we0(p_ZL9s2_output_4_2_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_d0),
+    .q0(p_ZL9s2_output_4_2_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_2_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_2_4_address0),
+    .ce0(p_ZL9s2_output_4_2_4_ce0),
+    .we0(p_ZL9s2_output_4_2_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_d0),
+    .q0(p_ZL9s2_output_4_2_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_3_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_3_0_address0),
+    .ce0(p_ZL9s2_output_4_3_0_ce0),
+    .we0(p_ZL9s2_output_4_3_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_d0),
+    .q0(p_ZL9s2_output_4_3_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_3_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_3_1_address0),
+    .ce0(p_ZL9s2_output_4_3_1_ce0),
+    .we0(p_ZL9s2_output_4_3_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_d0),
+    .q0(p_ZL9s2_output_4_3_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_3_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_3_2_address0),
+    .ce0(p_ZL9s2_output_4_3_2_ce0),
+    .we0(p_ZL9s2_output_4_3_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_d0),
+    .q0(p_ZL9s2_output_4_3_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_3_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_3_3_address0),
+    .ce0(p_ZL9s2_output_4_3_3_ce0),
+    .we0(p_ZL9s2_output_4_3_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_d0),
+    .q0(p_ZL9s2_output_4_3_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_3_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_3_4_address0),
+    .ce0(p_ZL9s2_output_4_3_4_ce0),
+    .we0(p_ZL9s2_output_4_3_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_d0),
+    .q0(p_ZL9s2_output_4_3_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_4_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_4_0_address0),
+    .ce0(p_ZL9s2_output_4_4_0_ce0),
+    .we0(p_ZL9s2_output_4_4_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_d0),
+    .q0(p_ZL9s2_output_4_4_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_4_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_4_1_address0),
+    .ce0(p_ZL9s2_output_4_4_1_ce0),
+    .we0(p_ZL9s2_output_4_4_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_d0),
+    .q0(p_ZL9s2_output_4_4_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_4_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_4_2_address0),
+    .ce0(p_ZL9s2_output_4_4_2_ce0),
+    .we0(p_ZL9s2_output_4_4_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_d0),
+    .q0(p_ZL9s2_output_4_4_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_4_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_4_3_address0),
+    .ce0(p_ZL9s2_output_4_4_3_ce0),
+    .we0(p_ZL9s2_output_4_4_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_d0),
+    .q0(p_ZL9s2_output_4_4_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_4_4_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_4_4_4_address0),
+    .ce0(p_ZL9s2_output_4_4_4_ce0),
+    .we0(p_ZL9s2_output_4_4_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_d0),
+    .q0(p_ZL9s2_output_4_4_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_0_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_0_0_address0),
+    .ce0(p_ZL9s2_output_5_0_0_ce0),
+    .we0(p_ZL9s2_output_5_0_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_d0),
+    .q0(p_ZL9s2_output_5_0_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_0_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_0_1_address0),
+    .ce0(p_ZL9s2_output_5_0_1_ce0),
+    .we0(p_ZL9s2_output_5_0_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_d0),
+    .q0(p_ZL9s2_output_5_0_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_0_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_0_2_address0),
+    .ce0(p_ZL9s2_output_5_0_2_ce0),
+    .we0(p_ZL9s2_output_5_0_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_d0),
+    .q0(p_ZL9s2_output_5_0_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_0_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_0_3_address0),
+    .ce0(p_ZL9s2_output_5_0_3_ce0),
+    .we0(p_ZL9s2_output_5_0_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_d0),
+    .q0(p_ZL9s2_output_5_0_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_0_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_0_4_address0),
+    .ce0(p_ZL9s2_output_5_0_4_ce0),
+    .we0(p_ZL9s2_output_5_0_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_d0),
+    .q0(p_ZL9s2_output_5_0_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_1_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_1_0_address0),
+    .ce0(p_ZL9s2_output_5_1_0_ce0),
+    .we0(p_ZL9s2_output_5_1_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_d0),
+    .q0(p_ZL9s2_output_5_1_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_1_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_1_1_address0),
+    .ce0(p_ZL9s2_output_5_1_1_ce0),
+    .we0(p_ZL9s2_output_5_1_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_d0),
+    .q0(p_ZL9s2_output_5_1_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_1_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_1_2_address0),
+    .ce0(p_ZL9s2_output_5_1_2_ce0),
+    .we0(p_ZL9s2_output_5_1_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_d0),
+    .q0(p_ZL9s2_output_5_1_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_1_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_1_3_address0),
+    .ce0(p_ZL9s2_output_5_1_3_ce0),
+    .we0(p_ZL9s2_output_5_1_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_d0),
+    .q0(p_ZL9s2_output_5_1_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_1_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_1_4_address0),
+    .ce0(p_ZL9s2_output_5_1_4_ce0),
+    .we0(p_ZL9s2_output_5_1_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_d0),
+    .q0(p_ZL9s2_output_5_1_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_2_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_2_0_address0),
+    .ce0(p_ZL9s2_output_5_2_0_ce0),
+    .we0(p_ZL9s2_output_5_2_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_d0),
+    .q0(p_ZL9s2_output_5_2_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_2_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_2_1_address0),
+    .ce0(p_ZL9s2_output_5_2_1_ce0),
+    .we0(p_ZL9s2_output_5_2_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_d0),
+    .q0(p_ZL9s2_output_5_2_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_2_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_2_2_address0),
+    .ce0(p_ZL9s2_output_5_2_2_ce0),
+    .we0(p_ZL9s2_output_5_2_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_d0),
+    .q0(p_ZL9s2_output_5_2_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_2_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_2_3_address0),
+    .ce0(p_ZL9s2_output_5_2_3_ce0),
+    .we0(p_ZL9s2_output_5_2_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_d0),
+    .q0(p_ZL9s2_output_5_2_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_2_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_2_4_address0),
+    .ce0(p_ZL9s2_output_5_2_4_ce0),
+    .we0(p_ZL9s2_output_5_2_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_d0),
+    .q0(p_ZL9s2_output_5_2_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_3_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_3_0_address0),
+    .ce0(p_ZL9s2_output_5_3_0_ce0),
+    .we0(p_ZL9s2_output_5_3_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_d0),
+    .q0(p_ZL9s2_output_5_3_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_3_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_3_1_address0),
+    .ce0(p_ZL9s2_output_5_3_1_ce0),
+    .we0(p_ZL9s2_output_5_3_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_d0),
+    .q0(p_ZL9s2_output_5_3_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_3_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_3_2_address0),
+    .ce0(p_ZL9s2_output_5_3_2_ce0),
+    .we0(p_ZL9s2_output_5_3_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_d0),
+    .q0(p_ZL9s2_output_5_3_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_3_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_3_3_address0),
+    .ce0(p_ZL9s2_output_5_3_3_ce0),
+    .we0(p_ZL9s2_output_5_3_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_d0),
+    .q0(p_ZL9s2_output_5_3_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_3_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_3_4_address0),
+    .ce0(p_ZL9s2_output_5_3_4_ce0),
+    .we0(p_ZL9s2_output_5_3_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_d0),
+    .q0(p_ZL9s2_output_5_3_4_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_4_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_4_0_address0),
+    .ce0(p_ZL9s2_output_5_4_0_ce0),
+    .we0(p_ZL9s2_output_5_4_0_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_d0),
+    .q0(p_ZL9s2_output_5_4_0_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_4_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_4_1_address0),
+    .ce0(p_ZL9s2_output_5_4_1_ce0),
+    .we0(p_ZL9s2_output_5_4_1_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_d0),
+    .q0(p_ZL9s2_output_5_4_1_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_4_2_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_4_2_address0),
+    .ce0(p_ZL9s2_output_5_4_2_ce0),
+    .we0(p_ZL9s2_output_5_4_2_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_d0),
+    .q0(p_ZL9s2_output_5_4_2_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_4_3_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_4_3_address0),
+    .ce0(p_ZL9s2_output_5_4_3_ce0),
+    .we0(p_ZL9s2_output_5_4_3_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_d0),
+    .q0(p_ZL9s2_output_5_4_3_q0)
+);
+
+lenet_hls_p_ZL9s2_output_0_0_0_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 9 ),
+    .AddressWidth( 4 ))
+p_ZL9s2_output_5_4_4_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9s2_output_5_4_4_address0),
+    .ce0(p_ZL9s2_output_5_4_4_ce0),
+    .we0(p_ZL9s2_output_5_4_4_we0),
+    .d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_d0),
+    .q0(p_ZL9s2_output_5_4_4_q0)
+);
+
+lenet_hls_p_ZL9c3_output_0_RAM_AUTO_1R1W #(
+    .DataWidth( 8 ),
+    .AddressRange( 800 ),
+    .AddressWidth( 10 ))
+p_ZL9c3_output_0_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9c3_output_0_address0),
+    .ce0(p_ZL9c3_output_0_ce0),
+    .we0(p_ZL9c3_output_0_we0),
+    .d0(grp_conv_c3_fu_2312_p_ZL9c3_output_0_d0),
+    .q0(p_ZL9c3_output_0_q0),
+    .address1(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_address1),
+    .ce1(p_ZL9c3_output_0_ce1),
+    .q1(p_ZL9c3_output_0_q1)
+);
+
+lenet_hls_p_ZL9c3_output_0_RAM_AUTO_1R1W #(
+    .DataWidth( 8 ),
+    .AddressRange( 800 ),
+    .AddressWidth( 10 ))
+p_ZL9c3_output_1_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(p_ZL9c3_output_1_address0),
+    .ce0(p_ZL9c3_output_1_ce0),
+    .we0(p_ZL9c3_output_1_we0),
+    .d0(grp_conv_c3_fu_2312_p_ZL9c3_output_1_d0),
+    .q0(p_ZL9c3_output_1_q0),
+    .address1(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_address1),
+    .ce1(p_ZL9c3_output_1_ce1),
+    .q1(p_ZL9c3_output_1_q1)
+);
+
+lenet_hls_s4_output_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 400 ),
+    .AddressWidth( 9 ))
+s4_output_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(s4_output_address0),
+    .ce0(s4_output_ce0),
+    .we0(s4_output_we0),
+    .d0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_d0),
+    .q0(s4_output_q0)
+);
+
+lenet_hls_flatten_output_RAM_AUTO_1R1W #(
+    .DataWidth( 6 ),
+    .AddressRange( 400 ),
+    .AddressWidth( 9 ))
+flatten_output_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(flatten_output_address0),
+    .ce0(flatten_output_ce0),
+    .we0(flatten_output_we0),
+    .d0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_d0),
+    .q0(flatten_output_q0),
+    .address1(grp_fc_f5_fu_2938_flatten_output_address1),
+    .ce1(flatten_output_ce1),
+    .q1(flatten_output_q1)
+);
+
+lenet_hls_f5_output_RAM_AUTO_1R1W #(
+    .DataWidth( 8 ),
+    .AddressRange( 120 ),
+    .AddressWidth( 7 ))
+f5_output_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(f5_output_address0),
+    .ce0(f5_output_ce0),
+    .we0(f5_output_we0),
+    .d0(grp_fc_f5_fu_2938_f5_output_d0),
+    .q0(f5_output_q0),
+    .address1(grp_fc_f6_fu_3746_f5_output_address1),
+    .ce1(f5_output_ce1),
+    .q1(f5_output_q1)
+);
+
+lenet_hls_f6_output_RAM_AUTO_1R1W #(
+    .DataWidth( 8 ),
+    .AddressRange( 84 ),
+    .AddressWidth( 7 ))
+f6_output_U(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .address0(f6_output_address0),
+    .ce0(f6_output_ce0),
+    .we0(f6_output_we0),
+    .d0(grp_fc_f6_fu_3746_f6_output_d0),
+    .q0(f6_output_q0),
+    .address1(grp_fc_output_fu_3994_f6_output_address1),
+    .ce1(f6_output_ce1),
+    .q1(f6_output_q1)
+);
+
+lenet_hls_conv_c1 grp_conv_c1_fu_1944(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready),
-    .max_val(max_val_reg_112),
-    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0),
+    .ap_start(grp_conv_c1_fu_1944_ap_start),
+    .ap_done(grp_conv_c1_fu_1944_ap_done),
+    .ap_idle(grp_conv_c1_fu_1944_ap_idle),
+    .ap_ready(grp_conv_c1_fu_1944_ap_ready),
+    .input_r_address0(grp_conv_c1_fu_1944_input_r_address0),
+    .input_r_ce0(grp_conv_c1_fu_1944_input_r_ce0),
+    .input_r_q0(input_r_q0),
+    .input_r_address1(grp_conv_c1_fu_1944_input_r_address1),
+    .input_r_ce1(grp_conv_c1_fu_1944_input_r_ce1),
+    .input_r_q1(input_r_q1),
+    .p_ZL9c1_output_0_address0(grp_conv_c1_fu_1944_p_ZL9c1_output_0_address0),
+    .p_ZL9c1_output_0_ce0(grp_conv_c1_fu_1944_p_ZL9c1_output_0_ce0),
+    .p_ZL9c1_output_0_we0(grp_conv_c1_fu_1944_p_ZL9c1_output_0_we0),
+    .p_ZL9c1_output_0_d0(grp_conv_c1_fu_1944_p_ZL9c1_output_0_d0),
+    .p_ZL9c1_output_1_address0(grp_conv_c1_fu_1944_p_ZL9c1_output_1_address0),
+    .p_ZL9c1_output_1_ce0(grp_conv_c1_fu_1944_p_ZL9c1_output_1_ce0),
+    .p_ZL9c1_output_1_we0(grp_conv_c1_fu_1944_p_ZL9c1_output_1_we0),
+    .p_ZL9c1_output_1_d0(grp_conv_c1_fu_1944_p_ZL9c1_output_1_d0),
+    .grp_fu_4231_p_din0(grp_conv_c1_fu_1944_grp_fu_4231_p_din0),
+    .grp_fu_4231_p_dout0(grp_fu_4231_p1),
+    .grp_fu_4231_p_ce(grp_conv_c1_fu_1944_grp_fu_4231_p_ce)
+);
+
+lenet_hls_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_ready),
+    .p_ZL9s2_output_0_0_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_address0),
+    .p_ZL9s2_output_0_0_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_ce0),
+    .p_ZL9s2_output_0_0_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_we0),
+    .p_ZL9s2_output_0_0_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_d0),
+    .p_ZL9c1_output_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_address0),
+    .p_ZL9c1_output_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_ce0),
+    .p_ZL9c1_output_0_q0(p_ZL9c1_output_0_q0),
+    .p_ZL9c1_output_0_address1(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_address1),
+    .p_ZL9c1_output_0_ce1(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_ce1),
+    .p_ZL9c1_output_0_q1(p_ZL9c1_output_0_q1),
+    .p_ZL9c1_output_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_address0),
+    .p_ZL9c1_output_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_ce0),
+    .p_ZL9c1_output_1_q0(p_ZL9c1_output_1_q0),
+    .p_ZL9c1_output_1_address1(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_address1),
+    .p_ZL9c1_output_1_ce1(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_ce1),
+    .p_ZL9c1_output_1_q1(p_ZL9c1_output_1_q1),
+    .p_ZL9s2_output_0_0_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_address0),
+    .p_ZL9s2_output_0_0_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_ce0),
+    .p_ZL9s2_output_0_0_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_we0),
+    .p_ZL9s2_output_0_0_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_d0),
+    .p_ZL9s2_output_0_0_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_address0),
+    .p_ZL9s2_output_0_0_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_ce0),
+    .p_ZL9s2_output_0_0_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_we0),
+    .p_ZL9s2_output_0_0_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_d0),
+    .p_ZL9s2_output_0_0_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_address0),
+    .p_ZL9s2_output_0_0_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_ce0),
+    .p_ZL9s2_output_0_0_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_we0),
+    .p_ZL9s2_output_0_0_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_d0),
+    .p_ZL9s2_output_0_0_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_address0),
+    .p_ZL9s2_output_0_0_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_ce0),
+    .p_ZL9s2_output_0_0_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_we0),
+    .p_ZL9s2_output_0_0_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_d0),
+    .p_ZL9s2_output_0_1_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_address0),
+    .p_ZL9s2_output_0_1_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_ce0),
+    .p_ZL9s2_output_0_1_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_we0),
+    .p_ZL9s2_output_0_1_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_d0),
+    .p_ZL9s2_output_0_1_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_address0),
+    .p_ZL9s2_output_0_1_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_ce0),
+    .p_ZL9s2_output_0_1_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_we0),
+    .p_ZL9s2_output_0_1_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_d0),
+    .p_ZL9s2_output_0_1_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_address0),
+    .p_ZL9s2_output_0_1_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_ce0),
+    .p_ZL9s2_output_0_1_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_we0),
+    .p_ZL9s2_output_0_1_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_d0),
+    .p_ZL9s2_output_0_1_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_address0),
+    .p_ZL9s2_output_0_1_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_ce0),
+    .p_ZL9s2_output_0_1_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_we0),
+    .p_ZL9s2_output_0_1_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_d0),
+    .p_ZL9s2_output_0_1_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_address0),
+    .p_ZL9s2_output_0_1_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_ce0),
+    .p_ZL9s2_output_0_1_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_we0),
+    .p_ZL9s2_output_0_1_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_d0),
+    .p_ZL9s2_output_0_2_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_address0),
+    .p_ZL9s2_output_0_2_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_ce0),
+    .p_ZL9s2_output_0_2_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_we0),
+    .p_ZL9s2_output_0_2_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_d0),
+    .p_ZL9s2_output_0_2_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_address0),
+    .p_ZL9s2_output_0_2_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_ce0),
+    .p_ZL9s2_output_0_2_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_we0),
+    .p_ZL9s2_output_0_2_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_d0),
+    .p_ZL9s2_output_0_2_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_address0),
+    .p_ZL9s2_output_0_2_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_ce0),
+    .p_ZL9s2_output_0_2_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_we0),
+    .p_ZL9s2_output_0_2_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_d0),
+    .p_ZL9s2_output_0_2_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_address0),
+    .p_ZL9s2_output_0_2_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_ce0),
+    .p_ZL9s2_output_0_2_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_we0),
+    .p_ZL9s2_output_0_2_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_d0),
+    .p_ZL9s2_output_0_2_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_address0),
+    .p_ZL9s2_output_0_2_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_ce0),
+    .p_ZL9s2_output_0_2_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_we0),
+    .p_ZL9s2_output_0_2_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_d0),
+    .p_ZL9s2_output_0_3_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_address0),
+    .p_ZL9s2_output_0_3_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_ce0),
+    .p_ZL9s2_output_0_3_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_we0),
+    .p_ZL9s2_output_0_3_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_d0),
+    .p_ZL9s2_output_0_3_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_address0),
+    .p_ZL9s2_output_0_3_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_ce0),
+    .p_ZL9s2_output_0_3_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_we0),
+    .p_ZL9s2_output_0_3_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_d0),
+    .p_ZL9s2_output_0_3_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_address0),
+    .p_ZL9s2_output_0_3_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_ce0),
+    .p_ZL9s2_output_0_3_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_we0),
+    .p_ZL9s2_output_0_3_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_d0),
+    .p_ZL9s2_output_0_3_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_address0),
+    .p_ZL9s2_output_0_3_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_ce0),
+    .p_ZL9s2_output_0_3_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_we0),
+    .p_ZL9s2_output_0_3_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_d0),
+    .p_ZL9s2_output_0_3_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_address0),
+    .p_ZL9s2_output_0_3_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_ce0),
+    .p_ZL9s2_output_0_3_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_we0),
+    .p_ZL9s2_output_0_3_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_d0),
+    .p_ZL9s2_output_0_4_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_address0),
+    .p_ZL9s2_output_0_4_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_ce0),
+    .p_ZL9s2_output_0_4_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_we0),
+    .p_ZL9s2_output_0_4_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_d0),
+    .p_ZL9s2_output_0_4_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_address0),
+    .p_ZL9s2_output_0_4_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_ce0),
+    .p_ZL9s2_output_0_4_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_we0),
+    .p_ZL9s2_output_0_4_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_d0),
+    .p_ZL9s2_output_0_4_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_address0),
+    .p_ZL9s2_output_0_4_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_ce0),
+    .p_ZL9s2_output_0_4_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_we0),
+    .p_ZL9s2_output_0_4_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_d0),
+    .p_ZL9s2_output_0_4_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_address0),
+    .p_ZL9s2_output_0_4_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_ce0),
+    .p_ZL9s2_output_0_4_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_we0),
+    .p_ZL9s2_output_0_4_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_d0),
+    .p_ZL9s2_output_0_4_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_address0),
+    .p_ZL9s2_output_0_4_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_ce0),
+    .p_ZL9s2_output_0_4_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_we0),
+    .p_ZL9s2_output_0_4_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_d0),
+    .p_ZL9s2_output_1_0_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_address0),
+    .p_ZL9s2_output_1_0_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_ce0),
+    .p_ZL9s2_output_1_0_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_we0),
+    .p_ZL9s2_output_1_0_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_d0),
+    .p_ZL9s2_output_1_0_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_address0),
+    .p_ZL9s2_output_1_0_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_ce0),
+    .p_ZL9s2_output_1_0_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_we0),
+    .p_ZL9s2_output_1_0_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_d0),
+    .p_ZL9s2_output_1_0_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_address0),
+    .p_ZL9s2_output_1_0_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_ce0),
+    .p_ZL9s2_output_1_0_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_we0),
+    .p_ZL9s2_output_1_0_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_d0),
+    .p_ZL9s2_output_1_0_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_address0),
+    .p_ZL9s2_output_1_0_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_ce0),
+    .p_ZL9s2_output_1_0_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_we0),
+    .p_ZL9s2_output_1_0_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_d0),
+    .p_ZL9s2_output_1_0_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_address0),
+    .p_ZL9s2_output_1_0_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_ce0),
+    .p_ZL9s2_output_1_0_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_we0),
+    .p_ZL9s2_output_1_0_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_d0),
+    .p_ZL9s2_output_1_1_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_address0),
+    .p_ZL9s2_output_1_1_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_ce0),
+    .p_ZL9s2_output_1_1_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_we0),
+    .p_ZL9s2_output_1_1_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_d0),
+    .p_ZL9s2_output_1_1_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_address0),
+    .p_ZL9s2_output_1_1_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_ce0),
+    .p_ZL9s2_output_1_1_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_we0),
+    .p_ZL9s2_output_1_1_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_d0),
+    .p_ZL9s2_output_1_1_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_address0),
+    .p_ZL9s2_output_1_1_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_ce0),
+    .p_ZL9s2_output_1_1_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_we0),
+    .p_ZL9s2_output_1_1_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_d0),
+    .p_ZL9s2_output_1_1_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_address0),
+    .p_ZL9s2_output_1_1_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_ce0),
+    .p_ZL9s2_output_1_1_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_we0),
+    .p_ZL9s2_output_1_1_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_d0),
+    .p_ZL9s2_output_1_1_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_address0),
+    .p_ZL9s2_output_1_1_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_ce0),
+    .p_ZL9s2_output_1_1_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_we0),
+    .p_ZL9s2_output_1_1_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_d0),
+    .p_ZL9s2_output_1_2_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_address0),
+    .p_ZL9s2_output_1_2_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_ce0),
+    .p_ZL9s2_output_1_2_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_we0),
+    .p_ZL9s2_output_1_2_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_d0),
+    .p_ZL9s2_output_1_2_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_address0),
+    .p_ZL9s2_output_1_2_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_ce0),
+    .p_ZL9s2_output_1_2_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_we0),
+    .p_ZL9s2_output_1_2_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_d0),
+    .p_ZL9s2_output_1_2_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_address0),
+    .p_ZL9s2_output_1_2_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_ce0),
+    .p_ZL9s2_output_1_2_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_we0),
+    .p_ZL9s2_output_1_2_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_d0),
+    .p_ZL9s2_output_1_2_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_address0),
+    .p_ZL9s2_output_1_2_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_ce0),
+    .p_ZL9s2_output_1_2_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_we0),
+    .p_ZL9s2_output_1_2_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_d0),
+    .p_ZL9s2_output_1_2_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_address0),
+    .p_ZL9s2_output_1_2_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_ce0),
+    .p_ZL9s2_output_1_2_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_we0),
+    .p_ZL9s2_output_1_2_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_d0),
+    .p_ZL9s2_output_1_3_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_address0),
+    .p_ZL9s2_output_1_3_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_ce0),
+    .p_ZL9s2_output_1_3_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_we0),
+    .p_ZL9s2_output_1_3_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_d0),
+    .p_ZL9s2_output_1_3_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_address0),
+    .p_ZL9s2_output_1_3_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_ce0),
+    .p_ZL9s2_output_1_3_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_we0),
+    .p_ZL9s2_output_1_3_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_d0),
+    .p_ZL9s2_output_1_3_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_address0),
+    .p_ZL9s2_output_1_3_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_ce0),
+    .p_ZL9s2_output_1_3_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_we0),
+    .p_ZL9s2_output_1_3_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_d0),
+    .p_ZL9s2_output_1_3_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_address0),
+    .p_ZL9s2_output_1_3_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_ce0),
+    .p_ZL9s2_output_1_3_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_we0),
+    .p_ZL9s2_output_1_3_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_d0),
+    .p_ZL9s2_output_1_3_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_address0),
+    .p_ZL9s2_output_1_3_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_ce0),
+    .p_ZL9s2_output_1_3_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_we0),
+    .p_ZL9s2_output_1_3_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_d0),
+    .p_ZL9s2_output_1_4_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_address0),
+    .p_ZL9s2_output_1_4_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_ce0),
+    .p_ZL9s2_output_1_4_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_we0),
+    .p_ZL9s2_output_1_4_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_d0),
+    .p_ZL9s2_output_1_4_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_address0),
+    .p_ZL9s2_output_1_4_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_ce0),
+    .p_ZL9s2_output_1_4_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_we0),
+    .p_ZL9s2_output_1_4_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_d0),
+    .p_ZL9s2_output_1_4_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_address0),
+    .p_ZL9s2_output_1_4_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_ce0),
+    .p_ZL9s2_output_1_4_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_we0),
+    .p_ZL9s2_output_1_4_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_d0),
+    .p_ZL9s2_output_1_4_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_address0),
+    .p_ZL9s2_output_1_4_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_ce0),
+    .p_ZL9s2_output_1_4_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_we0),
+    .p_ZL9s2_output_1_4_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_d0),
+    .p_ZL9s2_output_1_4_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_address0),
+    .p_ZL9s2_output_1_4_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_ce0),
+    .p_ZL9s2_output_1_4_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_we0),
+    .p_ZL9s2_output_1_4_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_d0),
+    .p_ZL9s2_output_2_0_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_address0),
+    .p_ZL9s2_output_2_0_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_ce0),
+    .p_ZL9s2_output_2_0_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_we0),
+    .p_ZL9s2_output_2_0_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_d0),
+    .p_ZL9s2_output_2_0_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_address0),
+    .p_ZL9s2_output_2_0_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_ce0),
+    .p_ZL9s2_output_2_0_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_we0),
+    .p_ZL9s2_output_2_0_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_d0),
+    .p_ZL9s2_output_2_0_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_address0),
+    .p_ZL9s2_output_2_0_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_ce0),
+    .p_ZL9s2_output_2_0_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_we0),
+    .p_ZL9s2_output_2_0_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_d0),
+    .p_ZL9s2_output_2_0_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_address0),
+    .p_ZL9s2_output_2_0_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_ce0),
+    .p_ZL9s2_output_2_0_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_we0),
+    .p_ZL9s2_output_2_0_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_d0),
+    .p_ZL9s2_output_2_0_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_address0),
+    .p_ZL9s2_output_2_0_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_ce0),
+    .p_ZL9s2_output_2_0_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_we0),
+    .p_ZL9s2_output_2_0_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_d0),
+    .p_ZL9s2_output_2_1_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_address0),
+    .p_ZL9s2_output_2_1_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_ce0),
+    .p_ZL9s2_output_2_1_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_we0),
+    .p_ZL9s2_output_2_1_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_d0),
+    .p_ZL9s2_output_2_1_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_address0),
+    .p_ZL9s2_output_2_1_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_ce0),
+    .p_ZL9s2_output_2_1_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_we0),
+    .p_ZL9s2_output_2_1_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_d0),
+    .p_ZL9s2_output_2_1_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_address0),
+    .p_ZL9s2_output_2_1_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_ce0),
+    .p_ZL9s2_output_2_1_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_we0),
+    .p_ZL9s2_output_2_1_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_d0),
+    .p_ZL9s2_output_2_1_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_address0),
+    .p_ZL9s2_output_2_1_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_ce0),
+    .p_ZL9s2_output_2_1_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_we0),
+    .p_ZL9s2_output_2_1_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_d0),
+    .p_ZL9s2_output_2_1_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_address0),
+    .p_ZL9s2_output_2_1_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_ce0),
+    .p_ZL9s2_output_2_1_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_we0),
+    .p_ZL9s2_output_2_1_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_d0),
+    .p_ZL9s2_output_2_2_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_address0),
+    .p_ZL9s2_output_2_2_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_ce0),
+    .p_ZL9s2_output_2_2_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_we0),
+    .p_ZL9s2_output_2_2_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_d0),
+    .p_ZL9s2_output_2_2_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_address0),
+    .p_ZL9s2_output_2_2_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_ce0),
+    .p_ZL9s2_output_2_2_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_we0),
+    .p_ZL9s2_output_2_2_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_d0),
+    .p_ZL9s2_output_2_2_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_address0),
+    .p_ZL9s2_output_2_2_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_ce0),
+    .p_ZL9s2_output_2_2_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_we0),
+    .p_ZL9s2_output_2_2_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_d0),
+    .p_ZL9s2_output_2_2_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_address0),
+    .p_ZL9s2_output_2_2_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_ce0),
+    .p_ZL9s2_output_2_2_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_we0),
+    .p_ZL9s2_output_2_2_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_d0),
+    .p_ZL9s2_output_2_2_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_address0),
+    .p_ZL9s2_output_2_2_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_ce0),
+    .p_ZL9s2_output_2_2_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_we0),
+    .p_ZL9s2_output_2_2_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_d0),
+    .p_ZL9s2_output_2_3_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_address0),
+    .p_ZL9s2_output_2_3_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_ce0),
+    .p_ZL9s2_output_2_3_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_we0),
+    .p_ZL9s2_output_2_3_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_d0),
+    .p_ZL9s2_output_2_3_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_address0),
+    .p_ZL9s2_output_2_3_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_ce0),
+    .p_ZL9s2_output_2_3_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_we0),
+    .p_ZL9s2_output_2_3_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_d0),
+    .p_ZL9s2_output_2_3_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_address0),
+    .p_ZL9s2_output_2_3_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_ce0),
+    .p_ZL9s2_output_2_3_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_we0),
+    .p_ZL9s2_output_2_3_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_d0),
+    .p_ZL9s2_output_2_3_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_address0),
+    .p_ZL9s2_output_2_3_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_ce0),
+    .p_ZL9s2_output_2_3_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_we0),
+    .p_ZL9s2_output_2_3_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_d0),
+    .p_ZL9s2_output_2_3_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_address0),
+    .p_ZL9s2_output_2_3_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_ce0),
+    .p_ZL9s2_output_2_3_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_we0),
+    .p_ZL9s2_output_2_3_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_d0),
+    .p_ZL9s2_output_2_4_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_address0),
+    .p_ZL9s2_output_2_4_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_ce0),
+    .p_ZL9s2_output_2_4_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_we0),
+    .p_ZL9s2_output_2_4_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_d0),
+    .p_ZL9s2_output_2_4_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_address0),
+    .p_ZL9s2_output_2_4_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_ce0),
+    .p_ZL9s2_output_2_4_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_we0),
+    .p_ZL9s2_output_2_4_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_d0),
+    .p_ZL9s2_output_2_4_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_address0),
+    .p_ZL9s2_output_2_4_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_ce0),
+    .p_ZL9s2_output_2_4_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_we0),
+    .p_ZL9s2_output_2_4_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_d0),
+    .p_ZL9s2_output_2_4_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_address0),
+    .p_ZL9s2_output_2_4_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_ce0),
+    .p_ZL9s2_output_2_4_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_we0),
+    .p_ZL9s2_output_2_4_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_d0),
+    .p_ZL9s2_output_2_4_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_address0),
+    .p_ZL9s2_output_2_4_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_ce0),
+    .p_ZL9s2_output_2_4_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_we0),
+    .p_ZL9s2_output_2_4_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_d0),
+    .p_ZL9s2_output_3_0_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_address0),
+    .p_ZL9s2_output_3_0_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_ce0),
+    .p_ZL9s2_output_3_0_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_we0),
+    .p_ZL9s2_output_3_0_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_d0),
+    .p_ZL9s2_output_3_0_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_address0),
+    .p_ZL9s2_output_3_0_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_ce0),
+    .p_ZL9s2_output_3_0_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_we0),
+    .p_ZL9s2_output_3_0_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_d0),
+    .p_ZL9s2_output_3_0_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_address0),
+    .p_ZL9s2_output_3_0_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_ce0),
+    .p_ZL9s2_output_3_0_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_we0),
+    .p_ZL9s2_output_3_0_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_d0),
+    .p_ZL9s2_output_3_0_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_address0),
+    .p_ZL9s2_output_3_0_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_ce0),
+    .p_ZL9s2_output_3_0_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_we0),
+    .p_ZL9s2_output_3_0_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_d0),
+    .p_ZL9s2_output_3_0_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_address0),
+    .p_ZL9s2_output_3_0_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_ce0),
+    .p_ZL9s2_output_3_0_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_we0),
+    .p_ZL9s2_output_3_0_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_d0),
+    .p_ZL9s2_output_3_1_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_address0),
+    .p_ZL9s2_output_3_1_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_ce0),
+    .p_ZL9s2_output_3_1_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_we0),
+    .p_ZL9s2_output_3_1_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_d0),
+    .p_ZL9s2_output_3_1_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_address0),
+    .p_ZL9s2_output_3_1_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_ce0),
+    .p_ZL9s2_output_3_1_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_we0),
+    .p_ZL9s2_output_3_1_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_d0),
+    .p_ZL9s2_output_3_1_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_address0),
+    .p_ZL9s2_output_3_1_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_ce0),
+    .p_ZL9s2_output_3_1_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_we0),
+    .p_ZL9s2_output_3_1_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_d0),
+    .p_ZL9s2_output_3_1_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_address0),
+    .p_ZL9s2_output_3_1_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_ce0),
+    .p_ZL9s2_output_3_1_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_we0),
+    .p_ZL9s2_output_3_1_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_d0),
+    .p_ZL9s2_output_3_1_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_address0),
+    .p_ZL9s2_output_3_1_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_ce0),
+    .p_ZL9s2_output_3_1_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_we0),
+    .p_ZL9s2_output_3_1_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_d0),
+    .p_ZL9s2_output_3_2_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_address0),
+    .p_ZL9s2_output_3_2_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_ce0),
+    .p_ZL9s2_output_3_2_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_we0),
+    .p_ZL9s2_output_3_2_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_d0),
+    .p_ZL9s2_output_3_2_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_address0),
+    .p_ZL9s2_output_3_2_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_ce0),
+    .p_ZL9s2_output_3_2_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_we0),
+    .p_ZL9s2_output_3_2_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_d0),
+    .p_ZL9s2_output_3_2_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_address0),
+    .p_ZL9s2_output_3_2_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_ce0),
+    .p_ZL9s2_output_3_2_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_we0),
+    .p_ZL9s2_output_3_2_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_d0),
+    .p_ZL9s2_output_3_2_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_address0),
+    .p_ZL9s2_output_3_2_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_ce0),
+    .p_ZL9s2_output_3_2_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_we0),
+    .p_ZL9s2_output_3_2_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_d0),
+    .p_ZL9s2_output_3_2_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_address0),
+    .p_ZL9s2_output_3_2_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_ce0),
+    .p_ZL9s2_output_3_2_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_we0),
+    .p_ZL9s2_output_3_2_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_d0),
+    .p_ZL9s2_output_3_3_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_address0),
+    .p_ZL9s2_output_3_3_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_ce0),
+    .p_ZL9s2_output_3_3_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_we0),
+    .p_ZL9s2_output_3_3_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_d0),
+    .p_ZL9s2_output_3_3_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_address0),
+    .p_ZL9s2_output_3_3_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_ce0),
+    .p_ZL9s2_output_3_3_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_we0),
+    .p_ZL9s2_output_3_3_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_d0),
+    .p_ZL9s2_output_3_3_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_address0),
+    .p_ZL9s2_output_3_3_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_ce0),
+    .p_ZL9s2_output_3_3_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_we0),
+    .p_ZL9s2_output_3_3_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_d0),
+    .p_ZL9s2_output_3_3_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_address0),
+    .p_ZL9s2_output_3_3_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_ce0),
+    .p_ZL9s2_output_3_3_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_we0),
+    .p_ZL9s2_output_3_3_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_d0),
+    .p_ZL9s2_output_3_3_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_address0),
+    .p_ZL9s2_output_3_3_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_ce0),
+    .p_ZL9s2_output_3_3_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_we0),
+    .p_ZL9s2_output_3_3_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_d0),
+    .p_ZL9s2_output_3_4_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_address0),
+    .p_ZL9s2_output_3_4_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_ce0),
+    .p_ZL9s2_output_3_4_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_we0),
+    .p_ZL9s2_output_3_4_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_d0),
+    .p_ZL9s2_output_3_4_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_address0),
+    .p_ZL9s2_output_3_4_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_ce0),
+    .p_ZL9s2_output_3_4_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_we0),
+    .p_ZL9s2_output_3_4_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_d0),
+    .p_ZL9s2_output_3_4_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_address0),
+    .p_ZL9s2_output_3_4_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_ce0),
+    .p_ZL9s2_output_3_4_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_we0),
+    .p_ZL9s2_output_3_4_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_d0),
+    .p_ZL9s2_output_3_4_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_address0),
+    .p_ZL9s2_output_3_4_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_ce0),
+    .p_ZL9s2_output_3_4_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_we0),
+    .p_ZL9s2_output_3_4_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_d0),
+    .p_ZL9s2_output_3_4_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_address0),
+    .p_ZL9s2_output_3_4_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_ce0),
+    .p_ZL9s2_output_3_4_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_we0),
+    .p_ZL9s2_output_3_4_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_d0),
+    .p_ZL9s2_output_4_0_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_address0),
+    .p_ZL9s2_output_4_0_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_ce0),
+    .p_ZL9s2_output_4_0_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_we0),
+    .p_ZL9s2_output_4_0_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_d0),
+    .p_ZL9s2_output_4_0_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_address0),
+    .p_ZL9s2_output_4_0_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_ce0),
+    .p_ZL9s2_output_4_0_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_we0),
+    .p_ZL9s2_output_4_0_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_d0),
+    .p_ZL9s2_output_4_0_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_address0),
+    .p_ZL9s2_output_4_0_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_ce0),
+    .p_ZL9s2_output_4_0_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_we0),
+    .p_ZL9s2_output_4_0_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_d0),
+    .p_ZL9s2_output_4_0_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_address0),
+    .p_ZL9s2_output_4_0_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_ce0),
+    .p_ZL9s2_output_4_0_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_we0),
+    .p_ZL9s2_output_4_0_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_d0),
+    .p_ZL9s2_output_4_0_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_address0),
+    .p_ZL9s2_output_4_0_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_ce0),
+    .p_ZL9s2_output_4_0_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_we0),
+    .p_ZL9s2_output_4_0_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_d0),
+    .p_ZL9s2_output_4_1_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_address0),
+    .p_ZL9s2_output_4_1_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_ce0),
+    .p_ZL9s2_output_4_1_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_we0),
+    .p_ZL9s2_output_4_1_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_d0),
+    .p_ZL9s2_output_4_1_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_address0),
+    .p_ZL9s2_output_4_1_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_ce0),
+    .p_ZL9s2_output_4_1_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_we0),
+    .p_ZL9s2_output_4_1_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_d0),
+    .p_ZL9s2_output_4_1_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_address0),
+    .p_ZL9s2_output_4_1_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_ce0),
+    .p_ZL9s2_output_4_1_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_we0),
+    .p_ZL9s2_output_4_1_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_d0),
+    .p_ZL9s2_output_4_1_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_address0),
+    .p_ZL9s2_output_4_1_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_ce0),
+    .p_ZL9s2_output_4_1_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_we0),
+    .p_ZL9s2_output_4_1_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_d0),
+    .p_ZL9s2_output_4_1_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_address0),
+    .p_ZL9s2_output_4_1_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_ce0),
+    .p_ZL9s2_output_4_1_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_we0),
+    .p_ZL9s2_output_4_1_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_d0),
+    .p_ZL9s2_output_4_2_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_address0),
+    .p_ZL9s2_output_4_2_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_ce0),
+    .p_ZL9s2_output_4_2_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_we0),
+    .p_ZL9s2_output_4_2_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_d0),
+    .p_ZL9s2_output_4_2_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_address0),
+    .p_ZL9s2_output_4_2_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_ce0),
+    .p_ZL9s2_output_4_2_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_we0),
+    .p_ZL9s2_output_4_2_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_d0),
+    .p_ZL9s2_output_4_2_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_address0),
+    .p_ZL9s2_output_4_2_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_ce0),
+    .p_ZL9s2_output_4_2_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_we0),
+    .p_ZL9s2_output_4_2_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_d0),
+    .p_ZL9s2_output_4_2_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_address0),
+    .p_ZL9s2_output_4_2_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_ce0),
+    .p_ZL9s2_output_4_2_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_we0),
+    .p_ZL9s2_output_4_2_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_d0),
+    .p_ZL9s2_output_4_2_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_address0),
+    .p_ZL9s2_output_4_2_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_ce0),
+    .p_ZL9s2_output_4_2_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_we0),
+    .p_ZL9s2_output_4_2_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_d0),
+    .p_ZL9s2_output_4_3_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_address0),
+    .p_ZL9s2_output_4_3_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_ce0),
+    .p_ZL9s2_output_4_3_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_we0),
+    .p_ZL9s2_output_4_3_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_d0),
+    .p_ZL9s2_output_4_3_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_address0),
+    .p_ZL9s2_output_4_3_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_ce0),
+    .p_ZL9s2_output_4_3_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_we0),
+    .p_ZL9s2_output_4_3_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_d0),
+    .p_ZL9s2_output_4_3_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_address0),
+    .p_ZL9s2_output_4_3_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_ce0),
+    .p_ZL9s2_output_4_3_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_we0),
+    .p_ZL9s2_output_4_3_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_d0),
+    .p_ZL9s2_output_4_3_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_address0),
+    .p_ZL9s2_output_4_3_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_ce0),
+    .p_ZL9s2_output_4_3_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_we0),
+    .p_ZL9s2_output_4_3_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_d0),
+    .p_ZL9s2_output_4_3_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_address0),
+    .p_ZL9s2_output_4_3_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_ce0),
+    .p_ZL9s2_output_4_3_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_we0),
+    .p_ZL9s2_output_4_3_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_d0),
+    .p_ZL9s2_output_4_4_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_address0),
+    .p_ZL9s2_output_4_4_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_ce0),
+    .p_ZL9s2_output_4_4_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_we0),
+    .p_ZL9s2_output_4_4_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_d0),
+    .p_ZL9s2_output_4_4_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_address0),
+    .p_ZL9s2_output_4_4_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_ce0),
+    .p_ZL9s2_output_4_4_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_we0),
+    .p_ZL9s2_output_4_4_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_d0),
+    .p_ZL9s2_output_4_4_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_address0),
+    .p_ZL9s2_output_4_4_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_ce0),
+    .p_ZL9s2_output_4_4_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_we0),
+    .p_ZL9s2_output_4_4_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_d0),
+    .p_ZL9s2_output_4_4_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_address0),
+    .p_ZL9s2_output_4_4_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_ce0),
+    .p_ZL9s2_output_4_4_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_we0),
+    .p_ZL9s2_output_4_4_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_d0),
+    .p_ZL9s2_output_4_4_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_address0),
+    .p_ZL9s2_output_4_4_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_ce0),
+    .p_ZL9s2_output_4_4_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_we0),
+    .p_ZL9s2_output_4_4_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_d0),
+    .p_ZL9s2_output_5_0_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_address0),
+    .p_ZL9s2_output_5_0_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_ce0),
+    .p_ZL9s2_output_5_0_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_we0),
+    .p_ZL9s2_output_5_0_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_d0),
+    .p_ZL9s2_output_5_0_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_address0),
+    .p_ZL9s2_output_5_0_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_ce0),
+    .p_ZL9s2_output_5_0_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_we0),
+    .p_ZL9s2_output_5_0_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_d0),
+    .p_ZL9s2_output_5_0_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_address0),
+    .p_ZL9s2_output_5_0_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_ce0),
+    .p_ZL9s2_output_5_0_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_we0),
+    .p_ZL9s2_output_5_0_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_d0),
+    .p_ZL9s2_output_5_0_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_address0),
+    .p_ZL9s2_output_5_0_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_ce0),
+    .p_ZL9s2_output_5_0_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_we0),
+    .p_ZL9s2_output_5_0_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_d0),
+    .p_ZL9s2_output_5_0_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_address0),
+    .p_ZL9s2_output_5_0_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_ce0),
+    .p_ZL9s2_output_5_0_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_we0),
+    .p_ZL9s2_output_5_0_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_d0),
+    .p_ZL9s2_output_5_1_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_address0),
+    .p_ZL9s2_output_5_1_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_ce0),
+    .p_ZL9s2_output_5_1_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_we0),
+    .p_ZL9s2_output_5_1_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_d0),
+    .p_ZL9s2_output_5_1_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_address0),
+    .p_ZL9s2_output_5_1_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_ce0),
+    .p_ZL9s2_output_5_1_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_we0),
+    .p_ZL9s2_output_5_1_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_d0),
+    .p_ZL9s2_output_5_1_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_address0),
+    .p_ZL9s2_output_5_1_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_ce0),
+    .p_ZL9s2_output_5_1_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_we0),
+    .p_ZL9s2_output_5_1_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_d0),
+    .p_ZL9s2_output_5_1_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_address0),
+    .p_ZL9s2_output_5_1_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_ce0),
+    .p_ZL9s2_output_5_1_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_we0),
+    .p_ZL9s2_output_5_1_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_d0),
+    .p_ZL9s2_output_5_1_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_address0),
+    .p_ZL9s2_output_5_1_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_ce0),
+    .p_ZL9s2_output_5_1_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_we0),
+    .p_ZL9s2_output_5_1_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_d0),
+    .p_ZL9s2_output_5_2_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_address0),
+    .p_ZL9s2_output_5_2_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_ce0),
+    .p_ZL9s2_output_5_2_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_we0),
+    .p_ZL9s2_output_5_2_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_d0),
+    .p_ZL9s2_output_5_2_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_address0),
+    .p_ZL9s2_output_5_2_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_ce0),
+    .p_ZL9s2_output_5_2_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_we0),
+    .p_ZL9s2_output_5_2_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_d0),
+    .p_ZL9s2_output_5_2_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_address0),
+    .p_ZL9s2_output_5_2_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_ce0),
+    .p_ZL9s2_output_5_2_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_we0),
+    .p_ZL9s2_output_5_2_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_d0),
+    .p_ZL9s2_output_5_2_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_address0),
+    .p_ZL9s2_output_5_2_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_ce0),
+    .p_ZL9s2_output_5_2_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_we0),
+    .p_ZL9s2_output_5_2_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_d0),
+    .p_ZL9s2_output_5_2_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_address0),
+    .p_ZL9s2_output_5_2_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_ce0),
+    .p_ZL9s2_output_5_2_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_we0),
+    .p_ZL9s2_output_5_2_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_d0),
+    .p_ZL9s2_output_5_3_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_address0),
+    .p_ZL9s2_output_5_3_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_ce0),
+    .p_ZL9s2_output_5_3_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_we0),
+    .p_ZL9s2_output_5_3_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_d0),
+    .p_ZL9s2_output_5_3_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_address0),
+    .p_ZL9s2_output_5_3_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_ce0),
+    .p_ZL9s2_output_5_3_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_we0),
+    .p_ZL9s2_output_5_3_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_d0),
+    .p_ZL9s2_output_5_3_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_address0),
+    .p_ZL9s2_output_5_3_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_ce0),
+    .p_ZL9s2_output_5_3_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_we0),
+    .p_ZL9s2_output_5_3_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_d0),
+    .p_ZL9s2_output_5_3_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_address0),
+    .p_ZL9s2_output_5_3_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_ce0),
+    .p_ZL9s2_output_5_3_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_we0),
+    .p_ZL9s2_output_5_3_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_d0),
+    .p_ZL9s2_output_5_3_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_address0),
+    .p_ZL9s2_output_5_3_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_ce0),
+    .p_ZL9s2_output_5_3_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_we0),
+    .p_ZL9s2_output_5_3_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_d0),
+    .p_ZL9s2_output_5_4_0_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_address0),
+    .p_ZL9s2_output_5_4_0_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_ce0),
+    .p_ZL9s2_output_5_4_0_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_we0),
+    .p_ZL9s2_output_5_4_0_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_d0),
+    .p_ZL9s2_output_5_4_1_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_address0),
+    .p_ZL9s2_output_5_4_1_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_ce0),
+    .p_ZL9s2_output_5_4_1_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_we0),
+    .p_ZL9s2_output_5_4_1_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_d0),
+    .p_ZL9s2_output_5_4_2_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_address0),
+    .p_ZL9s2_output_5_4_2_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_ce0),
+    .p_ZL9s2_output_5_4_2_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_we0),
+    .p_ZL9s2_output_5_4_2_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_d0),
+    .p_ZL9s2_output_5_4_3_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_address0),
+    .p_ZL9s2_output_5_4_3_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_ce0),
+    .p_ZL9s2_output_5_4_3_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_we0),
+    .p_ZL9s2_output_5_4_3_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_d0),
+    .p_ZL9s2_output_5_4_4_address0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_address0),
+    .p_ZL9s2_output_5_4_4_ce0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_ce0),
+    .p_ZL9s2_output_5_4_4_we0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_we0),
+    .p_ZL9s2_output_5_4_4_d0(grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_d0)
+);
+
+lenet_hls_conv_c3 grp_conv_c3_fu_2312(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_conv_c3_fu_2312_ap_start),
+    .ap_done(grp_conv_c3_fu_2312_ap_done),
+    .ap_idle(grp_conv_c3_fu_2312_ap_idle),
+    .ap_ready(grp_conv_c3_fu_2312_ap_ready),
+    .p_ZL9c3_output_0_address0(grp_conv_c3_fu_2312_p_ZL9c3_output_0_address0),
+    .p_ZL9c3_output_0_ce0(grp_conv_c3_fu_2312_p_ZL9c3_output_0_ce0),
+    .p_ZL9c3_output_0_we0(grp_conv_c3_fu_2312_p_ZL9c3_output_0_we0),
+    .p_ZL9c3_output_0_d0(grp_conv_c3_fu_2312_p_ZL9c3_output_0_d0),
+    .p_ZL9c3_output_1_address0(grp_conv_c3_fu_2312_p_ZL9c3_output_1_address0),
+    .p_ZL9c3_output_1_ce0(grp_conv_c3_fu_2312_p_ZL9c3_output_1_ce0),
+    .p_ZL9c3_output_1_we0(grp_conv_c3_fu_2312_p_ZL9c3_output_1_we0),
+    .p_ZL9c3_output_1_d0(grp_conv_c3_fu_2312_p_ZL9c3_output_1_d0),
+    .p_ZL9s2_output_0_0_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_0_address0),
+    .p_ZL9s2_output_0_0_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_0_ce0),
+    .p_ZL9s2_output_0_0_0_q0(p_ZL9s2_output_0_0_0_q0),
+    .p_ZL9s2_output_0_0_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_1_address0),
+    .p_ZL9s2_output_0_0_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_1_ce0),
+    .p_ZL9s2_output_0_0_1_q0(p_ZL9s2_output_0_0_1_q0),
+    .p_ZL9s2_output_0_0_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_2_address0),
+    .p_ZL9s2_output_0_0_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_2_ce0),
+    .p_ZL9s2_output_0_0_2_q0(p_ZL9s2_output_0_0_2_q0),
+    .p_ZL9s2_output_0_0_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_3_address0),
+    .p_ZL9s2_output_0_0_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_3_ce0),
+    .p_ZL9s2_output_0_0_3_q0(p_ZL9s2_output_0_0_3_q0),
+    .p_ZL9s2_output_0_0_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_4_address0),
+    .p_ZL9s2_output_0_0_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_4_ce0),
+    .p_ZL9s2_output_0_0_4_q0(p_ZL9s2_output_0_0_4_q0),
+    .p_ZL9s2_output_0_1_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_0_address0),
+    .p_ZL9s2_output_0_1_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_0_ce0),
+    .p_ZL9s2_output_0_1_0_q0(p_ZL9s2_output_0_1_0_q0),
+    .p_ZL9s2_output_0_1_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_1_address0),
+    .p_ZL9s2_output_0_1_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_1_ce0),
+    .p_ZL9s2_output_0_1_1_q0(p_ZL9s2_output_0_1_1_q0),
+    .p_ZL9s2_output_0_1_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_2_address0),
+    .p_ZL9s2_output_0_1_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_2_ce0),
+    .p_ZL9s2_output_0_1_2_q0(p_ZL9s2_output_0_1_2_q0),
+    .p_ZL9s2_output_0_1_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_3_address0),
+    .p_ZL9s2_output_0_1_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_3_ce0),
+    .p_ZL9s2_output_0_1_3_q0(p_ZL9s2_output_0_1_3_q0),
+    .p_ZL9s2_output_0_1_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_4_address0),
+    .p_ZL9s2_output_0_1_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_4_ce0),
+    .p_ZL9s2_output_0_1_4_q0(p_ZL9s2_output_0_1_4_q0),
+    .p_ZL9s2_output_0_2_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_0_address0),
+    .p_ZL9s2_output_0_2_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_0_ce0),
+    .p_ZL9s2_output_0_2_0_q0(p_ZL9s2_output_0_2_0_q0),
+    .p_ZL9s2_output_0_2_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_1_address0),
+    .p_ZL9s2_output_0_2_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_1_ce0),
+    .p_ZL9s2_output_0_2_1_q0(p_ZL9s2_output_0_2_1_q0),
+    .p_ZL9s2_output_0_2_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_2_address0),
+    .p_ZL9s2_output_0_2_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_2_ce0),
+    .p_ZL9s2_output_0_2_2_q0(p_ZL9s2_output_0_2_2_q0),
+    .p_ZL9s2_output_0_2_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_3_address0),
+    .p_ZL9s2_output_0_2_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_3_ce0),
+    .p_ZL9s2_output_0_2_3_q0(p_ZL9s2_output_0_2_3_q0),
+    .p_ZL9s2_output_0_2_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_4_address0),
+    .p_ZL9s2_output_0_2_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_4_ce0),
+    .p_ZL9s2_output_0_2_4_q0(p_ZL9s2_output_0_2_4_q0),
+    .p_ZL9s2_output_0_3_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_0_address0),
+    .p_ZL9s2_output_0_3_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_0_ce0),
+    .p_ZL9s2_output_0_3_0_q0(p_ZL9s2_output_0_3_0_q0),
+    .p_ZL9s2_output_0_3_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_1_address0),
+    .p_ZL9s2_output_0_3_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_1_ce0),
+    .p_ZL9s2_output_0_3_1_q0(p_ZL9s2_output_0_3_1_q0),
+    .p_ZL9s2_output_0_3_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_2_address0),
+    .p_ZL9s2_output_0_3_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_2_ce0),
+    .p_ZL9s2_output_0_3_2_q0(p_ZL9s2_output_0_3_2_q0),
+    .p_ZL9s2_output_0_3_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_3_address0),
+    .p_ZL9s2_output_0_3_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_3_ce0),
+    .p_ZL9s2_output_0_3_3_q0(p_ZL9s2_output_0_3_3_q0),
+    .p_ZL9s2_output_0_3_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_4_address0),
+    .p_ZL9s2_output_0_3_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_4_ce0),
+    .p_ZL9s2_output_0_3_4_q0(p_ZL9s2_output_0_3_4_q0),
+    .p_ZL9s2_output_0_4_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_0_address0),
+    .p_ZL9s2_output_0_4_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_0_ce0),
+    .p_ZL9s2_output_0_4_0_q0(p_ZL9s2_output_0_4_0_q0),
+    .p_ZL9s2_output_0_4_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_1_address0),
+    .p_ZL9s2_output_0_4_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_1_ce0),
+    .p_ZL9s2_output_0_4_1_q0(p_ZL9s2_output_0_4_1_q0),
+    .p_ZL9s2_output_0_4_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_2_address0),
+    .p_ZL9s2_output_0_4_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_2_ce0),
+    .p_ZL9s2_output_0_4_2_q0(p_ZL9s2_output_0_4_2_q0),
+    .p_ZL9s2_output_0_4_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_3_address0),
+    .p_ZL9s2_output_0_4_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_3_ce0),
+    .p_ZL9s2_output_0_4_3_q0(p_ZL9s2_output_0_4_3_q0),
+    .p_ZL9s2_output_0_4_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_4_address0),
+    .p_ZL9s2_output_0_4_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_4_ce0),
+    .p_ZL9s2_output_0_4_4_q0(p_ZL9s2_output_0_4_4_q0),
+    .p_ZL9s2_output_1_0_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_0_address0),
+    .p_ZL9s2_output_1_0_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_0_ce0),
+    .p_ZL9s2_output_1_0_0_q0(p_ZL9s2_output_1_0_0_q0),
+    .p_ZL9s2_output_1_0_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_1_address0),
+    .p_ZL9s2_output_1_0_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_1_ce0),
+    .p_ZL9s2_output_1_0_1_q0(p_ZL9s2_output_1_0_1_q0),
+    .p_ZL9s2_output_1_0_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_2_address0),
+    .p_ZL9s2_output_1_0_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_2_ce0),
+    .p_ZL9s2_output_1_0_2_q0(p_ZL9s2_output_1_0_2_q0),
+    .p_ZL9s2_output_1_0_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_3_address0),
+    .p_ZL9s2_output_1_0_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_3_ce0),
+    .p_ZL9s2_output_1_0_3_q0(p_ZL9s2_output_1_0_3_q0),
+    .p_ZL9s2_output_1_0_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_4_address0),
+    .p_ZL9s2_output_1_0_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_4_ce0),
+    .p_ZL9s2_output_1_0_4_q0(p_ZL9s2_output_1_0_4_q0),
+    .p_ZL9s2_output_1_1_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_0_address0),
+    .p_ZL9s2_output_1_1_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_0_ce0),
+    .p_ZL9s2_output_1_1_0_q0(p_ZL9s2_output_1_1_0_q0),
+    .p_ZL9s2_output_1_1_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_1_address0),
+    .p_ZL9s2_output_1_1_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_1_ce0),
+    .p_ZL9s2_output_1_1_1_q0(p_ZL9s2_output_1_1_1_q0),
+    .p_ZL9s2_output_1_1_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_2_address0),
+    .p_ZL9s2_output_1_1_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_2_ce0),
+    .p_ZL9s2_output_1_1_2_q0(p_ZL9s2_output_1_1_2_q0),
+    .p_ZL9s2_output_1_1_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_3_address0),
+    .p_ZL9s2_output_1_1_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_3_ce0),
+    .p_ZL9s2_output_1_1_3_q0(p_ZL9s2_output_1_1_3_q0),
+    .p_ZL9s2_output_1_1_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_4_address0),
+    .p_ZL9s2_output_1_1_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_4_ce0),
+    .p_ZL9s2_output_1_1_4_q0(p_ZL9s2_output_1_1_4_q0),
+    .p_ZL9s2_output_1_2_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_0_address0),
+    .p_ZL9s2_output_1_2_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_0_ce0),
+    .p_ZL9s2_output_1_2_0_q0(p_ZL9s2_output_1_2_0_q0),
+    .p_ZL9s2_output_1_2_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_1_address0),
+    .p_ZL9s2_output_1_2_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_1_ce0),
+    .p_ZL9s2_output_1_2_1_q0(p_ZL9s2_output_1_2_1_q0),
+    .p_ZL9s2_output_1_2_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_2_address0),
+    .p_ZL9s2_output_1_2_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_2_ce0),
+    .p_ZL9s2_output_1_2_2_q0(p_ZL9s2_output_1_2_2_q0),
+    .p_ZL9s2_output_1_2_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_3_address0),
+    .p_ZL9s2_output_1_2_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_3_ce0),
+    .p_ZL9s2_output_1_2_3_q0(p_ZL9s2_output_1_2_3_q0),
+    .p_ZL9s2_output_1_2_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_4_address0),
+    .p_ZL9s2_output_1_2_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_4_ce0),
+    .p_ZL9s2_output_1_2_4_q0(p_ZL9s2_output_1_2_4_q0),
+    .p_ZL9s2_output_1_3_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_0_address0),
+    .p_ZL9s2_output_1_3_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_0_ce0),
+    .p_ZL9s2_output_1_3_0_q0(p_ZL9s2_output_1_3_0_q0),
+    .p_ZL9s2_output_1_3_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_1_address0),
+    .p_ZL9s2_output_1_3_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_1_ce0),
+    .p_ZL9s2_output_1_3_1_q0(p_ZL9s2_output_1_3_1_q0),
+    .p_ZL9s2_output_1_3_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_2_address0),
+    .p_ZL9s2_output_1_3_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_2_ce0),
+    .p_ZL9s2_output_1_3_2_q0(p_ZL9s2_output_1_3_2_q0),
+    .p_ZL9s2_output_1_3_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_3_address0),
+    .p_ZL9s2_output_1_3_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_3_ce0),
+    .p_ZL9s2_output_1_3_3_q0(p_ZL9s2_output_1_3_3_q0),
+    .p_ZL9s2_output_1_3_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_4_address0),
+    .p_ZL9s2_output_1_3_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_4_ce0),
+    .p_ZL9s2_output_1_3_4_q0(p_ZL9s2_output_1_3_4_q0),
+    .p_ZL9s2_output_1_4_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_0_address0),
+    .p_ZL9s2_output_1_4_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_0_ce0),
+    .p_ZL9s2_output_1_4_0_q0(p_ZL9s2_output_1_4_0_q0),
+    .p_ZL9s2_output_1_4_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_1_address0),
+    .p_ZL9s2_output_1_4_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_1_ce0),
+    .p_ZL9s2_output_1_4_1_q0(p_ZL9s2_output_1_4_1_q0),
+    .p_ZL9s2_output_1_4_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_2_address0),
+    .p_ZL9s2_output_1_4_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_2_ce0),
+    .p_ZL9s2_output_1_4_2_q0(p_ZL9s2_output_1_4_2_q0),
+    .p_ZL9s2_output_1_4_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_3_address0),
+    .p_ZL9s2_output_1_4_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_3_ce0),
+    .p_ZL9s2_output_1_4_3_q0(p_ZL9s2_output_1_4_3_q0),
+    .p_ZL9s2_output_1_4_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_4_address0),
+    .p_ZL9s2_output_1_4_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_4_ce0),
+    .p_ZL9s2_output_1_4_4_q0(p_ZL9s2_output_1_4_4_q0),
+    .p_ZL9s2_output_2_0_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_0_address0),
+    .p_ZL9s2_output_2_0_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_0_ce0),
+    .p_ZL9s2_output_2_0_0_q0(p_ZL9s2_output_2_0_0_q0),
+    .p_ZL9s2_output_2_0_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_1_address0),
+    .p_ZL9s2_output_2_0_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_1_ce0),
+    .p_ZL9s2_output_2_0_1_q0(p_ZL9s2_output_2_0_1_q0),
+    .p_ZL9s2_output_2_0_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_2_address0),
+    .p_ZL9s2_output_2_0_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_2_ce0),
+    .p_ZL9s2_output_2_0_2_q0(p_ZL9s2_output_2_0_2_q0),
+    .p_ZL9s2_output_2_0_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_3_address0),
+    .p_ZL9s2_output_2_0_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_3_ce0),
+    .p_ZL9s2_output_2_0_3_q0(p_ZL9s2_output_2_0_3_q0),
+    .p_ZL9s2_output_2_0_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_4_address0),
+    .p_ZL9s2_output_2_0_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_4_ce0),
+    .p_ZL9s2_output_2_0_4_q0(p_ZL9s2_output_2_0_4_q0),
+    .p_ZL9s2_output_2_1_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_0_address0),
+    .p_ZL9s2_output_2_1_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_0_ce0),
+    .p_ZL9s2_output_2_1_0_q0(p_ZL9s2_output_2_1_0_q0),
+    .p_ZL9s2_output_2_1_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_1_address0),
+    .p_ZL9s2_output_2_1_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_1_ce0),
+    .p_ZL9s2_output_2_1_1_q0(p_ZL9s2_output_2_1_1_q0),
+    .p_ZL9s2_output_2_1_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_2_address0),
+    .p_ZL9s2_output_2_1_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_2_ce0),
+    .p_ZL9s2_output_2_1_2_q0(p_ZL9s2_output_2_1_2_q0),
+    .p_ZL9s2_output_2_1_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_3_address0),
+    .p_ZL9s2_output_2_1_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_3_ce0),
+    .p_ZL9s2_output_2_1_3_q0(p_ZL9s2_output_2_1_3_q0),
+    .p_ZL9s2_output_2_1_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_4_address0),
+    .p_ZL9s2_output_2_1_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_4_ce0),
+    .p_ZL9s2_output_2_1_4_q0(p_ZL9s2_output_2_1_4_q0),
+    .p_ZL9s2_output_2_2_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_0_address0),
+    .p_ZL9s2_output_2_2_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_0_ce0),
+    .p_ZL9s2_output_2_2_0_q0(p_ZL9s2_output_2_2_0_q0),
+    .p_ZL9s2_output_2_2_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_1_address0),
+    .p_ZL9s2_output_2_2_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_1_ce0),
+    .p_ZL9s2_output_2_2_1_q0(p_ZL9s2_output_2_2_1_q0),
+    .p_ZL9s2_output_2_2_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_2_address0),
+    .p_ZL9s2_output_2_2_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_2_ce0),
+    .p_ZL9s2_output_2_2_2_q0(p_ZL9s2_output_2_2_2_q0),
+    .p_ZL9s2_output_2_2_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_3_address0),
+    .p_ZL9s2_output_2_2_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_3_ce0),
+    .p_ZL9s2_output_2_2_3_q0(p_ZL9s2_output_2_2_3_q0),
+    .p_ZL9s2_output_2_2_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_4_address0),
+    .p_ZL9s2_output_2_2_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_4_ce0),
+    .p_ZL9s2_output_2_2_4_q0(p_ZL9s2_output_2_2_4_q0),
+    .p_ZL9s2_output_2_3_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_0_address0),
+    .p_ZL9s2_output_2_3_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_0_ce0),
+    .p_ZL9s2_output_2_3_0_q0(p_ZL9s2_output_2_3_0_q0),
+    .p_ZL9s2_output_2_3_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_1_address0),
+    .p_ZL9s2_output_2_3_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_1_ce0),
+    .p_ZL9s2_output_2_3_1_q0(p_ZL9s2_output_2_3_1_q0),
+    .p_ZL9s2_output_2_3_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_2_address0),
+    .p_ZL9s2_output_2_3_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_2_ce0),
+    .p_ZL9s2_output_2_3_2_q0(p_ZL9s2_output_2_3_2_q0),
+    .p_ZL9s2_output_2_3_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_3_address0),
+    .p_ZL9s2_output_2_3_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_3_ce0),
+    .p_ZL9s2_output_2_3_3_q0(p_ZL9s2_output_2_3_3_q0),
+    .p_ZL9s2_output_2_3_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_4_address0),
+    .p_ZL9s2_output_2_3_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_4_ce0),
+    .p_ZL9s2_output_2_3_4_q0(p_ZL9s2_output_2_3_4_q0),
+    .p_ZL9s2_output_2_4_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_0_address0),
+    .p_ZL9s2_output_2_4_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_0_ce0),
+    .p_ZL9s2_output_2_4_0_q0(p_ZL9s2_output_2_4_0_q0),
+    .p_ZL9s2_output_2_4_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_1_address0),
+    .p_ZL9s2_output_2_4_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_1_ce0),
+    .p_ZL9s2_output_2_4_1_q0(p_ZL9s2_output_2_4_1_q0),
+    .p_ZL9s2_output_2_4_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_2_address0),
+    .p_ZL9s2_output_2_4_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_2_ce0),
+    .p_ZL9s2_output_2_4_2_q0(p_ZL9s2_output_2_4_2_q0),
+    .p_ZL9s2_output_2_4_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_3_address0),
+    .p_ZL9s2_output_2_4_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_3_ce0),
+    .p_ZL9s2_output_2_4_3_q0(p_ZL9s2_output_2_4_3_q0),
+    .p_ZL9s2_output_2_4_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_4_address0),
+    .p_ZL9s2_output_2_4_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_4_ce0),
+    .p_ZL9s2_output_2_4_4_q0(p_ZL9s2_output_2_4_4_q0),
+    .p_ZL9s2_output_3_0_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_0_address0),
+    .p_ZL9s2_output_3_0_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_0_ce0),
+    .p_ZL9s2_output_3_0_0_q0(p_ZL9s2_output_3_0_0_q0),
+    .p_ZL9s2_output_3_0_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_1_address0),
+    .p_ZL9s2_output_3_0_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_1_ce0),
+    .p_ZL9s2_output_3_0_1_q0(p_ZL9s2_output_3_0_1_q0),
+    .p_ZL9s2_output_3_0_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_2_address0),
+    .p_ZL9s2_output_3_0_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_2_ce0),
+    .p_ZL9s2_output_3_0_2_q0(p_ZL9s2_output_3_0_2_q0),
+    .p_ZL9s2_output_3_0_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_3_address0),
+    .p_ZL9s2_output_3_0_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_3_ce0),
+    .p_ZL9s2_output_3_0_3_q0(p_ZL9s2_output_3_0_3_q0),
+    .p_ZL9s2_output_3_0_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_4_address0),
+    .p_ZL9s2_output_3_0_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_4_ce0),
+    .p_ZL9s2_output_3_0_4_q0(p_ZL9s2_output_3_0_4_q0),
+    .p_ZL9s2_output_3_1_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_0_address0),
+    .p_ZL9s2_output_3_1_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_0_ce0),
+    .p_ZL9s2_output_3_1_0_q0(p_ZL9s2_output_3_1_0_q0),
+    .p_ZL9s2_output_3_1_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_1_address0),
+    .p_ZL9s2_output_3_1_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_1_ce0),
+    .p_ZL9s2_output_3_1_1_q0(p_ZL9s2_output_3_1_1_q0),
+    .p_ZL9s2_output_3_1_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_2_address0),
+    .p_ZL9s2_output_3_1_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_2_ce0),
+    .p_ZL9s2_output_3_1_2_q0(p_ZL9s2_output_3_1_2_q0),
+    .p_ZL9s2_output_3_1_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_3_address0),
+    .p_ZL9s2_output_3_1_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_3_ce0),
+    .p_ZL9s2_output_3_1_3_q0(p_ZL9s2_output_3_1_3_q0),
+    .p_ZL9s2_output_3_1_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_4_address0),
+    .p_ZL9s2_output_3_1_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_4_ce0),
+    .p_ZL9s2_output_3_1_4_q0(p_ZL9s2_output_3_1_4_q0),
+    .p_ZL9s2_output_3_2_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_0_address0),
+    .p_ZL9s2_output_3_2_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_0_ce0),
+    .p_ZL9s2_output_3_2_0_q0(p_ZL9s2_output_3_2_0_q0),
+    .p_ZL9s2_output_3_2_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_1_address0),
+    .p_ZL9s2_output_3_2_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_1_ce0),
+    .p_ZL9s2_output_3_2_1_q0(p_ZL9s2_output_3_2_1_q0),
+    .p_ZL9s2_output_3_2_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_2_address0),
+    .p_ZL9s2_output_3_2_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_2_ce0),
+    .p_ZL9s2_output_3_2_2_q0(p_ZL9s2_output_3_2_2_q0),
+    .p_ZL9s2_output_3_2_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_3_address0),
+    .p_ZL9s2_output_3_2_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_3_ce0),
+    .p_ZL9s2_output_3_2_3_q0(p_ZL9s2_output_3_2_3_q0),
+    .p_ZL9s2_output_3_2_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_4_address0),
+    .p_ZL9s2_output_3_2_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_4_ce0),
+    .p_ZL9s2_output_3_2_4_q0(p_ZL9s2_output_3_2_4_q0),
+    .p_ZL9s2_output_3_3_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_0_address0),
+    .p_ZL9s2_output_3_3_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_0_ce0),
+    .p_ZL9s2_output_3_3_0_q0(p_ZL9s2_output_3_3_0_q0),
+    .p_ZL9s2_output_3_3_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_1_address0),
+    .p_ZL9s2_output_3_3_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_1_ce0),
+    .p_ZL9s2_output_3_3_1_q0(p_ZL9s2_output_3_3_1_q0),
+    .p_ZL9s2_output_3_3_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_2_address0),
+    .p_ZL9s2_output_3_3_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_2_ce0),
+    .p_ZL9s2_output_3_3_2_q0(p_ZL9s2_output_3_3_2_q0),
+    .p_ZL9s2_output_3_3_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_3_address0),
+    .p_ZL9s2_output_3_3_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_3_ce0),
+    .p_ZL9s2_output_3_3_3_q0(p_ZL9s2_output_3_3_3_q0),
+    .p_ZL9s2_output_3_3_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_4_address0),
+    .p_ZL9s2_output_3_3_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_4_ce0),
+    .p_ZL9s2_output_3_3_4_q0(p_ZL9s2_output_3_3_4_q0),
+    .p_ZL9s2_output_3_4_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_0_address0),
+    .p_ZL9s2_output_3_4_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_0_ce0),
+    .p_ZL9s2_output_3_4_0_q0(p_ZL9s2_output_3_4_0_q0),
+    .p_ZL9s2_output_3_4_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_1_address0),
+    .p_ZL9s2_output_3_4_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_1_ce0),
+    .p_ZL9s2_output_3_4_1_q0(p_ZL9s2_output_3_4_1_q0),
+    .p_ZL9s2_output_3_4_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_2_address0),
+    .p_ZL9s2_output_3_4_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_2_ce0),
+    .p_ZL9s2_output_3_4_2_q0(p_ZL9s2_output_3_4_2_q0),
+    .p_ZL9s2_output_3_4_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_3_address0),
+    .p_ZL9s2_output_3_4_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_3_ce0),
+    .p_ZL9s2_output_3_4_3_q0(p_ZL9s2_output_3_4_3_q0),
+    .p_ZL9s2_output_3_4_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_4_address0),
+    .p_ZL9s2_output_3_4_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_4_ce0),
+    .p_ZL9s2_output_3_4_4_q0(p_ZL9s2_output_3_4_4_q0),
+    .p_ZL9s2_output_4_0_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_0_address0),
+    .p_ZL9s2_output_4_0_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_0_ce0),
+    .p_ZL9s2_output_4_0_0_q0(p_ZL9s2_output_4_0_0_q0),
+    .p_ZL9s2_output_4_0_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_1_address0),
+    .p_ZL9s2_output_4_0_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_1_ce0),
+    .p_ZL9s2_output_4_0_1_q0(p_ZL9s2_output_4_0_1_q0),
+    .p_ZL9s2_output_4_0_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_2_address0),
+    .p_ZL9s2_output_4_0_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_2_ce0),
+    .p_ZL9s2_output_4_0_2_q0(p_ZL9s2_output_4_0_2_q0),
+    .p_ZL9s2_output_4_0_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_3_address0),
+    .p_ZL9s2_output_4_0_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_3_ce0),
+    .p_ZL9s2_output_4_0_3_q0(p_ZL9s2_output_4_0_3_q0),
+    .p_ZL9s2_output_4_0_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_4_address0),
+    .p_ZL9s2_output_4_0_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_4_ce0),
+    .p_ZL9s2_output_4_0_4_q0(p_ZL9s2_output_4_0_4_q0),
+    .p_ZL9s2_output_4_1_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_0_address0),
+    .p_ZL9s2_output_4_1_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_0_ce0),
+    .p_ZL9s2_output_4_1_0_q0(p_ZL9s2_output_4_1_0_q0),
+    .p_ZL9s2_output_4_1_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_1_address0),
+    .p_ZL9s2_output_4_1_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_1_ce0),
+    .p_ZL9s2_output_4_1_1_q0(p_ZL9s2_output_4_1_1_q0),
+    .p_ZL9s2_output_4_1_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_2_address0),
+    .p_ZL9s2_output_4_1_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_2_ce0),
+    .p_ZL9s2_output_4_1_2_q0(p_ZL9s2_output_4_1_2_q0),
+    .p_ZL9s2_output_4_1_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_3_address0),
+    .p_ZL9s2_output_4_1_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_3_ce0),
+    .p_ZL9s2_output_4_1_3_q0(p_ZL9s2_output_4_1_3_q0),
+    .p_ZL9s2_output_4_1_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_4_address0),
+    .p_ZL9s2_output_4_1_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_4_ce0),
+    .p_ZL9s2_output_4_1_4_q0(p_ZL9s2_output_4_1_4_q0),
+    .p_ZL9s2_output_4_2_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_0_address0),
+    .p_ZL9s2_output_4_2_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_0_ce0),
+    .p_ZL9s2_output_4_2_0_q0(p_ZL9s2_output_4_2_0_q0),
+    .p_ZL9s2_output_4_2_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_1_address0),
+    .p_ZL9s2_output_4_2_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_1_ce0),
+    .p_ZL9s2_output_4_2_1_q0(p_ZL9s2_output_4_2_1_q0),
+    .p_ZL9s2_output_4_2_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_2_address0),
+    .p_ZL9s2_output_4_2_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_2_ce0),
+    .p_ZL9s2_output_4_2_2_q0(p_ZL9s2_output_4_2_2_q0),
+    .p_ZL9s2_output_4_2_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_3_address0),
+    .p_ZL9s2_output_4_2_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_3_ce0),
+    .p_ZL9s2_output_4_2_3_q0(p_ZL9s2_output_4_2_3_q0),
+    .p_ZL9s2_output_4_2_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_4_address0),
+    .p_ZL9s2_output_4_2_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_4_ce0),
+    .p_ZL9s2_output_4_2_4_q0(p_ZL9s2_output_4_2_4_q0),
+    .p_ZL9s2_output_4_3_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_0_address0),
+    .p_ZL9s2_output_4_3_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_0_ce0),
+    .p_ZL9s2_output_4_3_0_q0(p_ZL9s2_output_4_3_0_q0),
+    .p_ZL9s2_output_4_3_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_1_address0),
+    .p_ZL9s2_output_4_3_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_1_ce0),
+    .p_ZL9s2_output_4_3_1_q0(p_ZL9s2_output_4_3_1_q0),
+    .p_ZL9s2_output_4_3_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_2_address0),
+    .p_ZL9s2_output_4_3_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_2_ce0),
+    .p_ZL9s2_output_4_3_2_q0(p_ZL9s2_output_4_3_2_q0),
+    .p_ZL9s2_output_4_3_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_3_address0),
+    .p_ZL9s2_output_4_3_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_3_ce0),
+    .p_ZL9s2_output_4_3_3_q0(p_ZL9s2_output_4_3_3_q0),
+    .p_ZL9s2_output_4_3_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_4_address0),
+    .p_ZL9s2_output_4_3_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_4_ce0),
+    .p_ZL9s2_output_4_3_4_q0(p_ZL9s2_output_4_3_4_q0),
+    .p_ZL9s2_output_4_4_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_0_address0),
+    .p_ZL9s2_output_4_4_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_0_ce0),
+    .p_ZL9s2_output_4_4_0_q0(p_ZL9s2_output_4_4_0_q0),
+    .p_ZL9s2_output_4_4_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_1_address0),
+    .p_ZL9s2_output_4_4_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_1_ce0),
+    .p_ZL9s2_output_4_4_1_q0(p_ZL9s2_output_4_4_1_q0),
+    .p_ZL9s2_output_4_4_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_2_address0),
+    .p_ZL9s2_output_4_4_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_2_ce0),
+    .p_ZL9s2_output_4_4_2_q0(p_ZL9s2_output_4_4_2_q0),
+    .p_ZL9s2_output_4_4_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_3_address0),
+    .p_ZL9s2_output_4_4_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_3_ce0),
+    .p_ZL9s2_output_4_4_3_q0(p_ZL9s2_output_4_4_3_q0),
+    .p_ZL9s2_output_4_4_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_4_address0),
+    .p_ZL9s2_output_4_4_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_4_ce0),
+    .p_ZL9s2_output_4_4_4_q0(p_ZL9s2_output_4_4_4_q0),
+    .p_ZL9s2_output_5_0_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_0_address0),
+    .p_ZL9s2_output_5_0_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_0_ce0),
+    .p_ZL9s2_output_5_0_0_q0(p_ZL9s2_output_5_0_0_q0),
+    .p_ZL9s2_output_5_0_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_1_address0),
+    .p_ZL9s2_output_5_0_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_1_ce0),
+    .p_ZL9s2_output_5_0_1_q0(p_ZL9s2_output_5_0_1_q0),
+    .p_ZL9s2_output_5_0_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_2_address0),
+    .p_ZL9s2_output_5_0_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_2_ce0),
+    .p_ZL9s2_output_5_0_2_q0(p_ZL9s2_output_5_0_2_q0),
+    .p_ZL9s2_output_5_0_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_3_address0),
+    .p_ZL9s2_output_5_0_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_3_ce0),
+    .p_ZL9s2_output_5_0_3_q0(p_ZL9s2_output_5_0_3_q0),
+    .p_ZL9s2_output_5_0_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_4_address0),
+    .p_ZL9s2_output_5_0_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_4_ce0),
+    .p_ZL9s2_output_5_0_4_q0(p_ZL9s2_output_5_0_4_q0),
+    .p_ZL9s2_output_5_1_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_0_address0),
+    .p_ZL9s2_output_5_1_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_0_ce0),
+    .p_ZL9s2_output_5_1_0_q0(p_ZL9s2_output_5_1_0_q0),
+    .p_ZL9s2_output_5_1_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_1_address0),
+    .p_ZL9s2_output_5_1_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_1_ce0),
+    .p_ZL9s2_output_5_1_1_q0(p_ZL9s2_output_5_1_1_q0),
+    .p_ZL9s2_output_5_1_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_2_address0),
+    .p_ZL9s2_output_5_1_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_2_ce0),
+    .p_ZL9s2_output_5_1_2_q0(p_ZL9s2_output_5_1_2_q0),
+    .p_ZL9s2_output_5_1_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_3_address0),
+    .p_ZL9s2_output_5_1_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_3_ce0),
+    .p_ZL9s2_output_5_1_3_q0(p_ZL9s2_output_5_1_3_q0),
+    .p_ZL9s2_output_5_1_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_4_address0),
+    .p_ZL9s2_output_5_1_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_4_ce0),
+    .p_ZL9s2_output_5_1_4_q0(p_ZL9s2_output_5_1_4_q0),
+    .p_ZL9s2_output_5_2_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_0_address0),
+    .p_ZL9s2_output_5_2_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_0_ce0),
+    .p_ZL9s2_output_5_2_0_q0(p_ZL9s2_output_5_2_0_q0),
+    .p_ZL9s2_output_5_2_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_1_address0),
+    .p_ZL9s2_output_5_2_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_1_ce0),
+    .p_ZL9s2_output_5_2_1_q0(p_ZL9s2_output_5_2_1_q0),
+    .p_ZL9s2_output_5_2_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_2_address0),
+    .p_ZL9s2_output_5_2_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_2_ce0),
+    .p_ZL9s2_output_5_2_2_q0(p_ZL9s2_output_5_2_2_q0),
+    .p_ZL9s2_output_5_2_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_3_address0),
+    .p_ZL9s2_output_5_2_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_3_ce0),
+    .p_ZL9s2_output_5_2_3_q0(p_ZL9s2_output_5_2_3_q0),
+    .p_ZL9s2_output_5_2_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_4_address0),
+    .p_ZL9s2_output_5_2_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_4_ce0),
+    .p_ZL9s2_output_5_2_4_q0(p_ZL9s2_output_5_2_4_q0),
+    .p_ZL9s2_output_5_3_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_0_address0),
+    .p_ZL9s2_output_5_3_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_0_ce0),
+    .p_ZL9s2_output_5_3_0_q0(p_ZL9s2_output_5_3_0_q0),
+    .p_ZL9s2_output_5_3_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_1_address0),
+    .p_ZL9s2_output_5_3_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_1_ce0),
+    .p_ZL9s2_output_5_3_1_q0(p_ZL9s2_output_5_3_1_q0),
+    .p_ZL9s2_output_5_3_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_2_address0),
+    .p_ZL9s2_output_5_3_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_2_ce0),
+    .p_ZL9s2_output_5_3_2_q0(p_ZL9s2_output_5_3_2_q0),
+    .p_ZL9s2_output_5_3_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_3_address0),
+    .p_ZL9s2_output_5_3_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_3_ce0),
+    .p_ZL9s2_output_5_3_3_q0(p_ZL9s2_output_5_3_3_q0),
+    .p_ZL9s2_output_5_3_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_4_address0),
+    .p_ZL9s2_output_5_3_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_4_ce0),
+    .p_ZL9s2_output_5_3_4_q0(p_ZL9s2_output_5_3_4_q0),
+    .p_ZL9s2_output_5_4_0_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_0_address0),
+    .p_ZL9s2_output_5_4_0_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_0_ce0),
+    .p_ZL9s2_output_5_4_0_q0(p_ZL9s2_output_5_4_0_q0),
+    .p_ZL9s2_output_5_4_1_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_1_address0),
+    .p_ZL9s2_output_5_4_1_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_1_ce0),
+    .p_ZL9s2_output_5_4_1_q0(p_ZL9s2_output_5_4_1_q0),
+    .p_ZL9s2_output_5_4_2_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_2_address0),
+    .p_ZL9s2_output_5_4_2_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_2_ce0),
+    .p_ZL9s2_output_5_4_2_q0(p_ZL9s2_output_5_4_2_q0),
+    .p_ZL9s2_output_5_4_3_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_3_address0),
+    .p_ZL9s2_output_5_4_3_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_3_ce0),
+    .p_ZL9s2_output_5_4_3_q0(p_ZL9s2_output_5_4_3_q0),
+    .p_ZL9s2_output_5_4_4_address0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_4_address0),
+    .p_ZL9s2_output_5_4_4_ce0(grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_4_ce0),
+    .p_ZL9s2_output_5_4_4_q0(p_ZL9s2_output_5_4_4_q0),
+    .grp_fu_4231_p_din0(grp_conv_c3_fu_2312_grp_fu_4231_p_din0),
+    .grp_fu_4231_p_dout0(grp_fu_4231_p1),
+    .grp_fu_4231_p_ce(grp_conv_c3_fu_2312_grp_fu_4231_p_ce)
+);
+
+lenet_hls_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_ready),
+    .p_ZL9c3_output_0_address0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_address0),
+    .p_ZL9c3_output_0_ce0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_ce0),
+    .p_ZL9c3_output_0_q0(p_ZL9c3_output_0_q0),
+    .p_ZL9c3_output_0_address1(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_address1),
+    .p_ZL9c3_output_0_ce1(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_ce1),
+    .p_ZL9c3_output_0_q1(p_ZL9c3_output_0_q1),
+    .p_ZL9c3_output_1_address0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_address0),
+    .p_ZL9c3_output_1_ce0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_ce0),
+    .p_ZL9c3_output_1_q0(p_ZL9c3_output_1_q0),
+    .p_ZL9c3_output_1_address1(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_address1),
+    .p_ZL9c3_output_1_ce1(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_ce1),
+    .p_ZL9c3_output_1_q1(p_ZL9c3_output_1_q1),
+    .s4_output_address0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_address0),
+    .s4_output_ce0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_ce0),
+    .s4_output_we0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_we0),
+    .s4_output_d0(grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_d0)
+);
+
+lenet_hls_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_ready),
+    .s4_output_address0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_s4_output_address0),
+    .s4_output_ce0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_s4_output_ce0),
+    .s4_output_q0(s4_output_q0),
+    .flatten_output_address0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_address0),
+    .flatten_output_ce0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_ce0),
+    .flatten_output_we0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_we0),
+    .flatten_output_d0(grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_d0)
+);
+
+lenet_hls_fc_f5 grp_fc_f5_fu_2938(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_fc_f5_fu_2938_ap_start),
+    .ap_done(grp_fc_f5_fu_2938_ap_done),
+    .ap_idle(grp_fc_f5_fu_2938_ap_idle),
+    .ap_ready(grp_fc_f5_fu_2938_ap_ready),
+    .f5_output_address0(grp_fc_f5_fu_2938_f5_output_address0),
+    .f5_output_ce0(grp_fc_f5_fu_2938_f5_output_ce0),
+    .f5_output_we0(grp_fc_f5_fu_2938_f5_output_we0),
+    .f5_output_d0(grp_fc_f5_fu_2938_f5_output_d0),
+    .flatten_output_address0(grp_fc_f5_fu_2938_flatten_output_address0),
+    .flatten_output_ce0(grp_fc_f5_fu_2938_flatten_output_ce0),
+    .flatten_output_q0(flatten_output_q0),
+    .flatten_output_address1(grp_fc_f5_fu_2938_flatten_output_address1),
+    .flatten_output_ce1(grp_fc_f5_fu_2938_flatten_output_ce1),
+    .flatten_output_q1(flatten_output_q1),
+    .grp_fu_4231_p_din0(grp_fc_f5_fu_2938_grp_fu_4231_p_din0),
+    .grp_fu_4231_p_dout0(grp_fu_4231_p1),
+    .grp_fu_4231_p_ce(grp_fc_f5_fu_2938_grp_fu_4231_p_ce)
+);
+
+lenet_hls_fc_f6 grp_fc_f6_fu_3746(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_fc_f6_fu_3746_ap_start),
+    .ap_done(grp_fc_f6_fu_3746_ap_done),
+    .ap_idle(grp_fc_f6_fu_3746_ap_idle),
+    .ap_ready(grp_fc_f6_fu_3746_ap_ready),
+    .f6_output_address0(grp_fc_f6_fu_3746_f6_output_address0),
+    .f6_output_ce0(grp_fc_f6_fu_3746_f6_output_ce0),
+    .f6_output_we0(grp_fc_f6_fu_3746_f6_output_we0),
+    .f6_output_d0(grp_fc_f6_fu_3746_f6_output_d0),
+    .f5_output_address0(grp_fc_f6_fu_3746_f5_output_address0),
+    .f5_output_ce0(grp_fc_f6_fu_3746_f5_output_ce0),
+    .f5_output_q0(f5_output_q0),
+    .f5_output_address1(grp_fc_f6_fu_3746_f5_output_address1),
+    .f5_output_ce1(grp_fc_f6_fu_3746_f5_output_ce1),
+    .f5_output_q1(f5_output_q1),
+    .grp_fu_4231_p_din0(grp_fc_f6_fu_3746_grp_fu_4231_p_din0),
+    .grp_fu_4231_p_dout0(grp_fu_4231_p1),
+    .grp_fu_4231_p_ce(grp_fc_f6_fu_3746_grp_fu_4231_p_ce)
+);
+
+lenet_hls_fc_output grp_fc_output_fu_3994(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_fc_output_fu_3994_ap_start),
+    .ap_done(grp_fc_output_fu_3994_ap_done),
+    .ap_idle(grp_fc_output_fu_3994_ap_idle),
+    .ap_ready(grp_fc_output_fu_3994_ap_ready),
+    .output_r_address0(grp_fc_output_fu_3994_output_r_address0),
+    .output_r_ce0(grp_fc_output_fu_3994_output_r_ce0),
+    .output_r_we0(grp_fc_output_fu_3994_output_r_we0),
+    .output_r_d0(grp_fc_output_fu_3994_output_r_d0),
+    .f6_output_address0(grp_fc_output_fu_3994_f6_output_address0),
+    .f6_output_ce0(grp_fc_output_fu_3994_f6_output_ce0),
+    .f6_output_q0(f6_output_q0),
+    .f6_output_address1(grp_fc_output_fu_3994_f6_output_address1),
+    .f6_output_ce1(grp_fc_output_fu_3994_f6_output_ce1),
+    .f6_output_q1(f6_output_q1)
+);
+
+lenet_hls_lenet_hls_Pipeline_Softmax_Max_Loop grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170(
+    .ap_clk(ap_clk),
+    .ap_rst(ap_rst),
+    .ap_start(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_ready),
+    .max_val(max_val_reg_4220),
+    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_output_r_ce0),
     .output_r_q0(output_r_q0),
-    .max_val_1_out(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out),
-    .max_val_1_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out_ap_vld)
+    .max_val_1_out(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_max_val_1_out),
+    .max_val_1_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_max_val_1_out_ap_vld)
 );
 
-lenet_hls_lenet_hls_Pipeline_Softmax_Exp_Loop grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70(
+lenet_hls_lenet_hls_Pipeline_Softmax_Exp_Loop grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready),
-    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0),
-    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0),
-    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0),
-    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1),
-    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1),
+    .ap_start(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_ready),
+    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_ce0),
+    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_we0),
+    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_d0),
+    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_address1),
+    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_ce1),
     .output_r_q1(output_r_q1),
-    .sext_ln156(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_max_val_1_out),
-    .sum_exp_out(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out),
-    .sum_exp_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out_ap_vld)
+    .sext_ln136(grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_max_val_1_out),
+    .sum_exp_out(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_sum_exp_out),
+    .sum_exp_out_ap_vld(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_sum_exp_out_ap_vld)
 );
 
-lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80(
+lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188(
     .ap_clk(ap_clk),
     .ap_rst(ap_rst),
-    .ap_start(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start),
-    .ap_done(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done),
-    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_idle),
-    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready),
-    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0),
-    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0),
-    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0),
-    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0),
-    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1),
-    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1),
+    .ap_start(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start),
+    .ap_done(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_done),
+    .ap_idle(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_idle),
+    .ap_ready(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_ready),
+    .output_r_address0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_address0),
+    .output_r_ce0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_ce0),
+    .output_r_we0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_we0),
+    .output_r_d0(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_d0),
+    .output_r_address1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_address1),
+    .output_r_ce1(grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_ce1),
     .output_r_q1(output_r_q1),
-    .sum_exp_reload(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_sum_exp_out)
+    .sum_exp_reload(grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_sum_exp_out)
+);
+
+lenet_hls_sitofp_32s_32_6_no_dsp_1 #(
+    .ID( 1 ),
+    .NUM_STAGE( 6 ),
+    .din0_WIDTH( 32 ),
+    .dout_WIDTH( 32 ))
+sitofp_32s_32_6_no_dsp_1_U2837(
+    .clk(ap_clk),
+    .reset(ap_rst),
+    .din0(grp_fu_4231_p0),
+    .ce(grp_fu_4231_ce),
+    .dout(grp_fu_4231_p1)
 );
 
 always @ (posedge ap_clk) begin
@@ -232,65 +5385,185 @@ end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= 1'b0;
+        grp_conv_c1_fu_1944_ap_start_reg <= 1'b0;
     end else begin
-        if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
-            grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg <= 1'b0;
+        if (((ap_start == 1'b1) & (1'b1 == ap_CS_fsm_state1))) begin
+            grp_conv_c1_fu_1944_ap_start_reg <= 1'b1;
+        end else if ((grp_conv_c1_fu_1944_ap_ready == 1'b1)) begin
+            grp_conv_c1_fu_1944_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= 1'b0;
-    end else begin
-        if ((1'b1 == ap_CS_fsm_state7)) begin
-            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg <= 1'b0;
-        end
-    end
-end
-
-always @ (posedge ap_clk) begin
-    if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= 1'b0;
+        grp_conv_c3_fu_2312_ap_start_reg <= 1'b0;
     end else begin
         if ((1'b1 == ap_CS_fsm_state5)) begin
-            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg <= 1'b0;
+            grp_conv_c3_fu_2312_ap_start_reg <= 1'b1;
+        end else if ((grp_conv_c3_fu_2312_ap_ready == 1'b1)) begin
+            grp_conv_c3_fu_2312_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
     if (ap_rst == 1'b1) begin
-        grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= 1'b0;
+        grp_fc_f5_fu_2938_ap_start_reg <= 1'b0;
     end else begin
-        if ((1'b1 == ap_CS_fsm_state9)) begin
-            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= 1'b1;
-        end else if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_ready == 1'b1)) begin
-            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg <= 1'b0;
+        if ((1'b1 == ap_CS_fsm_state11)) begin
+            grp_fc_f5_fu_2938_ap_start_reg <= 1'b1;
+        end else if ((grp_fc_f5_fu_2938_ap_ready == 1'b1)) begin
+            grp_fc_f5_fu_2938_ap_start_reg <= 1'b0;
         end
     end
 end
 
 always @ (posedge ap_clk) begin
-    if ((1'b1 == ap_CS_fsm_state4)) begin
-        max_val_reg_112 <= output_r_q0;
+    if (ap_rst == 1'b1) begin
+        grp_fc_f6_fu_3746_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state13)) begin
+            grp_fc_f6_fu_3746_ap_start_reg <= 1'b1;
+        end else if ((grp_fc_f6_fu_3746_ap_ready == 1'b1)) begin
+            grp_fc_f6_fu_3746_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_fc_output_fu_3994_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state15)) begin
+            grp_fc_output_fu_3994_ap_start_reg <= 1'b1;
+        end else if ((grp_fc_output_fu_3994_ap_ready == 1'b1)) begin
+            grp_fc_output_fu_3994_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state9)) begin
+            grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state3)) begin
+            grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state7)) begin
+            grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state21)) begin
+            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state19)) begin
+            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if (ap_rst == 1'b1) begin
+        grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start_reg <= 1'b0;
+    end else begin
+        if ((1'b1 == ap_CS_fsm_state23)) begin
+            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start_reg <= 1'b1;
+        end else if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_ready == 1'b1)) begin
+            grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start_reg <= 1'b0;
+        end
+    end
+end
+
+always @ (posedge ap_clk) begin
+    if ((1'b1 == ap_CS_fsm_state18)) begin
+        max_val_reg_4220 <= output_r_q0;
     end
 end
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_done == 1'b0)) begin
         ap_ST_fsm_state10_blk = 1'b1;
     end else begin
         ap_ST_fsm_state10_blk = 1'b0;
     end
 end
+
+assign ap_ST_fsm_state11_blk = 1'b0;
+
+always @ (*) begin
+    if ((grp_fc_f5_fu_2938_ap_done == 1'b0)) begin
+        ap_ST_fsm_state12_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state12_blk = 1'b0;
+    end
+end
+
+assign ap_ST_fsm_state13_blk = 1'b0;
+
+always @ (*) begin
+    if ((grp_fc_f6_fu_3746_ap_done == 1'b0)) begin
+        ap_ST_fsm_state14_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state14_blk = 1'b0;
+    end
+end
+
+assign ap_ST_fsm_state15_blk = 1'b0;
+
+always @ (*) begin
+    if ((grp_fc_output_fu_3994_ap_done == 1'b0)) begin
+        ap_ST_fsm_state16_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state16_blk = 1'b0;
+    end
+end
+
+assign ap_ST_fsm_state17_blk = 1'b0;
+
+assign ap_ST_fsm_state18_blk = 1'b0;
+
+assign ap_ST_fsm_state19_blk = 1'b0;
 
 always @ (*) begin
     if ((ap_start == 1'b0)) begin
@@ -301,7 +5574,35 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_done == 1'b0)) begin
+        ap_ST_fsm_state20_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state20_blk = 1'b0;
+    end
+end
+
+assign ap_ST_fsm_state21_blk = 1'b0;
+
+always @ (*) begin
+    if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_done == 1'b0)) begin
+        ap_ST_fsm_state22_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state22_blk = 1'b0;
+    end
+end
+
+assign ap_ST_fsm_state23_blk = 1'b0;
+
+always @ (*) begin
+    if ((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_done == 1'b0)) begin
+        ap_ST_fsm_state24_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state24_blk = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((grp_conv_c1_fu_1944_ap_done == 1'b0)) begin
         ap_ST_fsm_state2_blk = 1'b1;
     end else begin
         ap_ST_fsm_state2_blk = 1'b0;
@@ -310,12 +5611,18 @@ end
 
 assign ap_ST_fsm_state3_blk = 1'b0;
 
-assign ap_ST_fsm_state4_blk = 1'b0;
+always @ (*) begin
+    if ((grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_done == 1'b0)) begin
+        ap_ST_fsm_state4_blk = 1'b1;
+    end else begin
+        ap_ST_fsm_state4_blk = 1'b0;
+    end
+end
 
 assign ap_ST_fsm_state5_blk = 1'b0;
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done == 1'b0)) begin
+    if ((grp_conv_c3_fu_2312_ap_done == 1'b0)) begin
         ap_ST_fsm_state6_blk = 1'b1;
     end else begin
         ap_ST_fsm_state6_blk = 1'b0;
@@ -325,7 +5632,7 @@ end
 assign ap_ST_fsm_state7_blk = 1'b0;
 
 always @ (*) begin
-    if ((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done == 1'b0)) begin
+    if ((grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_done == 1'b0)) begin
         ap_ST_fsm_state8_blk = 1'b1;
     end else begin
         ap_ST_fsm_state8_blk = 1'b0;
@@ -335,7 +5642,7 @@ end
 assign ap_ST_fsm_state9_blk = 1'b0;
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b1))) begin
+    if (((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state24))) begin
         ap_done = 1'b1;
     end else begin
         ap_done = 1'b0;
@@ -343,7 +5650,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b0))) begin
+    if (((ap_start == 1'b0) & (1'b1 == ap_CS_fsm_state1))) begin
         ap_idle = 1'b1;
     end else begin
         ap_idle = 1'b0;
@@ -351,7 +5658,7 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b1))) begin
+    if (((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state24))) begin
         ap_ready = 1'b1;
     end else begin
         ap_ready = 1'b0;
@@ -359,45 +5666,181 @@ always @ (*) begin
 end
 
 always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state14)) begin
+        f5_output_address0 = grp_fc_f6_fu_3746_f5_output_address0;
+    end else if ((1'b1 == ap_CS_fsm_state12)) begin
+        f5_output_address0 = grp_fc_f5_fu_2938_f5_output_address0;
+    end else begin
+        f5_output_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state14)) begin
+        f5_output_ce0 = grp_fc_f6_fu_3746_f5_output_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state12)) begin
+        f5_output_ce0 = grp_fc_f5_fu_2938_f5_output_ce0;
+    end else begin
+        f5_output_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state14)) begin
+        f5_output_ce1 = grp_fc_f6_fu_3746_f5_output_ce1;
+    end else begin
+        f5_output_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state12)) begin
+        f5_output_we0 = grp_fc_f5_fu_2938_f5_output_we0;
+    end else begin
+        f5_output_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state16)) begin
+        f6_output_address0 = grp_fc_output_fu_3994_f6_output_address0;
+    end else if ((1'b1 == ap_CS_fsm_state14)) begin
+        f6_output_address0 = grp_fc_f6_fu_3746_f6_output_address0;
+    end else begin
+        f6_output_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state16)) begin
+        f6_output_ce0 = grp_fc_output_fu_3994_f6_output_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state14)) begin
+        f6_output_ce0 = grp_fc_f6_fu_3746_f6_output_ce0;
+    end else begin
+        f6_output_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state16)) begin
+        f6_output_ce1 = grp_fc_output_fu_3994_f6_output_ce1;
+    end else begin
+        f6_output_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state14)) begin
+        f6_output_we0 = grp_fc_f6_fu_3746_f6_output_we0;
+    end else begin
+        f6_output_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state12)) begin
+        flatten_output_address0 = grp_fc_f5_fu_2938_flatten_output_address0;
+    end else if ((1'b1 == ap_CS_fsm_state10)) begin
+        flatten_output_address0 = grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_address0;
+    end else begin
+        flatten_output_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state12)) begin
+        flatten_output_ce0 = grp_fc_f5_fu_2938_flatten_output_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state10)) begin
+        flatten_output_ce0 = grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_ce0;
+    end else begin
+        flatten_output_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state12)) begin
+        flatten_output_ce1 = grp_fc_f5_fu_2938_flatten_output_ce1;
+    end else begin
+        flatten_output_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
     if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address0;
-    end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address0;
+        flatten_output_we0 = grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_flatten_output_we0;
+    end else begin
+        flatten_output_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state14)) begin
+        grp_fu_4231_ce = grp_fc_f6_fu_3746_grp_fu_4231_p_ce;
+    end else if ((1'b1 == ap_CS_fsm_state12)) begin
+        grp_fu_4231_ce = grp_fc_f5_fu_2938_grp_fu_4231_p_ce;
     end else if ((1'b1 == ap_CS_fsm_state6)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_address0;
-    end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_address0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_address0;
+        grp_fu_4231_ce = grp_conv_c3_fu_2312_grp_fu_4231_p_ce;
+    end else if (((1'b1 == ap_CS_fsm_state1) | (1'b1 == ap_CS_fsm_state2))) begin
+        grp_fu_4231_ce = grp_conv_c1_fu_1944_grp_fu_4231_p_ce;
+    end else begin
+        grp_fu_4231_ce = 1'b1;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state14)) begin
+        grp_fu_4231_p0 = grp_fc_f6_fu_3746_grp_fu_4231_p_din0;
+    end else if ((1'b1 == ap_CS_fsm_state12)) begin
+        grp_fu_4231_p0 = grp_fc_f5_fu_2938_grp_fu_4231_p_din0;
+    end else if ((1'b1 == ap_CS_fsm_state6)) begin
+        grp_fu_4231_p0 = grp_conv_c3_fu_2312_grp_fu_4231_p_din0;
+    end else if (((1'b1 == ap_CS_fsm_state1) | (1'b1 == ap_CS_fsm_state2))) begin
+        grp_fu_4231_p0 = grp_conv_c1_fu_1944_grp_fu_4231_p_din0;
+    end else begin
+        grp_fu_4231_p0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state24)) begin
+        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_address0;
+    end else if ((1'b1 == ap_CS_fsm_state22)) begin
+        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_address0;
+    end else if ((1'b1 == ap_CS_fsm_state20)) begin
+        output_r_address0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_output_r_address0;
+    end else if ((1'b1 == ap_CS_fsm_state16)) begin
+        output_r_address0 = grp_fc_output_fu_3994_output_r_address0;
     end else begin
         output_r_address0 = 64'd0;
     end
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_address1;
-    end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_address1;
+    if ((1'b1 == ap_CS_fsm_state24)) begin
+        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_address1;
+    end else if ((1'b1 == ap_CS_fsm_state22)) begin
+        output_r_address1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_address1;
     end else begin
         output_r_address1 = 'bx;
     end
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce0;
-    end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce0;
-    end else if ((1'b1 == ap_CS_fsm_state6)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_output_r_ce0;
-    end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_ce0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_ce0;
+    if ((1'b1 == ap_CS_fsm_state24)) begin
+        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state22)) begin
+        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state20)) begin
+        output_r_ce0 = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_output_r_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state16)) begin
+        output_r_ce0 = grp_fc_output_fu_3994_output_r_ce0;
     end else begin
         output_r_ce0 = output_r_ce0_local;
     end
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state3)) begin
+    if ((1'b1 == ap_CS_fsm_state17)) begin
         output_r_ce0_local = 1'b1;
     end else begin
         output_r_ce0_local = 1'b0;
@@ -405,50 +5848,4422 @@ always @ (*) begin
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_ce1;
-    end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_ce1;
+    if ((1'b1 == ap_CS_fsm_state24)) begin
+        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_ce1;
+    end else if ((1'b1 == ap_CS_fsm_state22)) begin
+        output_r_ce1 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_ce1;
     end else begin
         output_r_ce1 = 1'b0;
     end
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_d0;
-    end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_d0;
-    end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_d0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_d0;
+    if ((1'b1 == ap_CS_fsm_state24)) begin
+        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_d0;
+    end else if ((1'b1 == ap_CS_fsm_state22)) begin
+        output_r_d0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_d0;
+    end else if ((1'b1 == ap_CS_fsm_state16)) begin
+        output_r_d0 = grp_fc_output_fu_3994_output_r_d0;
     end else begin
         output_r_d0 = 'bx;
     end
 end
 
 always @ (*) begin
-    if ((1'b1 == ap_CS_fsm_state10)) begin
-        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_output_r_we0;
-    end else if ((1'b1 == ap_CS_fsm_state8)) begin
-        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_output_r_we0;
-    end else if ((1'b1 == ap_CS_fsm_state2)) begin
-        output_r_we0 = grp_lenet_hls_Pipeline_Output_Loop_fu_56_output_r_we0;
+    if ((1'b1 == ap_CS_fsm_state24)) begin
+        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_output_r_we0;
+    end else if ((1'b1 == ap_CS_fsm_state22)) begin
+        output_r_we0 = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_output_r_we0;
+    end else if ((1'b1 == ap_CS_fsm_state16)) begin
+        output_r_we0 = grp_fc_output_fu_3994_output_r_we0;
     end else begin
         output_r_we0 = 1'b0;
     end
 end
 
 always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9c1_output_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state2)) begin
+        p_ZL9c1_output_0_address0 = grp_conv_c1_fu_1944_p_ZL9c1_output_0_address0;
+    end else begin
+        p_ZL9c1_output_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9c1_output_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state2)) begin
+        p_ZL9c1_output_0_ce0 = grp_conv_c1_fu_1944_p_ZL9c1_output_0_ce0;
+    end else begin
+        p_ZL9c1_output_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9c1_output_0_ce1 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_0_ce1;
+    end else begin
+        p_ZL9c1_output_0_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state2)) begin
+        p_ZL9c1_output_0_we0 = grp_conv_c1_fu_1944_p_ZL9c1_output_0_we0;
+    end else begin
+        p_ZL9c1_output_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9c1_output_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state2)) begin
+        p_ZL9c1_output_1_address0 = grp_conv_c1_fu_1944_p_ZL9c1_output_1_address0;
+    end else begin
+        p_ZL9c1_output_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9c1_output_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state2)) begin
+        p_ZL9c1_output_1_ce0 = grp_conv_c1_fu_1944_p_ZL9c1_output_1_ce0;
+    end else begin
+        p_ZL9c1_output_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9c1_output_1_ce1 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9c1_output_1_ce1;
+    end else begin
+        p_ZL9c1_output_1_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state2)) begin
+        p_ZL9c1_output_1_we0 = grp_conv_c1_fu_1944_p_ZL9c1_output_1_we0;
+    end else begin
+        p_ZL9c1_output_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        p_ZL9c3_output_0_address0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9c3_output_0_address0 = grp_conv_c3_fu_2312_p_ZL9c3_output_0_address0;
+    end else begin
+        p_ZL9c3_output_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        p_ZL9c3_output_0_ce0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9c3_output_0_ce0 = grp_conv_c3_fu_2312_p_ZL9c3_output_0_ce0;
+    end else begin
+        p_ZL9c3_output_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        p_ZL9c3_output_0_ce1 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_0_ce1;
+    end else begin
+        p_ZL9c3_output_0_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9c3_output_0_we0 = grp_conv_c3_fu_2312_p_ZL9c3_output_0_we0;
+    end else begin
+        p_ZL9c3_output_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        p_ZL9c3_output_1_address0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9c3_output_1_address0 = grp_conv_c3_fu_2312_p_ZL9c3_output_1_address0;
+    end else begin
+        p_ZL9c3_output_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        p_ZL9c3_output_1_ce0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9c3_output_1_ce0 = grp_conv_c3_fu_2312_p_ZL9c3_output_1_ce0;
+    end else begin
+        p_ZL9c3_output_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        p_ZL9c3_output_1_ce1 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_p_ZL9c3_output_1_ce1;
+    end else begin
+        p_ZL9c3_output_1_ce1 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9c3_output_1_we0 = grp_conv_c3_fu_2312_p_ZL9c3_output_1_we0;
+    end else begin
+        p_ZL9c3_output_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_address0;
+    end else begin
+        p_ZL9s2_output_0_0_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_ce0;
+    end else begin
+        p_ZL9s2_output_0_0_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_0_we0;
+    end else begin
+        p_ZL9s2_output_0_0_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_address0;
+    end else begin
+        p_ZL9s2_output_0_0_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_ce0;
+    end else begin
+        p_ZL9s2_output_0_0_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_1_we0;
+    end else begin
+        p_ZL9s2_output_0_0_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_address0;
+    end else begin
+        p_ZL9s2_output_0_0_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_ce0;
+    end else begin
+        p_ZL9s2_output_0_0_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_2_we0;
+    end else begin
+        p_ZL9s2_output_0_0_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_address0;
+    end else begin
+        p_ZL9s2_output_0_0_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_ce0;
+    end else begin
+        p_ZL9s2_output_0_0_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_3_we0;
+    end else begin
+        p_ZL9s2_output_0_0_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_address0;
+    end else begin
+        p_ZL9s2_output_0_0_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_0_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_0_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_ce0;
+    end else begin
+        p_ZL9s2_output_0_0_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_0_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_0_4_we0;
+    end else begin
+        p_ZL9s2_output_0_0_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_address0;
+    end else begin
+        p_ZL9s2_output_0_1_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_ce0;
+    end else begin
+        p_ZL9s2_output_0_1_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_0_we0;
+    end else begin
+        p_ZL9s2_output_0_1_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_address0;
+    end else begin
+        p_ZL9s2_output_0_1_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_ce0;
+    end else begin
+        p_ZL9s2_output_0_1_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_1_we0;
+    end else begin
+        p_ZL9s2_output_0_1_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_address0;
+    end else begin
+        p_ZL9s2_output_0_1_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_ce0;
+    end else begin
+        p_ZL9s2_output_0_1_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_2_we0;
+    end else begin
+        p_ZL9s2_output_0_1_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_address0;
+    end else begin
+        p_ZL9s2_output_0_1_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_ce0;
+    end else begin
+        p_ZL9s2_output_0_1_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_3_we0;
+    end else begin
+        p_ZL9s2_output_0_1_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_address0;
+    end else begin
+        p_ZL9s2_output_0_1_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_1_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_1_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_ce0;
+    end else begin
+        p_ZL9s2_output_0_1_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_1_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_1_4_we0;
+    end else begin
+        p_ZL9s2_output_0_1_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_address0;
+    end else begin
+        p_ZL9s2_output_0_2_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_ce0;
+    end else begin
+        p_ZL9s2_output_0_2_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_0_we0;
+    end else begin
+        p_ZL9s2_output_0_2_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_address0;
+    end else begin
+        p_ZL9s2_output_0_2_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_ce0;
+    end else begin
+        p_ZL9s2_output_0_2_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_1_we0;
+    end else begin
+        p_ZL9s2_output_0_2_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_address0;
+    end else begin
+        p_ZL9s2_output_0_2_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_ce0;
+    end else begin
+        p_ZL9s2_output_0_2_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_2_we0;
+    end else begin
+        p_ZL9s2_output_0_2_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_address0;
+    end else begin
+        p_ZL9s2_output_0_2_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_ce0;
+    end else begin
+        p_ZL9s2_output_0_2_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_3_we0;
+    end else begin
+        p_ZL9s2_output_0_2_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_address0;
+    end else begin
+        p_ZL9s2_output_0_2_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_2_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_2_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_ce0;
+    end else begin
+        p_ZL9s2_output_0_2_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_2_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_2_4_we0;
+    end else begin
+        p_ZL9s2_output_0_2_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_address0;
+    end else begin
+        p_ZL9s2_output_0_3_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_ce0;
+    end else begin
+        p_ZL9s2_output_0_3_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_0_we0;
+    end else begin
+        p_ZL9s2_output_0_3_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_address0;
+    end else begin
+        p_ZL9s2_output_0_3_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_ce0;
+    end else begin
+        p_ZL9s2_output_0_3_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_1_we0;
+    end else begin
+        p_ZL9s2_output_0_3_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_address0;
+    end else begin
+        p_ZL9s2_output_0_3_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_ce0;
+    end else begin
+        p_ZL9s2_output_0_3_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_2_we0;
+    end else begin
+        p_ZL9s2_output_0_3_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_address0;
+    end else begin
+        p_ZL9s2_output_0_3_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_ce0;
+    end else begin
+        p_ZL9s2_output_0_3_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_3_we0;
+    end else begin
+        p_ZL9s2_output_0_3_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_address0;
+    end else begin
+        p_ZL9s2_output_0_3_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_3_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_3_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_ce0;
+    end else begin
+        p_ZL9s2_output_0_3_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_3_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_3_4_we0;
+    end else begin
+        p_ZL9s2_output_0_3_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_address0;
+    end else begin
+        p_ZL9s2_output_0_4_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_ce0;
+    end else begin
+        p_ZL9s2_output_0_4_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_0_we0;
+    end else begin
+        p_ZL9s2_output_0_4_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_address0;
+    end else begin
+        p_ZL9s2_output_0_4_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_ce0;
+    end else begin
+        p_ZL9s2_output_0_4_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_1_we0;
+    end else begin
+        p_ZL9s2_output_0_4_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_address0;
+    end else begin
+        p_ZL9s2_output_0_4_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_ce0;
+    end else begin
+        p_ZL9s2_output_0_4_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_2_we0;
+    end else begin
+        p_ZL9s2_output_0_4_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_address0;
+    end else begin
+        p_ZL9s2_output_0_4_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_ce0;
+    end else begin
+        p_ZL9s2_output_0_4_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_3_we0;
+    end else begin
+        p_ZL9s2_output_0_4_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_address0;
+    end else begin
+        p_ZL9s2_output_0_4_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_0_4_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_0_4_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_ce0;
+    end else begin
+        p_ZL9s2_output_0_4_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_0_4_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_0_4_4_we0;
+    end else begin
+        p_ZL9s2_output_0_4_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_address0;
+    end else begin
+        p_ZL9s2_output_1_0_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_ce0;
+    end else begin
+        p_ZL9s2_output_1_0_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_0_we0;
+    end else begin
+        p_ZL9s2_output_1_0_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_address0;
+    end else begin
+        p_ZL9s2_output_1_0_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_ce0;
+    end else begin
+        p_ZL9s2_output_1_0_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_1_we0;
+    end else begin
+        p_ZL9s2_output_1_0_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_address0;
+    end else begin
+        p_ZL9s2_output_1_0_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_ce0;
+    end else begin
+        p_ZL9s2_output_1_0_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_2_we0;
+    end else begin
+        p_ZL9s2_output_1_0_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_address0;
+    end else begin
+        p_ZL9s2_output_1_0_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_ce0;
+    end else begin
+        p_ZL9s2_output_1_0_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_3_we0;
+    end else begin
+        p_ZL9s2_output_1_0_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_address0;
+    end else begin
+        p_ZL9s2_output_1_0_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_0_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_0_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_ce0;
+    end else begin
+        p_ZL9s2_output_1_0_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_0_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_0_4_we0;
+    end else begin
+        p_ZL9s2_output_1_0_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_address0;
+    end else begin
+        p_ZL9s2_output_1_1_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_ce0;
+    end else begin
+        p_ZL9s2_output_1_1_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_0_we0;
+    end else begin
+        p_ZL9s2_output_1_1_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_address0;
+    end else begin
+        p_ZL9s2_output_1_1_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_ce0;
+    end else begin
+        p_ZL9s2_output_1_1_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_1_we0;
+    end else begin
+        p_ZL9s2_output_1_1_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_address0;
+    end else begin
+        p_ZL9s2_output_1_1_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_ce0;
+    end else begin
+        p_ZL9s2_output_1_1_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_2_we0;
+    end else begin
+        p_ZL9s2_output_1_1_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_address0;
+    end else begin
+        p_ZL9s2_output_1_1_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_ce0;
+    end else begin
+        p_ZL9s2_output_1_1_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_3_we0;
+    end else begin
+        p_ZL9s2_output_1_1_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_address0;
+    end else begin
+        p_ZL9s2_output_1_1_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_1_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_1_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_ce0;
+    end else begin
+        p_ZL9s2_output_1_1_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_1_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_1_4_we0;
+    end else begin
+        p_ZL9s2_output_1_1_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_address0;
+    end else begin
+        p_ZL9s2_output_1_2_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_ce0;
+    end else begin
+        p_ZL9s2_output_1_2_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_0_we0;
+    end else begin
+        p_ZL9s2_output_1_2_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_address0;
+    end else begin
+        p_ZL9s2_output_1_2_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_ce0;
+    end else begin
+        p_ZL9s2_output_1_2_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_1_we0;
+    end else begin
+        p_ZL9s2_output_1_2_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_address0;
+    end else begin
+        p_ZL9s2_output_1_2_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_ce0;
+    end else begin
+        p_ZL9s2_output_1_2_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_2_we0;
+    end else begin
+        p_ZL9s2_output_1_2_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_address0;
+    end else begin
+        p_ZL9s2_output_1_2_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_ce0;
+    end else begin
+        p_ZL9s2_output_1_2_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_3_we0;
+    end else begin
+        p_ZL9s2_output_1_2_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_address0;
+    end else begin
+        p_ZL9s2_output_1_2_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_2_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_2_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_ce0;
+    end else begin
+        p_ZL9s2_output_1_2_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_2_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_2_4_we0;
+    end else begin
+        p_ZL9s2_output_1_2_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_address0;
+    end else begin
+        p_ZL9s2_output_1_3_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_ce0;
+    end else begin
+        p_ZL9s2_output_1_3_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_0_we0;
+    end else begin
+        p_ZL9s2_output_1_3_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_address0;
+    end else begin
+        p_ZL9s2_output_1_3_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_ce0;
+    end else begin
+        p_ZL9s2_output_1_3_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_1_we0;
+    end else begin
+        p_ZL9s2_output_1_3_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_address0;
+    end else begin
+        p_ZL9s2_output_1_3_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_ce0;
+    end else begin
+        p_ZL9s2_output_1_3_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_2_we0;
+    end else begin
+        p_ZL9s2_output_1_3_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_address0;
+    end else begin
+        p_ZL9s2_output_1_3_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_ce0;
+    end else begin
+        p_ZL9s2_output_1_3_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_3_we0;
+    end else begin
+        p_ZL9s2_output_1_3_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_address0;
+    end else begin
+        p_ZL9s2_output_1_3_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_3_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_3_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_ce0;
+    end else begin
+        p_ZL9s2_output_1_3_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_3_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_3_4_we0;
+    end else begin
+        p_ZL9s2_output_1_3_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_address0;
+    end else begin
+        p_ZL9s2_output_1_4_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_ce0;
+    end else begin
+        p_ZL9s2_output_1_4_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_0_we0;
+    end else begin
+        p_ZL9s2_output_1_4_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_address0;
+    end else begin
+        p_ZL9s2_output_1_4_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_ce0;
+    end else begin
+        p_ZL9s2_output_1_4_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_1_we0;
+    end else begin
+        p_ZL9s2_output_1_4_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_address0;
+    end else begin
+        p_ZL9s2_output_1_4_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_ce0;
+    end else begin
+        p_ZL9s2_output_1_4_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_2_we0;
+    end else begin
+        p_ZL9s2_output_1_4_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_address0;
+    end else begin
+        p_ZL9s2_output_1_4_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_ce0;
+    end else begin
+        p_ZL9s2_output_1_4_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_3_we0;
+    end else begin
+        p_ZL9s2_output_1_4_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_address0;
+    end else begin
+        p_ZL9s2_output_1_4_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_1_4_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_1_4_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_ce0;
+    end else begin
+        p_ZL9s2_output_1_4_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_1_4_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_1_4_4_we0;
+    end else begin
+        p_ZL9s2_output_1_4_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_address0;
+    end else begin
+        p_ZL9s2_output_2_0_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_ce0;
+    end else begin
+        p_ZL9s2_output_2_0_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_0_we0;
+    end else begin
+        p_ZL9s2_output_2_0_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_address0;
+    end else begin
+        p_ZL9s2_output_2_0_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_ce0;
+    end else begin
+        p_ZL9s2_output_2_0_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_1_we0;
+    end else begin
+        p_ZL9s2_output_2_0_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_address0;
+    end else begin
+        p_ZL9s2_output_2_0_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_ce0;
+    end else begin
+        p_ZL9s2_output_2_0_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_2_we0;
+    end else begin
+        p_ZL9s2_output_2_0_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_address0;
+    end else begin
+        p_ZL9s2_output_2_0_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_ce0;
+    end else begin
+        p_ZL9s2_output_2_0_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_3_we0;
+    end else begin
+        p_ZL9s2_output_2_0_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_address0;
+    end else begin
+        p_ZL9s2_output_2_0_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_0_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_0_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_ce0;
+    end else begin
+        p_ZL9s2_output_2_0_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_0_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_0_4_we0;
+    end else begin
+        p_ZL9s2_output_2_0_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_address0;
+    end else begin
+        p_ZL9s2_output_2_1_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_ce0;
+    end else begin
+        p_ZL9s2_output_2_1_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_0_we0;
+    end else begin
+        p_ZL9s2_output_2_1_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_address0;
+    end else begin
+        p_ZL9s2_output_2_1_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_ce0;
+    end else begin
+        p_ZL9s2_output_2_1_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_1_we0;
+    end else begin
+        p_ZL9s2_output_2_1_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_address0;
+    end else begin
+        p_ZL9s2_output_2_1_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_ce0;
+    end else begin
+        p_ZL9s2_output_2_1_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_2_we0;
+    end else begin
+        p_ZL9s2_output_2_1_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_address0;
+    end else begin
+        p_ZL9s2_output_2_1_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_ce0;
+    end else begin
+        p_ZL9s2_output_2_1_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_3_we0;
+    end else begin
+        p_ZL9s2_output_2_1_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_address0;
+    end else begin
+        p_ZL9s2_output_2_1_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_1_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_1_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_ce0;
+    end else begin
+        p_ZL9s2_output_2_1_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_1_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_1_4_we0;
+    end else begin
+        p_ZL9s2_output_2_1_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_address0;
+    end else begin
+        p_ZL9s2_output_2_2_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_ce0;
+    end else begin
+        p_ZL9s2_output_2_2_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_0_we0;
+    end else begin
+        p_ZL9s2_output_2_2_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_address0;
+    end else begin
+        p_ZL9s2_output_2_2_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_ce0;
+    end else begin
+        p_ZL9s2_output_2_2_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_1_we0;
+    end else begin
+        p_ZL9s2_output_2_2_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_address0;
+    end else begin
+        p_ZL9s2_output_2_2_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_ce0;
+    end else begin
+        p_ZL9s2_output_2_2_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_2_we0;
+    end else begin
+        p_ZL9s2_output_2_2_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_address0;
+    end else begin
+        p_ZL9s2_output_2_2_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_ce0;
+    end else begin
+        p_ZL9s2_output_2_2_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_3_we0;
+    end else begin
+        p_ZL9s2_output_2_2_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_address0;
+    end else begin
+        p_ZL9s2_output_2_2_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_2_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_2_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_ce0;
+    end else begin
+        p_ZL9s2_output_2_2_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_2_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_2_4_we0;
+    end else begin
+        p_ZL9s2_output_2_2_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_address0;
+    end else begin
+        p_ZL9s2_output_2_3_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_ce0;
+    end else begin
+        p_ZL9s2_output_2_3_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_0_we0;
+    end else begin
+        p_ZL9s2_output_2_3_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_address0;
+    end else begin
+        p_ZL9s2_output_2_3_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_ce0;
+    end else begin
+        p_ZL9s2_output_2_3_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_1_we0;
+    end else begin
+        p_ZL9s2_output_2_3_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_address0;
+    end else begin
+        p_ZL9s2_output_2_3_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_ce0;
+    end else begin
+        p_ZL9s2_output_2_3_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_2_we0;
+    end else begin
+        p_ZL9s2_output_2_3_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_address0;
+    end else begin
+        p_ZL9s2_output_2_3_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_ce0;
+    end else begin
+        p_ZL9s2_output_2_3_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_3_we0;
+    end else begin
+        p_ZL9s2_output_2_3_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_address0;
+    end else begin
+        p_ZL9s2_output_2_3_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_3_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_3_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_ce0;
+    end else begin
+        p_ZL9s2_output_2_3_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_3_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_3_4_we0;
+    end else begin
+        p_ZL9s2_output_2_3_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_address0;
+    end else begin
+        p_ZL9s2_output_2_4_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_ce0;
+    end else begin
+        p_ZL9s2_output_2_4_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_0_we0;
+    end else begin
+        p_ZL9s2_output_2_4_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_address0;
+    end else begin
+        p_ZL9s2_output_2_4_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_ce0;
+    end else begin
+        p_ZL9s2_output_2_4_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_1_we0;
+    end else begin
+        p_ZL9s2_output_2_4_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_address0;
+    end else begin
+        p_ZL9s2_output_2_4_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_ce0;
+    end else begin
+        p_ZL9s2_output_2_4_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_2_we0;
+    end else begin
+        p_ZL9s2_output_2_4_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_address0;
+    end else begin
+        p_ZL9s2_output_2_4_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_ce0;
+    end else begin
+        p_ZL9s2_output_2_4_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_3_we0;
+    end else begin
+        p_ZL9s2_output_2_4_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_address0;
+    end else begin
+        p_ZL9s2_output_2_4_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_2_4_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_2_4_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_ce0;
+    end else begin
+        p_ZL9s2_output_2_4_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_2_4_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_2_4_4_we0;
+    end else begin
+        p_ZL9s2_output_2_4_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_address0;
+    end else begin
+        p_ZL9s2_output_3_0_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_ce0;
+    end else begin
+        p_ZL9s2_output_3_0_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_0_we0;
+    end else begin
+        p_ZL9s2_output_3_0_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_address0;
+    end else begin
+        p_ZL9s2_output_3_0_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_ce0;
+    end else begin
+        p_ZL9s2_output_3_0_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_1_we0;
+    end else begin
+        p_ZL9s2_output_3_0_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_address0;
+    end else begin
+        p_ZL9s2_output_3_0_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_ce0;
+    end else begin
+        p_ZL9s2_output_3_0_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_2_we0;
+    end else begin
+        p_ZL9s2_output_3_0_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_address0;
+    end else begin
+        p_ZL9s2_output_3_0_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_ce0;
+    end else begin
+        p_ZL9s2_output_3_0_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_3_we0;
+    end else begin
+        p_ZL9s2_output_3_0_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_address0;
+    end else begin
+        p_ZL9s2_output_3_0_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_0_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_0_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_ce0;
+    end else begin
+        p_ZL9s2_output_3_0_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_0_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_0_4_we0;
+    end else begin
+        p_ZL9s2_output_3_0_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_address0;
+    end else begin
+        p_ZL9s2_output_3_1_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_ce0;
+    end else begin
+        p_ZL9s2_output_3_1_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_0_we0;
+    end else begin
+        p_ZL9s2_output_3_1_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_address0;
+    end else begin
+        p_ZL9s2_output_3_1_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_ce0;
+    end else begin
+        p_ZL9s2_output_3_1_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_1_we0;
+    end else begin
+        p_ZL9s2_output_3_1_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_address0;
+    end else begin
+        p_ZL9s2_output_3_1_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_ce0;
+    end else begin
+        p_ZL9s2_output_3_1_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_2_we0;
+    end else begin
+        p_ZL9s2_output_3_1_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_address0;
+    end else begin
+        p_ZL9s2_output_3_1_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_ce0;
+    end else begin
+        p_ZL9s2_output_3_1_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_3_we0;
+    end else begin
+        p_ZL9s2_output_3_1_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_address0;
+    end else begin
+        p_ZL9s2_output_3_1_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_1_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_1_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_ce0;
+    end else begin
+        p_ZL9s2_output_3_1_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_1_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_1_4_we0;
+    end else begin
+        p_ZL9s2_output_3_1_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_address0;
+    end else begin
+        p_ZL9s2_output_3_2_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_ce0;
+    end else begin
+        p_ZL9s2_output_3_2_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_0_we0;
+    end else begin
+        p_ZL9s2_output_3_2_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_address0;
+    end else begin
+        p_ZL9s2_output_3_2_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_ce0;
+    end else begin
+        p_ZL9s2_output_3_2_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_1_we0;
+    end else begin
+        p_ZL9s2_output_3_2_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_address0;
+    end else begin
+        p_ZL9s2_output_3_2_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_ce0;
+    end else begin
+        p_ZL9s2_output_3_2_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_2_we0;
+    end else begin
+        p_ZL9s2_output_3_2_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_address0;
+    end else begin
+        p_ZL9s2_output_3_2_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_ce0;
+    end else begin
+        p_ZL9s2_output_3_2_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_3_we0;
+    end else begin
+        p_ZL9s2_output_3_2_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_address0;
+    end else begin
+        p_ZL9s2_output_3_2_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_2_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_2_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_ce0;
+    end else begin
+        p_ZL9s2_output_3_2_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_2_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_2_4_we0;
+    end else begin
+        p_ZL9s2_output_3_2_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_address0;
+    end else begin
+        p_ZL9s2_output_3_3_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_ce0;
+    end else begin
+        p_ZL9s2_output_3_3_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_0_we0;
+    end else begin
+        p_ZL9s2_output_3_3_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_address0;
+    end else begin
+        p_ZL9s2_output_3_3_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_ce0;
+    end else begin
+        p_ZL9s2_output_3_3_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_1_we0;
+    end else begin
+        p_ZL9s2_output_3_3_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_address0;
+    end else begin
+        p_ZL9s2_output_3_3_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_ce0;
+    end else begin
+        p_ZL9s2_output_3_3_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_2_we0;
+    end else begin
+        p_ZL9s2_output_3_3_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_address0;
+    end else begin
+        p_ZL9s2_output_3_3_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_ce0;
+    end else begin
+        p_ZL9s2_output_3_3_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_3_we0;
+    end else begin
+        p_ZL9s2_output_3_3_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_address0;
+    end else begin
+        p_ZL9s2_output_3_3_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_3_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_3_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_ce0;
+    end else begin
+        p_ZL9s2_output_3_3_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_3_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_3_4_we0;
+    end else begin
+        p_ZL9s2_output_3_3_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_address0;
+    end else begin
+        p_ZL9s2_output_3_4_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_ce0;
+    end else begin
+        p_ZL9s2_output_3_4_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_0_we0;
+    end else begin
+        p_ZL9s2_output_3_4_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_address0;
+    end else begin
+        p_ZL9s2_output_3_4_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_ce0;
+    end else begin
+        p_ZL9s2_output_3_4_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_1_we0;
+    end else begin
+        p_ZL9s2_output_3_4_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_address0;
+    end else begin
+        p_ZL9s2_output_3_4_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_ce0;
+    end else begin
+        p_ZL9s2_output_3_4_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_2_we0;
+    end else begin
+        p_ZL9s2_output_3_4_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_address0;
+    end else begin
+        p_ZL9s2_output_3_4_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_ce0;
+    end else begin
+        p_ZL9s2_output_3_4_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_3_we0;
+    end else begin
+        p_ZL9s2_output_3_4_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_address0;
+    end else begin
+        p_ZL9s2_output_3_4_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_3_4_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_3_4_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_ce0;
+    end else begin
+        p_ZL9s2_output_3_4_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_3_4_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_3_4_4_we0;
+    end else begin
+        p_ZL9s2_output_3_4_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_address0;
+    end else begin
+        p_ZL9s2_output_4_0_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_ce0;
+    end else begin
+        p_ZL9s2_output_4_0_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_0_we0;
+    end else begin
+        p_ZL9s2_output_4_0_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_address0;
+    end else begin
+        p_ZL9s2_output_4_0_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_ce0;
+    end else begin
+        p_ZL9s2_output_4_0_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_1_we0;
+    end else begin
+        p_ZL9s2_output_4_0_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_address0;
+    end else begin
+        p_ZL9s2_output_4_0_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_ce0;
+    end else begin
+        p_ZL9s2_output_4_0_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_2_we0;
+    end else begin
+        p_ZL9s2_output_4_0_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_address0;
+    end else begin
+        p_ZL9s2_output_4_0_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_ce0;
+    end else begin
+        p_ZL9s2_output_4_0_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_3_we0;
+    end else begin
+        p_ZL9s2_output_4_0_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_address0;
+    end else begin
+        p_ZL9s2_output_4_0_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_0_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_0_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_ce0;
+    end else begin
+        p_ZL9s2_output_4_0_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_0_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_0_4_we0;
+    end else begin
+        p_ZL9s2_output_4_0_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_address0;
+    end else begin
+        p_ZL9s2_output_4_1_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_ce0;
+    end else begin
+        p_ZL9s2_output_4_1_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_0_we0;
+    end else begin
+        p_ZL9s2_output_4_1_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_address0;
+    end else begin
+        p_ZL9s2_output_4_1_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_ce0;
+    end else begin
+        p_ZL9s2_output_4_1_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_1_we0;
+    end else begin
+        p_ZL9s2_output_4_1_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_address0;
+    end else begin
+        p_ZL9s2_output_4_1_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_ce0;
+    end else begin
+        p_ZL9s2_output_4_1_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_2_we0;
+    end else begin
+        p_ZL9s2_output_4_1_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_address0;
+    end else begin
+        p_ZL9s2_output_4_1_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_ce0;
+    end else begin
+        p_ZL9s2_output_4_1_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_3_we0;
+    end else begin
+        p_ZL9s2_output_4_1_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_address0;
+    end else begin
+        p_ZL9s2_output_4_1_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_1_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_1_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_ce0;
+    end else begin
+        p_ZL9s2_output_4_1_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_1_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_1_4_we0;
+    end else begin
+        p_ZL9s2_output_4_1_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_address0;
+    end else begin
+        p_ZL9s2_output_4_2_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_ce0;
+    end else begin
+        p_ZL9s2_output_4_2_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_0_we0;
+    end else begin
+        p_ZL9s2_output_4_2_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_address0;
+    end else begin
+        p_ZL9s2_output_4_2_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_ce0;
+    end else begin
+        p_ZL9s2_output_4_2_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_1_we0;
+    end else begin
+        p_ZL9s2_output_4_2_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_address0;
+    end else begin
+        p_ZL9s2_output_4_2_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_ce0;
+    end else begin
+        p_ZL9s2_output_4_2_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_2_we0;
+    end else begin
+        p_ZL9s2_output_4_2_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_address0;
+    end else begin
+        p_ZL9s2_output_4_2_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_ce0;
+    end else begin
+        p_ZL9s2_output_4_2_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_3_we0;
+    end else begin
+        p_ZL9s2_output_4_2_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_address0;
+    end else begin
+        p_ZL9s2_output_4_2_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_2_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_2_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_ce0;
+    end else begin
+        p_ZL9s2_output_4_2_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_2_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_2_4_we0;
+    end else begin
+        p_ZL9s2_output_4_2_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_address0;
+    end else begin
+        p_ZL9s2_output_4_3_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_ce0;
+    end else begin
+        p_ZL9s2_output_4_3_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_0_we0;
+    end else begin
+        p_ZL9s2_output_4_3_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_address0;
+    end else begin
+        p_ZL9s2_output_4_3_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_ce0;
+    end else begin
+        p_ZL9s2_output_4_3_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_1_we0;
+    end else begin
+        p_ZL9s2_output_4_3_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_address0;
+    end else begin
+        p_ZL9s2_output_4_3_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_ce0;
+    end else begin
+        p_ZL9s2_output_4_3_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_2_we0;
+    end else begin
+        p_ZL9s2_output_4_3_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_address0;
+    end else begin
+        p_ZL9s2_output_4_3_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_ce0;
+    end else begin
+        p_ZL9s2_output_4_3_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_3_we0;
+    end else begin
+        p_ZL9s2_output_4_3_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_address0;
+    end else begin
+        p_ZL9s2_output_4_3_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_3_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_3_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_ce0;
+    end else begin
+        p_ZL9s2_output_4_3_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_3_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_3_4_we0;
+    end else begin
+        p_ZL9s2_output_4_3_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_address0;
+    end else begin
+        p_ZL9s2_output_4_4_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_ce0;
+    end else begin
+        p_ZL9s2_output_4_4_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_0_we0;
+    end else begin
+        p_ZL9s2_output_4_4_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_address0;
+    end else begin
+        p_ZL9s2_output_4_4_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_ce0;
+    end else begin
+        p_ZL9s2_output_4_4_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_1_we0;
+    end else begin
+        p_ZL9s2_output_4_4_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_address0;
+    end else begin
+        p_ZL9s2_output_4_4_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_ce0;
+    end else begin
+        p_ZL9s2_output_4_4_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_2_we0;
+    end else begin
+        p_ZL9s2_output_4_4_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_address0;
+    end else begin
+        p_ZL9s2_output_4_4_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_ce0;
+    end else begin
+        p_ZL9s2_output_4_4_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_3_we0;
+    end else begin
+        p_ZL9s2_output_4_4_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_address0;
+    end else begin
+        p_ZL9s2_output_4_4_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_4_4_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_4_4_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_ce0;
+    end else begin
+        p_ZL9s2_output_4_4_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_4_4_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_4_4_4_we0;
+    end else begin
+        p_ZL9s2_output_4_4_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_address0;
+    end else begin
+        p_ZL9s2_output_5_0_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_ce0;
+    end else begin
+        p_ZL9s2_output_5_0_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_0_we0;
+    end else begin
+        p_ZL9s2_output_5_0_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_address0;
+    end else begin
+        p_ZL9s2_output_5_0_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_ce0;
+    end else begin
+        p_ZL9s2_output_5_0_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_1_we0;
+    end else begin
+        p_ZL9s2_output_5_0_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_address0;
+    end else begin
+        p_ZL9s2_output_5_0_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_ce0;
+    end else begin
+        p_ZL9s2_output_5_0_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_2_we0;
+    end else begin
+        p_ZL9s2_output_5_0_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_address0;
+    end else begin
+        p_ZL9s2_output_5_0_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_ce0;
+    end else begin
+        p_ZL9s2_output_5_0_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_3_we0;
+    end else begin
+        p_ZL9s2_output_5_0_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_address0;
+    end else begin
+        p_ZL9s2_output_5_0_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_0_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_0_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_ce0;
+    end else begin
+        p_ZL9s2_output_5_0_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_0_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_0_4_we0;
+    end else begin
+        p_ZL9s2_output_5_0_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_address0;
+    end else begin
+        p_ZL9s2_output_5_1_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_ce0;
+    end else begin
+        p_ZL9s2_output_5_1_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_0_we0;
+    end else begin
+        p_ZL9s2_output_5_1_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_address0;
+    end else begin
+        p_ZL9s2_output_5_1_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_ce0;
+    end else begin
+        p_ZL9s2_output_5_1_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_1_we0;
+    end else begin
+        p_ZL9s2_output_5_1_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_address0;
+    end else begin
+        p_ZL9s2_output_5_1_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_ce0;
+    end else begin
+        p_ZL9s2_output_5_1_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_2_we0;
+    end else begin
+        p_ZL9s2_output_5_1_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_address0;
+    end else begin
+        p_ZL9s2_output_5_1_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_ce0;
+    end else begin
+        p_ZL9s2_output_5_1_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_3_we0;
+    end else begin
+        p_ZL9s2_output_5_1_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_address0;
+    end else begin
+        p_ZL9s2_output_5_1_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_1_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_1_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_ce0;
+    end else begin
+        p_ZL9s2_output_5_1_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_1_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_1_4_we0;
+    end else begin
+        p_ZL9s2_output_5_1_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_address0;
+    end else begin
+        p_ZL9s2_output_5_2_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_ce0;
+    end else begin
+        p_ZL9s2_output_5_2_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_0_we0;
+    end else begin
+        p_ZL9s2_output_5_2_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_address0;
+    end else begin
+        p_ZL9s2_output_5_2_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_ce0;
+    end else begin
+        p_ZL9s2_output_5_2_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_1_we0;
+    end else begin
+        p_ZL9s2_output_5_2_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_address0;
+    end else begin
+        p_ZL9s2_output_5_2_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_ce0;
+    end else begin
+        p_ZL9s2_output_5_2_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_2_we0;
+    end else begin
+        p_ZL9s2_output_5_2_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_address0;
+    end else begin
+        p_ZL9s2_output_5_2_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_ce0;
+    end else begin
+        p_ZL9s2_output_5_2_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_3_we0;
+    end else begin
+        p_ZL9s2_output_5_2_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_address0;
+    end else begin
+        p_ZL9s2_output_5_2_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_2_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_2_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_ce0;
+    end else begin
+        p_ZL9s2_output_5_2_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_2_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_2_4_we0;
+    end else begin
+        p_ZL9s2_output_5_2_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_address0;
+    end else begin
+        p_ZL9s2_output_5_3_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_ce0;
+    end else begin
+        p_ZL9s2_output_5_3_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_0_we0;
+    end else begin
+        p_ZL9s2_output_5_3_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_address0;
+    end else begin
+        p_ZL9s2_output_5_3_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_ce0;
+    end else begin
+        p_ZL9s2_output_5_3_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_1_we0;
+    end else begin
+        p_ZL9s2_output_5_3_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_address0;
+    end else begin
+        p_ZL9s2_output_5_3_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_ce0;
+    end else begin
+        p_ZL9s2_output_5_3_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_2_we0;
+    end else begin
+        p_ZL9s2_output_5_3_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_address0;
+    end else begin
+        p_ZL9s2_output_5_3_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_ce0;
+    end else begin
+        p_ZL9s2_output_5_3_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_3_we0;
+    end else begin
+        p_ZL9s2_output_5_3_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_address0;
+    end else begin
+        p_ZL9s2_output_5_3_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_3_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_3_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_ce0;
+    end else begin
+        p_ZL9s2_output_5_3_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_3_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_3_4_we0;
+    end else begin
+        p_ZL9s2_output_5_3_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_0_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_0_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_0_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_address0;
+    end else begin
+        p_ZL9s2_output_5_4_0_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_0_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_0_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_0_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_ce0;
+    end else begin
+        p_ZL9s2_output_5_4_0_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_0_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_0_we0;
+    end else begin
+        p_ZL9s2_output_5_4_0_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_1_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_1_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_1_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_address0;
+    end else begin
+        p_ZL9s2_output_5_4_1_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_1_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_1_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_1_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_ce0;
+    end else begin
+        p_ZL9s2_output_5_4_1_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_1_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_1_we0;
+    end else begin
+        p_ZL9s2_output_5_4_1_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_2_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_2_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_2_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_address0;
+    end else begin
+        p_ZL9s2_output_5_4_2_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_2_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_2_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_2_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_ce0;
+    end else begin
+        p_ZL9s2_output_5_4_2_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_2_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_2_we0;
+    end else begin
+        p_ZL9s2_output_5_4_2_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_3_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_3_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_3_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_address0;
+    end else begin
+        p_ZL9s2_output_5_4_3_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_3_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_3_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_3_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_ce0;
+    end else begin
+        p_ZL9s2_output_5_4_3_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_3_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_3_we0;
+    end else begin
+        p_ZL9s2_output_5_4_3_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_4_address0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_4_address0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_4_address0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_address0;
+    end else begin
+        p_ZL9s2_output_5_4_4_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state6)) begin
+        p_ZL9s2_output_5_4_4_ce0 = grp_conv_c3_fu_2312_p_ZL9s2_output_5_4_4_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_4_ce0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_ce0;
+    end else begin
+        p_ZL9s2_output_5_4_4_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state4)) begin
+        p_ZL9s2_output_5_4_4_we0 = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_p_ZL9s2_output_5_4_4_we0;
+    end else begin
+        p_ZL9s2_output_5_4_4_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state10)) begin
+        s4_output_address0 = grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_s4_output_address0;
+    end else if ((1'b1 == ap_CS_fsm_state8)) begin
+        s4_output_address0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_address0;
+    end else begin
+        s4_output_address0 = 'bx;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state10)) begin
+        s4_output_ce0 = grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_s4_output_ce0;
+    end else if ((1'b1 == ap_CS_fsm_state8)) begin
+        s4_output_ce0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_ce0;
+    end else begin
+        s4_output_ce0 = 1'b0;
+    end
+end
+
+always @ (*) begin
+    if ((1'b1 == ap_CS_fsm_state8)) begin
+        s4_output_we0 = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_s4_output_we0;
+    end else begin
+        s4_output_we0 = 1'b0;
+    end
+end
+
+always @ (*) begin
     case (ap_CS_fsm)
         ap_ST_fsm_state1 : begin
-            if (((1'b1 == ap_CS_fsm_state1) & (ap_start == 1'b1))) begin
+            if (((ap_start == 1'b1) & (1'b1 == ap_CS_fsm_state1))) begin
                 ap_NS_fsm = ap_ST_fsm_state2;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state1;
             end
         end
         ap_ST_fsm_state2 : begin
-            if (((grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state2))) begin
+            if (((1'b1 == ap_CS_fsm_state2) & (grp_conv_c1_fu_1944_ap_done == 1'b1))) begin
                 ap_NS_fsm = ap_ST_fsm_state3;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state2;
@@ -458,13 +10273,17 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state4;
         end
         ap_ST_fsm_state4 : begin
-            ap_NS_fsm = ap_ST_fsm_state5;
+            if (((1'b1 == ap_CS_fsm_state4) & (grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_done == 1'b1))) begin
+                ap_NS_fsm = ap_ST_fsm_state5;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state4;
+            end
         end
         ap_ST_fsm_state5 : begin
             ap_NS_fsm = ap_ST_fsm_state6;
         end
         ap_ST_fsm_state6 : begin
-            if (((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state6))) begin
+            if (((grp_conv_c3_fu_2312_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state6))) begin
                 ap_NS_fsm = ap_ST_fsm_state7;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state6;
@@ -474,7 +10293,7 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state8;
         end
         ap_ST_fsm_state8 : begin
-            if (((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state8))) begin
+            if (((grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state8))) begin
                 ap_NS_fsm = ap_ST_fsm_state9;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state8;
@@ -484,10 +10303,76 @@ always @ (*) begin
             ap_NS_fsm = ap_ST_fsm_state10;
         end
         ap_ST_fsm_state10 : begin
-            if (((1'b1 == ap_CS_fsm_state10) & (grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_done == 1'b1))) begin
-                ap_NS_fsm = ap_ST_fsm_state1;
+            if (((grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state10))) begin
+                ap_NS_fsm = ap_ST_fsm_state11;
             end else begin
                 ap_NS_fsm = ap_ST_fsm_state10;
+            end
+        end
+        ap_ST_fsm_state11 : begin
+            ap_NS_fsm = ap_ST_fsm_state12;
+        end
+        ap_ST_fsm_state12 : begin
+            if (((grp_fc_f5_fu_2938_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state12))) begin
+                ap_NS_fsm = ap_ST_fsm_state13;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state12;
+            end
+        end
+        ap_ST_fsm_state13 : begin
+            ap_NS_fsm = ap_ST_fsm_state14;
+        end
+        ap_ST_fsm_state14 : begin
+            if (((grp_fc_f6_fu_3746_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state14))) begin
+                ap_NS_fsm = ap_ST_fsm_state15;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state14;
+            end
+        end
+        ap_ST_fsm_state15 : begin
+            ap_NS_fsm = ap_ST_fsm_state16;
+        end
+        ap_ST_fsm_state16 : begin
+            if (((grp_fc_output_fu_3994_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state16))) begin
+                ap_NS_fsm = ap_ST_fsm_state17;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state16;
+            end
+        end
+        ap_ST_fsm_state17 : begin
+            ap_NS_fsm = ap_ST_fsm_state18;
+        end
+        ap_ST_fsm_state18 : begin
+            ap_NS_fsm = ap_ST_fsm_state19;
+        end
+        ap_ST_fsm_state19 : begin
+            ap_NS_fsm = ap_ST_fsm_state20;
+        end
+        ap_ST_fsm_state20 : begin
+            if (((grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state20))) begin
+                ap_NS_fsm = ap_ST_fsm_state21;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state20;
+            end
+        end
+        ap_ST_fsm_state21 : begin
+            ap_NS_fsm = ap_ST_fsm_state22;
+        end
+        ap_ST_fsm_state22 : begin
+            if (((grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state22))) begin
+                ap_NS_fsm = ap_ST_fsm_state23;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state22;
+            end
+        end
+        ap_ST_fsm_state23 : begin
+            ap_NS_fsm = ap_ST_fsm_state24;
+        end
+        ap_ST_fsm_state24 : begin
+            if (((grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_done == 1'b1) & (1'b1 == ap_CS_fsm_state24))) begin
+                ap_NS_fsm = ap_ST_fsm_state1;
+            end else begin
+                ap_NS_fsm = ap_ST_fsm_state24;
             end
         end
         default : begin
@@ -500,7 +10385,35 @@ assign ap_CS_fsm_state1 = ap_CS_fsm[32'd0];
 
 assign ap_CS_fsm_state10 = ap_CS_fsm[32'd9];
 
+assign ap_CS_fsm_state11 = ap_CS_fsm[32'd10];
+
+assign ap_CS_fsm_state12 = ap_CS_fsm[32'd11];
+
+assign ap_CS_fsm_state13 = ap_CS_fsm[32'd12];
+
+assign ap_CS_fsm_state14 = ap_CS_fsm[32'd13];
+
+assign ap_CS_fsm_state15 = ap_CS_fsm[32'd14];
+
+assign ap_CS_fsm_state16 = ap_CS_fsm[32'd15];
+
+assign ap_CS_fsm_state17 = ap_CS_fsm[32'd16];
+
+assign ap_CS_fsm_state18 = ap_CS_fsm[32'd17];
+
+assign ap_CS_fsm_state19 = ap_CS_fsm[32'd18];
+
 assign ap_CS_fsm_state2 = ap_CS_fsm[32'd1];
+
+assign ap_CS_fsm_state20 = ap_CS_fsm[32'd19];
+
+assign ap_CS_fsm_state21 = ap_CS_fsm[32'd20];
+
+assign ap_CS_fsm_state22 = ap_CS_fsm[32'd21];
+
+assign ap_CS_fsm_state23 = ap_CS_fsm[32'd22];
+
+assign ap_CS_fsm_state24 = ap_CS_fsm[32'd23];
 
 assign ap_CS_fsm_state3 = ap_CS_fsm[32'd2];
 
@@ -516,28 +10429,34 @@ assign ap_CS_fsm_state8 = ap_CS_fsm[32'd7];
 
 assign ap_CS_fsm_state9 = ap_CS_fsm[32'd8];
 
-assign grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start = grp_lenet_hls_Pipeline_Output_Loop_fu_56_ap_start_reg;
+assign grp_conv_c1_fu_1944_ap_start = grp_conv_c1_fu_1944_ap_start_reg;
 
-assign grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_70_ap_start_reg;
+assign grp_conv_c3_fu_2312_ap_start = grp_conv_c3_fu_2312_ap_start_reg;
 
-assign grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_62_ap_start_reg;
+assign grp_fc_f5_fu_2938_ap_start = grp_fc_f5_fu_2938_ap_start_reg;
 
-assign grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_80_ap_start_reg;
+assign grp_fc_f6_fu_3746_ap_start = grp_fc_f6_fu_3746_ap_start_reg;
 
-assign input_r_address0 = 10'd0;
+assign grp_fc_output_fu_3994_ap_start = grp_fc_output_fu_3994_ap_start_reg;
 
-assign input_r_address1 = 10'd0;
+assign grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start = grp_lenet_hls_Pipeline_Flatten_Depth_Loop_Flatten_Row_Loop_Flatten_Col_Loop_fu_2930_ap_start_reg;
 
-assign input_r_ce0 = 1'b0;
+assign grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start = grp_lenet_hls_Pipeline_S2_Filter_Loop_S2_Row_Loop_S2_Col_Loop_fu_2004_ap_start_reg;
 
-assign input_r_ce1 = 1'b0;
+assign grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start = grp_lenet_hls_Pipeline_S4_Filter_Loop_S4_Row_Loop_S4_Col_Loop_fu_2920_ap_start_reg;
 
-assign input_r_d0 = 8'd0;
+assign grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start = grp_lenet_hls_Pipeline_Softmax_Exp_Loop_fu_4178_ap_start_reg;
 
-assign input_r_d1 = 8'd0;
+assign grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start = grp_lenet_hls_Pipeline_Softmax_Max_Loop_fu_4170_ap_start_reg;
 
-assign input_r_we0 = 1'b0;
+assign grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start = grp_lenet_hls_Pipeline_Softmax_Norm_Loop_fu_4188_ap_start_reg;
 
-assign input_r_we1 = 1'b0;
+assign input_r_address0 = grp_conv_c1_fu_1944_input_r_address0;
+
+assign input_r_address1 = grp_conv_c1_fu_1944_input_r_address1;
+
+assign input_r_ce0 = grp_conv_c1_fu_1944_input_r_ce0;
+
+assign input_r_ce1 = grp_conv_c1_fu_1944_input_r_ce1;
 
 endmodule //lenet_hls

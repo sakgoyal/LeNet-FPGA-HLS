@@ -50,9 +50,9 @@ reg   [0:0] or_ln542_2_reg_235;
 wire   [63:0] zext_ln897_fu_159_p1;
 wire    ap_block_pp0_stage0;
 reg    exp_x_msb_1_table_ce0_local;
-wire   [0:0] tmp_1_fu_89_p3;
-wire   [0:0] tmp_2_fu_103_p3;
-wire   [0:0] tmp_3_fu_117_p3;
+wire   [0:0] tmp_16_fu_89_p3;
+wire   [0:0] tmp_17_fu_103_p3;
+wire   [0:0] tmp_18_fu_117_p3;
 wire   [5:0] x_l_int_fu_85_p1;
 wire   [0:0] overf_fu_97_p2;
 wire   [0:0] xor_ln538_1_fu_125_p2;
@@ -210,15 +210,15 @@ assign or_ln542_fu_164_p2 = (or_ln542_2_reg_235 | icmp_ln542_reg_230);
 
 assign overf_1_fu_199_p3 = y_2_fu_191_p3[32'd63];
 
-assign overf_fu_97_p2 = (tmp_fu_77_p3 ^ tmp_1_fu_89_p3);
+assign overf_fu_97_p2 = (tmp_fu_77_p3 ^ tmp_16_fu_89_p3);
 
 assign select_ln530_fu_173_p3 = ((y_fu_168_p2[0:0] == 1'b1) ? 64'd18446744073709551615 : 64'd0);
 
-assign tmp_1_fu_89_p3 = x[32'd5];
+assign tmp_16_fu_89_p3 = x[32'd5];
 
-assign tmp_2_fu_103_p3 = x[32'd6];
+assign tmp_17_fu_103_p3 = x[32'd6];
 
-assign tmp_3_fu_117_p3 = x[32'd7];
+assign tmp_18_fu_117_p3 = x[32'd7];
 
 assign tmp_fu_77_p3 = x[32'd8];
 
@@ -230,9 +230,9 @@ assign x_l_int_fu_85_p1 = x[5:0];
 
 assign x_msb_ind_1_fu_149_p4 = {{{tmp_fu_77_p3}, {trunc_ln524_fu_73_p1}}, {2'd0}};
 
-assign xor_ln538_1_fu_125_p2 = (tmp_fu_77_p3 ^ tmp_3_fu_117_p3);
+assign xor_ln538_1_fu_125_p2 = (tmp_fu_77_p3 ^ tmp_18_fu_117_p3);
 
-assign xor_ln538_fu_111_p2 = (tmp_fu_77_p3 ^ tmp_2_fu_103_p3);
+assign xor_ln538_fu_111_p2 = (tmp_fu_77_p3 ^ tmp_17_fu_103_p3);
 
 assign y_1_fu_181_p4 = {{exp_x_msb_1_table_q0[67:4]}};
 

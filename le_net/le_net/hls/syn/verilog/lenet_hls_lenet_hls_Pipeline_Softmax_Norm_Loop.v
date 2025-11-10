@@ -59,7 +59,7 @@ reg    ap_enable_reg_pp0_iter11;
 reg    ap_enable_reg_pp0_iter12;
 reg    ap_idle_pp0;
 wire    ap_block_pp0_stage0_subdone;
-wire   [0:0] icmp_ln163_fu_71_p2;
+wire   [0:0] icmp_ln143_fu_71_p2;
 reg    ap_condition_exit_pp0_iter0_stage0;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
@@ -76,10 +76,10 @@ reg   [3:0] output_r_addr_reg_115_pp0_iter8_reg;
 reg   [3:0] output_r_addr_reg_115_pp0_iter9_reg;
 reg   [3:0] output_r_addr_reg_115_pp0_iter10_reg;
 reg   [3:0] output_r_addr_reg_115_pp0_iter11_reg;
-wire   [63:0] zext_ln163_fu_83_p1;
+wire   [63:0] zext_ln143_fu_83_p1;
 wire    ap_block_pp0_stage0;
 reg   [3:0] i_fu_36;
-wire   [3:0] add_ln163_fu_77_p2;
+wire   [3:0] add_ln143_fu_77_p2;
 wire    ap_loop_init;
 reg   [3:0] ap_sig_allocacmp_i_1;
 reg    output_r_ce1_local;
@@ -132,7 +132,7 @@ lenet_hls_sdiv_8ns_8ns_8_12_1 #(
     .din0_WIDTH( 8 ),
     .din1_WIDTH( 8 ),
     .dout_WIDTH( 8 ))
-sdiv_8ns_8ns_8_12_1_U10(
+sdiv_8ns_8ns_8_12_1_U2833(
     .clk(ap_clk),
     .reset(ap_rst),
     .din0(output_r_q1),
@@ -300,8 +300,8 @@ end
 
 always @ (posedge ap_clk) begin
     if (((1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        if (((icmp_ln163_fu_71_p2 == 1'd0) & (ap_enable_reg_pp0_iter0 == 1'b1))) begin
-            i_fu_36 <= add_ln163_fu_77_p2;
+        if (((icmp_ln143_fu_71_p2 == 1'd0) & (ap_enable_reg_pp0_iter0 == 1'b1))) begin
+            i_fu_36 <= add_ln143_fu_77_p2;
         end else if ((ap_loop_init == 1'b1)) begin
             i_fu_36 <= 4'd0;
         end
@@ -336,13 +336,13 @@ always @ (posedge ap_clk) begin
     if (((1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         ap_loop_exit_ready_pp0_iter1_reg <= ap_loop_exit_ready;
         ap_loop_exit_ready_pp0_iter2_reg <= ap_loop_exit_ready_pp0_iter1_reg;
-        output_r_addr_reg_115 <= zext_ln163_fu_83_p1;
+        output_r_addr_reg_115 <= zext_ln143_fu_83_p1;
         output_r_addr_reg_115_pp0_iter1_reg <= output_r_addr_reg_115;
     end
 end
 
 always @ (*) begin
-    if (((icmp_ln163_fu_71_p2 == 1'd1) & (1'b0 == ap_block_pp0_stage0_subdone) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
+    if (((icmp_ln143_fu_71_p2 == 1'd1) & (1'b0 == ap_block_pp0_stage0_subdone) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         ap_condition_exit_pp0_iter0_stage0 = 1'b1;
     end else begin
         ap_condition_exit_pp0_iter0_stage0 = 1'b0;
@@ -424,7 +424,7 @@ always @ (*) begin
     endcase
 end
 
-assign add_ln163_fu_77_p2 = (ap_sig_allocacmp_i_1 + 4'd1);
+assign add_ln143_fu_77_p2 = (ap_sig_allocacmp_i_1 + 4'd1);
 
 assign ap_CS_fsm_pp0_stage0 = ap_CS_fsm[32'd0];
 
@@ -444,11 +444,11 @@ assign ap_loop_exit_ready = ap_condition_exit_pp0_iter0_stage0;
 
 assign ap_ready = ap_ready_sig;
 
-assign icmp_ln163_fu_71_p2 = ((ap_sig_allocacmp_i_1 == 4'd10) ? 1'b1 : 1'b0);
+assign icmp_ln143_fu_71_p2 = ((ap_sig_allocacmp_i_1 == 4'd10) ? 1'b1 : 1'b0);
 
 assign output_r_address0 = output_r_addr_reg_115_pp0_iter11_reg;
 
-assign output_r_address1 = zext_ln163_fu_83_p1;
+assign output_r_address1 = zext_ln143_fu_83_p1;
 
 assign output_r_ce0 = output_r_ce0_local;
 
@@ -458,6 +458,6 @@ assign output_r_d0 = grp_fu_93_p2;
 
 assign output_r_we0 = output_r_we0_local;
 
-assign zext_ln163_fu_83_p1 = ap_sig_allocacmp_i_1;
+assign zext_ln143_fu_83_p1 = ap_sig_allocacmp_i_1;
 
 endmodule //lenet_hls_lenet_hls_Pipeline_Softmax_Norm_Loop

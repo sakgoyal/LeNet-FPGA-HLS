@@ -66,9 +66,9 @@ attribute shreg_extract : string;
     signal zext_ln897_fu_159_p1 : STD_LOGIC_VECTOR (63 downto 0);
     signal ap_block_pp0_stage0 : BOOLEAN;
     signal exp_x_msb_1_table_ce0_local : STD_LOGIC;
-    signal tmp_1_fu_89_p3 : STD_LOGIC_VECTOR (0 downto 0);
-    signal tmp_2_fu_103_p3 : STD_LOGIC_VECTOR (0 downto 0);
-    signal tmp_3_fu_117_p3 : STD_LOGIC_VECTOR (0 downto 0);
+    signal tmp_16_fu_89_p3 : STD_LOGIC_VECTOR (0 downto 0);
+    signal tmp_17_fu_103_p3 : STD_LOGIC_VECTOR (0 downto 0);
+    signal tmp_18_fu_117_p3 : STD_LOGIC_VECTOR (0 downto 0);
     signal x_l_int_fu_85_p1 : STD_LOGIC_VECTOR (5 downto 0);
     signal overf_fu_97_p2 : STD_LOGIC_VECTOR (0 downto 0);
     signal xor_ln538_1_fu_125_p2 : STD_LOGIC_VECTOR (0 downto 0);
@@ -251,20 +251,20 @@ begin
     or_ln542_2_fu_143_p2 <= (xor_ln538_fu_111_p2 or or_ln542_1_fu_137_p2);
     or_ln542_fu_164_p2 <= (or_ln542_2_reg_235 or icmp_ln542_reg_230);
     overf_1_fu_199_p3 <= y_2_fu_191_p3(63 downto 63);
-    overf_fu_97_p2 <= (tmp_fu_77_p3 xor tmp_1_fu_89_p3);
+    overf_fu_97_p2 <= (tmp_fu_77_p3 xor tmp_16_fu_89_p3);
     select_ln530_fu_173_p3 <= 
         ap_const_lv64_FFFFFFFFFFFFFFFF when (y_fu_168_p2(0) = '1') else 
         ap_const_lv64_0;
-    tmp_1_fu_89_p3 <= x(5 downto 5);
-    tmp_2_fu_103_p3 <= x(6 downto 6);
-    tmp_3_fu_117_p3 <= x(7 downto 7);
+    tmp_16_fu_89_p3 <= x(5 downto 5);
+    tmp_17_fu_103_p3 <= x(6 downto 6);
+    tmp_18_fu_117_p3 <= x(7 downto 7);
     tmp_fu_77_p3 <= x(8 downto 8);
     trunc_ln524_fu_73_p1 <= x(5 - 1 downto 0);
     trunc_ln_fu_207_p4 <= y_2_fu_191_p3(39 downto 32);
     x_l_int_fu_85_p1 <= x(6 - 1 downto 0);
     x_msb_ind_1_fu_149_p4 <= ((tmp_fu_77_p3 & trunc_ln524_fu_73_p1) & ap_const_lv2_0);
-    xor_ln538_1_fu_125_p2 <= (tmp_fu_77_p3 xor tmp_3_fu_117_p3);
-    xor_ln538_fu_111_p2 <= (tmp_fu_77_p3 xor tmp_2_fu_103_p3);
+    xor_ln538_1_fu_125_p2 <= (tmp_fu_77_p3 xor tmp_18_fu_117_p3);
+    xor_ln538_fu_111_p2 <= (tmp_fu_77_p3 xor tmp_17_fu_103_p3);
     y_1_fu_181_p4 <= exp_x_msb_1_table_q0(67 downto 4);
     y_2_fu_191_p3 <= 
         select_ln530_fu_173_p3 when (or_ln542_fu_164_p2(0) = '1') else 

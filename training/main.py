@@ -1,19 +1,9 @@
-import json
 import warnings
+from pathlib import Path
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-
-# Suppress the specific deprecation warning
-warnings.filterwarnings(
-    "ignore",
-    message="torch.ao.quantization is deprecated.*",
-    category=DeprecationWarning
-)
-
 from torch.ao.quantization import (
     DeQuantStub,
     QuantStub,
@@ -21,9 +11,21 @@ from torch.ao.quantization import (
     get_default_qat_qconfig,
     prepare_qat,
 )
+from torch.nn.quantized import Conv2d as QConv2d
+from torch.nn.quantized import Linear as QLinear
+from torch.quantization import QConfig
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
 
+# Suppress the specific deprecation warning
+warnings.filterwarnings(
+    "ignore",
+    message="torch.ao.quantization is deprecated.*",
+    category=DeprecationWarning,
+)
 
 class LeNet(nn.Module):
+    qconfig: QConfig | None = None
     def __init__(self):
         super(LeNet, self).__init__()
         self.quant = QuantStub()
@@ -59,42 +61,33 @@ class LeNet(nn.Module):
         x = self.dequant(x)
         return x
 
-def export_model_to_json(model, filename):
-    print(f"Exporting quantized model parameters to {filename}...")
-    export_data = {}
+def export_model_to_c_files(model: LeNet):
+    print("Exporting quantized model parameters to C files")
+
+    layer_mapping = {
+        'conv1': 'c1_weights.bin',
+        'conv2': 'c3_weights.bin',
+        'fc1': 'f5_weights.bin',
+        'fc2': 'f6_weights.bin',
+        'fc3': 'output_weights.bin'
+    }
 
     for name, module in model.named_modules():
-        if isinstance(module, (nn.quantized.Linear, nn.quantized.Conv2d)):
-            print(f"Processing layer: {name}")
-
-            if module.weight().qscheme() == torch.per_tensor_affine:
-                weight_scale = module.weight().q_scale()
-                weight_zero_point = module.weight().q_zero_point()
-            elif module.weight().qscheme() == torch.per_channel_affine:
-                weight_scale = module.weight().q_per_channel_scales().cpu().numpy().tolist()
-                weight_zero_point = module.weight().q_per_channel_zero_points().cpu().numpy().tolist()
-            else:
-                print(f"Skipping layer {name} with unknown qscheme: {module.weight().qscheme()}")
+        if isinstance(module, (QLinear, QConv2d)):
+            if name not in layer_mapping:
                 continue
 
-            weights_int = module.weight().int_repr().cpu().numpy().tolist()
-            print(module.bias, flush=True)
+            print(f"Exporting layer: {name} -> {layer_mapping[name]}")
 
-            output_scale = module.scale
-            output_zero_point = module.zero_point
+            weights_int = module.weight().int_repr().cpu().numpy()
 
-            export_data[name] = {
-                'weights_int8': weights_int,
-                'weight_scale': weight_scale,
-                'weight_zero_point': weight_zero_point,
-                'output_scale': output_scale,
-                'output_zero_point': output_zero_point
-            }
+            output_path = Path(layer_mapping[name])
+            with open(output_path, 'w') as f:
+                array_str = str(weights_int.tolist())
+                array_str = array_str.replace('[', '').replace(']', '').replace(' ', '')
+                f.write(array_str)
 
-    with open(filename, 'w') as f:
-        json.dump(export_data, f, indent=4)
-
-    print("Export complete.")
+    print("C file export complete.")
 
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -161,7 +154,8 @@ def main():
     torch.save(model_int8.state_dict(), "lenet_int8.pth")
     print("\nSaved INT8 model state_dict to 'lenet_int8.pth'")
 
-    export_model_to_json(model_int8, "lenet_int8_params.json")
+
+    export_model_to_c_files(model_int8)
 
 if __name__ == '__main__':
     main()

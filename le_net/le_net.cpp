@@ -1,28 +1,8 @@
 #include "le_net.h"
 
-// --- Static Arrays for Weights, Biases, and Activations ---
-// Using our 8-bit fixed-point type
-static int8_t c1_weights[C1_CHANNELS][INPUT_CHANNELS][C1_KERNEL_SIZE][C1_KERNEL_SIZE] = {0};
-static int8_t c1_biases[C1_CHANNELS] = {0};
-static int8_t c3_weights[C3_CHANNELS][S2_CHANNELS][C3_KERNEL_SIZE][C3_KERNEL_SIZE] = {0};
-static int8_t c3_biases[C3_CHANNELS] = {0};
-static int8_t f5_weights[F5_OUTPUTS][F5_INPUTS] = {0};
-static int8_t f5_biases[F5_OUTPUTS] = {0};
-static int8_t f6_weights[F6_OUTPUTS][F6_INPUTS] = {0};
-static int8_t f6_biases[F6_OUTPUTS] = {0};
-static int8_t output_weights[OUTPUT_SIZE][F6_OUTPUTS] = {0};
-static int8_t output_biases[OUTPUT_SIZE] = {0};
+#include "hls_math.h"
 
-static int8_t c1_output[C1_CHANNELS][C1_HEIGHT][C1_WIDTH];
-static int8_t s2_output[S2_CHANNELS][S2_HEIGHT][S2_WIDTH];
-static int8_t c3_output[C3_CHANNELS][C3_HEIGHT][C3_WIDTH];
-static int8_t s4_output[S4_CHANNELS][S4_HEIGHT][S4_WIDTH];
-static int8_t flatten_output[FLATTEN_SIZE];
-static int8_t f5_output[F5_OUTPUTS];
-static int8_t f6_output[F6_OUTPUTS];
-
-
-float relu(int8_t input) {
+const float relu(int8_t input) {
 	return (input > 0) ? input : 0;
 }
 
@@ -40,7 +20,7 @@ static void conv_c1(const int8_t input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH
 						}
 					}
 				}
-				c1_output[f][r][c] = relu(sum + c1_biases[f]);
+				c1_output[f][r][c] = relu(sum);
 			}
 		}
 	}
@@ -76,7 +56,7 @@ static void conv_c3() {
 						}
 					}
 				}
-				c3_output[f][r][c] = relu(sum + c3_biases[f]);
+				c3_output[f][r][c] = relu(sum);
 			}
 		}
 	}
@@ -118,7 +98,7 @@ static void fc_f5() {
 		F5_Input_Loop: for (int i = 0; i < F5_INPUTS; ++i) {
 			sum += flatten_output[i] * f5_weights[o][i];
 		}
-		f5_output[o] = relu(sum + f5_biases[o]);
+		f5_output[o] = relu(sum);
 	}
 }
 
@@ -129,7 +109,7 @@ static void fc_f6() {
 		F6_Input_Loop: for (int i = 0; i < F6_INPUTS; ++i) {
 			sum += f5_output[i] * f6_weights[o][i];
 		}
-		f6_output[o] = relu(sum + f6_biases[o]);
+		f6_output[o] = relu(sum);
 	}
 }
 
@@ -140,7 +120,7 @@ static void fc_output(int8_t output[OUTPUT_SIZE]) {
 		Output_Input_Loop: for (int i = 0; i < F6_OUTPUTS; ++i) {
 			sum += f6_output[i] * output_weights[o][i];
 		}
-		output[o] = sum + output_biases[o];
+		output[o] = sum;
 	}
 }
 
@@ -175,7 +155,7 @@ void lenet_hls(
 	// These tell HLS how to create the hardware interfaces.
 	// We map 'input' and 'output' to AXI memory-mapped interfaces.
 	// 'return' is mapped to a simple AXI-Lite control interface.
-	
+
 	// #pragma HLS INTERFACE m_axi port=input offset=slave bundle=gmem0
 	// #pragma HLS INTERFACE m_axi port=output offset=slave bundle=gmem1
 	// #pragma HLS INTERFACE s_axilite port=return bundle=control

@@ -1,12 +1,7 @@
 #pragma once
 
-// Vitis HLS math library for synthesizable math functions
-#include "hls_math.h"
-// Vitis HLS library for fixed-point types
-#include "ap_fixed.h"
 #include <cstdint>
 
-// All preprocessor definitions remain the same.
 #define INPUT_CHANNELS 1
 #define INPUT_HEIGHT 32
 #define INPUT_WIDTH 32
@@ -40,6 +35,34 @@
 #define F6_OUTPUTS 84
 
 #define OUTPUT_SIZE 10
+
+
+// --- Static Arrays for Weights, and Activations ---
+static int8_t c1_weights[C1_CHANNELS][INPUT_CHANNELS][C1_KERNEL_SIZE][C1_KERNEL_SIZE] = {
+    #include "../training/c1_weights.bin"
+};
+static int8_t c3_weights[C3_CHANNELS][S2_CHANNELS][C3_KERNEL_SIZE][C3_KERNEL_SIZE] = {
+    #include "../training/c3_weights.bin"
+};
+static int8_t f5_weights[F5_OUTPUTS][F5_INPUTS] = {
+    #include "../training/f5_weights.bin"
+};
+
+static int8_t f6_weights[F6_OUTPUTS][F6_INPUTS] = {
+    #include "../training/f6_weights.bin"
+};
+
+static int8_t output_weights[OUTPUT_SIZE][F6_OUTPUTS] = {
+    #include "../training/output_weights.bin"
+};
+
+static int8_t c1_output[C1_CHANNELS][C1_HEIGHT][C1_WIDTH];
+static int8_t s2_output[S2_CHANNELS][S2_HEIGHT][S2_WIDTH];
+static int8_t c3_output[C3_CHANNELS][C3_HEIGHT][C3_WIDTH];
+static int8_t s4_output[S4_CHANNELS][S4_HEIGHT][S4_WIDTH];
+static int8_t flatten_output[FLATTEN_SIZE];
+static int8_t f5_output[F5_OUTPUTS];
+static int8_t f6_output[F6_OUTPUTS];
 
 // --- Top-Level HLS Function Prototype ---
 // This is the function that will be synthesized into Verilog.
