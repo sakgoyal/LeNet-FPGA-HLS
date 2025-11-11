@@ -43,3 +43,7 @@ le_net/le_net/le_net.hlsrun_package_summary
 le_net/le_net/hls/hls_data.json
 le_net/le_net/hls/config.cmdline
 le_net/le_net/hls/syn/verilog/
+
+data/MNIST/
+le_net/le_net/hls/csim/
+le_net/le_net/le_net.hlsrun_csim_summary

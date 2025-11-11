@@ -39,21 +39,21 @@
 
 // --- Static Arrays for Weights, and Activations ---
 static int8_t c1_weights[C1_CHANNELS][INPUT_CHANNELS][C1_KERNEL_SIZE][C1_KERNEL_SIZE] = {
-    #include "../training/c1_weights.bin"
+    #include "../c1_weights.bin"
 };
 static int8_t c3_weights[C3_CHANNELS][S2_CHANNELS][C3_KERNEL_SIZE][C3_KERNEL_SIZE] = {
-    #include "../training/c3_weights.bin"
+    #include "../c3_weights.bin"
 };
 static int8_t f5_weights[F5_OUTPUTS][F5_INPUTS] = {
-    #include "../training/f5_weights.bin"
+    #include "../f5_weights.bin"
 };
 
 static int8_t f6_weights[F6_OUTPUTS][F6_INPUTS] = {
-    #include "../training/f6_weights.bin"
+    #include "../f6_weights.bin"
 };
 
 static int8_t output_weights[OUTPUT_SIZE][F6_OUTPUTS] = {
-    #include "../training/output_weights.bin"
+    #include "../output_weights.bin"
 };
 
 static int8_t c1_output[C1_CHANNELS][C1_HEIGHT][C1_WIDTH];
