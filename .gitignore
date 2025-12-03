@@ -47,3 +47,8 @@ le_net/le_net/hls/syn/verilog/
 data/MNIST/
 le_net/le_net/hls/csim/
 le_net/le_net/le_net.hlsrun_csim_summary
+
+
+data/MNIST/samples/*
+
+hls4ml_version/*
