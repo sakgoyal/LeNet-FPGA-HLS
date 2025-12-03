@@ -144,7 +144,7 @@ def main(num_epochs: int = 3):
 def generate_samples(num_samples: int = 10):
     transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,))
+        # No normalization - must match training
     ])
     train_dataset = MNIST(root='./data', download=True, transform=transform)
     for i in range(num_samples):

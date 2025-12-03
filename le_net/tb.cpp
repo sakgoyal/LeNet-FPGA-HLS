@@ -82,7 +82,7 @@ int main() {
     std::cout << "Sample output_weights[0][0] = " << output_weights[0][0] << std::endl;
 
     int count_passed = 0;
-    int total_tests = 30;
+    int total_tests = 95;
 
     for (int i = 0; i < total_tests; ++i) {
         bool result = run_test(i);

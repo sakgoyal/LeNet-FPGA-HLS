@@ -3,8 +3,8 @@
 #include <cstdint>
 
 #define INPUT_CHANNELS 1
-#define INPUT_HEIGHT 32
-#define INPUT_WIDTH 32
+#define INPUT_HEIGHT 28
+#define INPUT_WIDTH 28
 
 #define C1_KERNEL_SIZE 5
 #define C1_CHANNELS 6
