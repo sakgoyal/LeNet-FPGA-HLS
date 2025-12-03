@@ -1,10 +1,11 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "le_net.h"
 
-static float test_input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH];
-static float output_hw[OUTPUT_SIZE]; // Output from HLS function
+static data_t test_input[INPUT_CHANNELS][INPUT_HEIGHT][INPUT_WIDTH];
+static data_t output_hw[OUTPUT_SIZE]; // Output from HLS function
 static float test_expected_label;
 
 std::string base_path = "C:/Users/Saksham/Documents/classwork/ECE554/LeNet-FPGA-HLS/data/MNIST/samples/";
@@ -22,13 +23,11 @@ void load_mnist_image(int test_num) {
             for (int w = 0; w < INPUT_WIDTH; ++w) {
                 float value;
                 fscanf(file, "%f,", &value);
-                test_input[c][h][w] = value;
+                test_input[c][h][w] = (data_t)value;
             }
         }
     }
     fclose(file);
-
-    std::cout << "Read file: " << test_input[0][1][1] << std::endl;
 
 }
 
@@ -51,35 +50,20 @@ bool run_test(int test_num) {
 
     lenet_hls(test_input, output_hw);
 
-    std::cout << test_num << " - Output probabilities: ";
-    for (int i = 0; i < OUTPUT_SIZE; ++i) {
-        std::cout << std::to_string(output_hw[i])<< ", ";
-    }
-    std::cout << std::endl;
+    int predicted_label = std::max_element(output_hw, output_hw + OUTPUT_SIZE) - output_hw;
 
-    int predicted_label = 0;
-    float max_prob = output_hw[0];
-    for (int i = 1; i < OUTPUT_SIZE; ++i) {
-        if (output_hw[i] > max_prob) {
-            max_prob = output_hw[i];
-            predicted_label = i;
-        }
-    }
+    bool passed = predicted_label == test_expected_label;
 
-    std::cout << test_num << " - Predicted Label: " << predicted_label << std::endl;
-    std::cout << test_num << " - Expected Label: " << test_expected_label << std::endl;
+    std::string pas = passed ? " Passed! " : " Failed! ";
 
-    return predicted_label == test_expected_label;
+    std::cout << test_num << pas << "- Predicted: " << predicted_label << ", Expected: " << test_expected_label << std::endl;
+
+    return passed;
 }
 
 
 int main() {
     std::cout << "--- Starting LeNet HLS C-Simulation ---------------------------------" << std::endl;
-
-    // Debug: Check if weights are loaded
-    std::cout << "Sample c1_weights[0][0][0][0] = " << c1_weights[0][0][0][0] << std::endl;
-    std::cout << "Sample f5_weights[0][0] = " << f5_weights[0][0] << std::endl;
-    std::cout << "Sample output_weights[0][0] = " << output_weights[0][0] << std::endl;
 
     int count_passed = 0;
     int total_tests = 95;
@@ -87,15 +71,9 @@ int main() {
     for (int i = 0; i < total_tests; ++i) {
         bool result = run_test(i);
         if (result) {
-            std::cout << "Test " << i << " Passed!" << std::endl;
             count_passed++;
-        } else {
-            std::cout << "Test " << i << " Failed!" << std::endl;
         }
     }
 
     std::cout << count_passed << "/" << total_tests << "(" << (100*(float)count_passed/(float)total_tests) << "%)" << " tests passed." << std::endl;
-
-
-    std::cout << "--- HLS C-Simulation Finished ---------------------------------------" << std::endl;
 }

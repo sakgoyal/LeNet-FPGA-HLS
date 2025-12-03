@@ -137,7 +137,7 @@ def main(num_epochs: int = 3):
     model.eval()
     model.to('cpu')
     torch.save(model.state_dict(), "lenet.pth")
-    print("\nSaved INT8 model state_dict to 'lenet_int8.pth'")
+    print("\nSaved model state_dict to 'lenet.pth'")
     export_model_to_c_files(model)
 
 
