@@ -3,6 +3,7 @@ from pathlib import Path
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from torch.amp.autocast_mode import autocast
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from torchvision.datasets import MNIST
@@ -40,8 +41,8 @@ class LeNet(nn.Module):
 
         return x
 
-def export_model_to_c_files(model: LeNet):
-    print("Exporting quantized model parameters to C files")
+def export_model_to_c_files(model: LeNet, use_float16: bool = False):
+    print(f"Exporting {'float16' if use_float16 else 'float32'} model parameters to C files")
 
     layer_mapping = {
         'conv1': ('c1_weights.bin', 'c1_bias.bin'),
@@ -56,23 +57,26 @@ def export_model_to_c_files(model: LeNet):
         if name not in layer_mapping:
             continue
         print(f"Exporting layer: {name} -> {layer_mapping[name]}")
-        weights = module.weight.data.float()
-        bias = module.bias.data.float() if module.bias is not None else None
+
+        dtype_str = 'float16' if use_float16 else 'float32'
+        weights = module.weight.data.half() if use_float16 else module.weight.data.float()
+        bias = (module.bias.data.half() if use_float16 else module.bias.data.float()) if module.bias is not None else None
+
         weight_path, bias_path = layer_mapping[name]
         with open(Path(weight_path), 'w') as f:
-            array_str = str(weights.cpu().numpy().astype('float32').flatten().tolist())
+            array_str = str(weights.cpu().numpy().astype(dtype_str).flatten().tolist())
             array_str = array_str.replace('[', '').replace(']', '').replace(' ', '')
             f.write(array_str)
         if bias is not None:
             with open(Path(bias_path), 'w') as f:
-                array_str = str(bias.cpu().numpy().astype('float32').flatten().tolist())
+                array_str = str(bias.cpu().numpy().astype(dtype_str).flatten().tolist())
                 array_str = array_str.replace('[', '').replace(']', '').replace(' ', '')
                 f.write(array_str)
 
     print("C file export complete.")
 
 def main(num_epochs: int = 3):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda")
     print(f"Using device: {device}")
 
     transform = transforms.Compose([
@@ -92,19 +96,27 @@ def main(num_epochs: int = 3):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
+    # Initialize GradScaler for AMP
+    scaler = torch.amp.GradScaler()
+
     for epoch in range(num_epochs):
         model.train()
         running_loss = 0.0
         samples = 0
         for i, (images, labels) in enumerate(train_loader):
-            images, labels = images.float().to(device), labels.to(device)
+            images, labels = images.to(device), labels.to(device)
 
             optimizer.zero_grad()
-            # print(images.shape)
-            outputs = model(images)
-            loss = criterion(outputs, labels)
-            loss.backward()
-            optimizer.step()
+
+            # Use autocast for forward pass
+            with autocast(device_type=device.type, dtype=torch.float16):
+                outputs = model(images)
+                loss = criterion(outputs, labels)
+
+            # Scale loss and backward pass
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
 
             running_loss += loss.item() * images.size(0)
             samples += images.size(0)
@@ -120,9 +132,12 @@ def main(num_epochs: int = 3):
         total = 0
         with torch.no_grad():
             for images, labels in val_loader:
-                images, labels = images.float().to(device), labels.to(device)
-                outputs = model(images)
-                loss = criterion(outputs, labels)
+                images, labels = images.to(device), labels.to(device)
+
+                with autocast(device_type=device.type, dtype=torch.float16):
+                    outputs = model(images)
+                    loss = criterion(outputs, labels)
+
                 eval_loss += loss.item() * images.size(0)
                 predicted = torch.argmax(outputs, dim=1)
                 correct += (predicted == labels).sum().item()
@@ -136,9 +151,16 @@ def main(num_epochs: int = 3):
 
     model.eval()
     model.to('cpu')
+
+    # Convert model to float16 for export
+    model_fp16 = model.half()
+
     torch.save(model.state_dict(), "lenet.pth")
-    print("\nSaved model state_dict to 'lenet.pth'")
-    export_model_to_c_files(model)
+    torch.save(model_fp16.state_dict(), "lenet_fp16.pth")
+    print("\nSaved model state_dict to 'lenet.pth' and 'lenet_fp16.pth'")
+
+    # Export float16 quantized model
+    export_model_to_c_files(model_fp16, use_float16=True)
 
 
 def generate_samples(num_samples: int = 10):
